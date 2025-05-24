@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Immobilienbewertung</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <link rel="stylesheet" href="global.css" />
+  </head>
+  <body>
+    <div class="container">
+      <form id="form">
+        <h1>🏘️ Immobilienbewertung</h1>
+        <label for="price">💶 Kaufpreis (€)</label>
+        <input
+          type="number"
+          id="price"
+          required
+          min="1"
+          placeholder="z.B. 250000"
+        />
+        <label for="area">📏 Größe (m²)</label>
+        <input type="number" id="area" required min="1" placeholder="z.B. 70" />
+        <label for="rentPerSqm">💰 Mietpreis pro m² (€)</label>
+        <input
+          type="number"
+          id="rentPerSqm"
+          required
+          min="0"
+          placeholder="z.B. 10.5"
+        />
+        <label for="hausgeld">🏢 Hausgeld (monatlich, €)</label>
+        <input
+          type="number"
+          id="hausgeld"
+          required
+          min="0"
+          placeholder="z.B. 200"
+        />
+        <label for="interest">📉 Zinssatz (%)</label>
+        <input
+          type="number"
+          id="interest"
+          step="0.1"
+          required
+          min="0"
+          placeholder="z.B. 3.5"
+        />
+        <label for="repayment">📈 Tilgung (%)</label>
+        <input
+          type="number"
+          id="repayment"
+          step="0.1"
+          required
+          min="0"
+          placeholder="z.B. 2"
+        />
+        <label for="commissionType">🤝 Provisionsart</label>
+        <select id="commissionType">
+          <option value="privat">Privat</option>
+          <option value="makler">Makler (+3.57% Provision)</option>
+        </select>
+        <label for="year">🏗️ Baujahr</label>
+        <select id="year">
+          <option value="<1970">vor 1970</option>
+          <option value="1970-1999">1970–1999</option>
+          <option value=">=2000">ab 2000</option>
+        </select>
+        <label for="energy">⚡ Energieeffizienz</label>
+        <select id="energy">
+          <option value="A">A/B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+          <option value="E">E oder schlechter</option>
+        </select>
+        <label for="location">📍 Lage</label>
+        <select id="location">
+          <option value="top">Toplage</option>
+          <option value="gut">Gut</option>
+          <option value="mittel">Mittel</option>
+          <option value="schlecht">Schlecht</option>
+        </select>
+        <label for="condition">🔧 Zustand</label>
+        <select id="condition">
+          <option value="neu">Neuwertig</option>
+          <option value="gut">Gut</option>
+          <option value="renovierung">Renovierungsbedürftig</option>
+        </select>
+        <!-- Replace the button group with this -->
+        <div class="button-group">
+          <button type="submit" class="bewerten-btn">Bewerten</button>
+          <button type="button" id="resetBtn" class="reset-btn">Reset</button>
+          <button type="button" id="testBtn" class="test-btn">TEST</button>
+        </div>
+      </form>
+      <div id="result" class="score-box"></div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
