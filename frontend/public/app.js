@@ -239,105 +239,73 @@ document.addEventListener("DOMContentLoaded", function () {
     // Build results HTML
     resultBox.className = "score-box show";
     resultBox.innerHTML = `
-            <div class="fazit-container metric-background ${
-              score >= 85 ? "green" : score >= 70 ? "orange" : "red"
-            }">
-                <h3>Fazit und Kaufpreisanalyse</h3>
-                <p class="fazit-content">
-                    ${
-                      priceDiff > 0
-                        ? `Um eine Bruttorendite von ${targetYield}% zu erreichen, wäre ein Kaufpreis von <strong>${formatCurrency(
-                            targetPrice
-                          )}</strong> rentabel.<br>
-                        Das entspricht einer Reduzierung von <strong>${reductionPct.toFixed(
-                          2
-                        )}%</strong> (${formatCurrency(priceDiff)}).`
-                        : `Der effektive Kaufpreis von <strong>${formatCurrency(
-                            effectivePrice
-                          )}</strong> ist bereits rentabel.`
-                    }
-                </p>
-                <p class="fazit-content"><strong>Gesamtwertung: </strong>${scoreIcon} ${scoreText} (${score} Punkte)</p>
-            </div>
-
-            <div class="details-box">
-                <h3>Detaillierte Analyse</h3>
-                <div class="metric-item">
-                    <span class="metric-icon ${priceStatus.className}">${
+  <div class="fazit-container metric-background ${
+    score >= 85 ? "green" : score >= 55 ? "orange" : "red"
+  }">
+    <h3>Fazit und Kaufpreisanalyse</h3>
+    <p class="fazit-content">${
+      targetPrice > 0 && priceDiff > 0
+        ? `Um eine Bruttorendite von ${targetYield}% zu erreichen, wäre ein Kaufpreis von <strong>${formatCurrency(
+            targetPrice
+          )}</strong> rentabel. Dies würde eine Reduzierung des effektiven Kaufpreises um <strong>${reductionPct.toFixed(
+            2
+          )}%</strong> (${formatCurrency(priceDiff)}) bedeuten.`
+        : targetPrice > 0 && priceDiff <= 0
+        ? `Basierend auf einer Bruttorendite von ${targetYield}%, ist der effektive Kaufpreis von <strong>${formatCurrency(
+            effectivePrice
+          )}</strong> bereits rentabel oder sogar darunter.`
+        : "Es konnte kein rentabler Kaufpreis berechnet werden (Jahresnetto-Miete ist 0)."
+    }</p>
+    <p class="fazit-content" style="margin-top: 1rem;"><strong>Gesamtwertung: ${scoreIcon} ${scoreText} (${score} Punkte)</strong></p>
+  </div>
+  <div class="analysis-flex">
+    <div class="details-box">
+      <h3>Detaillierte Analyse</h3>
+      <div class="details-content">
+        <p>
+          <span class="metric-icon ${priceStatus.className}">${
       priceStatus.icon
     }</span>
-                    <div class="metric-content">
-                        <div class="metric-title">Kaufpreis</div>
-                        <div class="metric-value">${formatCurrency(
-                          inputValues.price
-                        )}</div>
-                        ${
-                          inputValues.commissionType === "makler"
-                            ? `<div class="metric-target">Inkl. ${formatCurrency(
-                                commission
-                              )} Provision</div>`
-                            : ""
-                        }
-                    </div>
-                </div>
-                <div class="metric-item">
-                    <span class="metric-icon ${rentStatus.className}">${
+          <strong>Aktueller Kaufpreis:</strong>
+          <span>${formatCurrency(inputValues.price)}</span>
+        </p>
+        <p>
+          <span class="metric-icon ${rentStatus.className}">${
       rentStatus.icon
     }</span>
-                    <div class="metric-content">
-                        <div class="metric-title">Bruttorendite</div>
-                        <div class="metric-value">${grossYield.toFixed(
-                          2
-                        )}%</div>
-                        <div class="metric-target">Ziel: ≥5%</div>
-                    </div>
-                </div>
-                <div class="metric-item">
-                    <span class="metric-icon ${hausgeldStatus.className}">${
+          <strong>Jahresnetto-Miete:</strong>
+          <span>${formatCurrency(annualRent)}</span>
+        </p>
+        <p>
+          <span class="metric-icon ${hausgeldStatus.className}">${
       hausgeldStatus.icon
     }</span>
-                    <div class="metric-content">
-                        <div class="metric-title">Hausgeld (Eigentümeranteil)</div>
-                        <div class="metric-value">${ownerHausgeld.toFixed(
-                          2
-                        )} €</div>
-                        <div class="metric-target">${(
-                          hausgeldRatio * 100
-                        ).toFixed(1)}% der Miete</div>
-                    </div>
-                </div>
-                <div class="metric-item">
-                    <span class="metric-icon ${rateStatus.className}">${
+          <strong>Monatliches Hausgeld:</strong>
+          <span>${inputValues.hausgeld.toLocaleString("de-DE", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })} €</span>
+        </p>
+        <p>
+          <span class="metric-icon ${rateStatus.className}">${
       rateStatus.icon
     }</span>
-                    <div class="metric-content">
-                        <div class="metric-title">Kreditrate vs. Miete</div>
-                        <div class="metric-value">${paymentRatio.toFixed(
-                          2
-                        )}</div>
-                        <div class="metric-target">Idealerweise ≤1.0</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="chart-container-wrapper">
-                <div class="chart-container">
-                    <canvas id="scoreChart"></canvas>
-                    <div class="chart-label">${score}%</div>
-                    <div class="chart-description">Gesamtwertung</div>
-                    <div class="chart-legend">
-                        <div class="chart-legend-item">
-                            <span class="chart-legend-color" style="background: ${chartColor}"></span>
-                            <span>Erreicht</span>
-                        </div>
-                        <div class="chart-legend-item">
-                            <span class="chart-legend-color" style="background: #2c2c2c"></span>
-                            <span>Fehlend</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+          <strong>Monatliche Kreditrate:</strong>
+          <span>${monthlyPayment.toLocaleString("de-DE", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })} €</span>
+        </p>
+      </div>
+    </div>
+    <div class="chart-container-wrapper">
+      <div class="chart-center-label">
+        <canvas id="scoreChart"></canvas>
+        <div id="chartCenterText"></div>
+      </div>
+    </div>
+  </div>
+`;
 
     // Create the chart
     const ctx = document.getElementById("scoreChart").getContext("2d");
@@ -351,8 +319,9 @@ document.addEventListener("DOMContentLoaded", function () {
           {
             data: [score, 100 - score],
             backgroundColor: [chartColor, "#2c2c2c"],
-            borderWidth: 0,
-            borderRadius: score === 100 ? 0 : 10,
+            borderWidth: 2,
+            borderColor: "#1e1e1e",
+            borderRadius: 10,
           },
         ],
       },
@@ -362,11 +331,30 @@ document.addEventListener("DOMContentLoaded", function () {
           tooltip: { enabled: false },
           datalabels: { display: false },
         },
-        cutout: "75%",
+        cutout: "65%", // Slightly reduced cutout for a thicker ring
         responsive: true,
         maintainAspectRatio: false,
+        animation: {
+          animateScale: true,
+          animateRotate: true,
+          onComplete: function () {
+            // Center the percentage text
+            const chartCenter = document.getElementById("chartCenterText");
+            if (chartCenter) {
+              chartCenter.innerHTML = `<span style="font-size:1.6em;font-weight:bold;color:${chartColor}">${score}%</span>`;
+            }
+          },
+        },
       },
     });
+
+    // If animation doesn't trigger (e.g. instant render), set center text
+    setTimeout(() => {
+      const chartCenter = document.getElementById("chartCenterText");
+      if (chartCenter) {
+        chartCenter.innerHTML = `<span style="font-size:2.2em;font-weight:bold;color:${chartColor}">${score}%</span>`;
+      }
+    }, 500);
   });
 
   // Add input validation on blur

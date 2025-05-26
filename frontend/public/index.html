@@ -11,7 +11,7 @@
   <body>
     <div class="container">
       <form id="form">
-        <h1>🏘️ Immobilienbewertung</h1>
+        <h1>🏘️ Immobilienbewertung 2.0</h1>
         <label for="price">💶 Kaufpreis (€)</label>
         <input
           type="number"
@@ -87,7 +87,6 @@
           <option value="gut">Gut</option>
           <option value="renovierung">Renovierungsbedürftig</option>
         </select>
-        <!-- Replace the button group with this -->
         <div class="button-group">
           <button type="submit" class="bewerten-btn">Bewerten</button>
           <button type="button" id="resetBtn" class="reset-btn">Reset</button>
@@ -97,5 +96,63 @@
       <div id="result" class="score-box"></div>
     </div>
     <script src="app.js"></script>
+    <script>
+      const resultBox = document.getElementById("result");
+      resultBox.innerHTML = `
+        <div class="fazit-container metric-background ${
+          score >= 85 ? "green" : score >= 55 ? "orange" : "red"
+        }">
+          <h3>Fazit und Kaufpreisanalyse</h3>
+          <!-- Fazit content here -->
+        </div>
+        <div class="analysis-flex">
+          <div class="details-box">
+            <h3>Detaillierte Analyse</h3>
+            <div class="details-content">
+              <p>
+                <span class="metric-icon ${priceStatus.className}">${
+        priceStatus.icon
+      }</span>
+                <strong>Aktueller Kaufpreis:</strong>
+                <span>${formatCurrency(inputValues.price)}</span>
+              </p>
+              <p>
+                <span class="metric-icon ${rentStatus.className}">${
+        rentStatus.icon
+      }</span>
+                <strong>Jahresnetto-Miete:</strong>
+                <span>${formatCurrency(annualRent)}</span>
+              </p>
+              <p>
+                <span class="metric-icon ${hausgeldStatus.className}">${
+        hausgeldStatus.icon
+      }</span>
+                <strong>Monatliches Hausgeld:</strong>
+                <span>${inputValues.hausgeld.toLocaleString("de-DE", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })} €</span>
+              </p>
+              <p>
+                <span class="metric-icon ${rateStatus.className}">${
+        rateStatus.icon
+      }</span>
+                <strong>Monatliche Kreditrate:</strong>
+                <span>${monthlyPayment.toLocaleString("de-DE", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })} €</span>
+              </p>
+            </div>
+          </div>
+          <div class="chart-container-wrapper">
+            <div class="chart-center-label">
+              <canvas id="scoreChart"></canvas>
+              <div id="chartCenterText"></div>
+            </div>
+          </div>
+        </div>
+      `;
+    </script>
   </body>
 </html>
