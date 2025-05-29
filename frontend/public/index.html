@@ -3,157 +3,160 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Immobilienbewertung</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <title>🏘️ Immobilienbewertung</title>
     <link rel="stylesheet" href="global.css" />
-    <link rel="icon" type="image/png" href="favicon_house_16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="house-icon.png" sizes="32x32" />
   </head>
   <body>
-    <div class="container">
-      <form id="form">
-        <h1>🏘️ Immobilienbewertung 2.0</h1>
-        <label for="price">💶 Kaufpreis (€)</label>
-        <input
-          type="number"
-          id="price"
-          required
-          min="1"
-          placeholder="z.B. 250000"
-        />
-        <label for="area">📏 Größe (m²)</label>
-        <input type="number" id="area" required min="1" placeholder="z.B. 70" />
-        <label for="rentPerSqm">💰 Mietpreis pro m² (€)</label>
-        <input
-          type="number"
-          id="rentPerSqm"
-          required
-          min="0"
-          placeholder="z.B. 10.5"
-        />
-        <label for="hausgeld">🏢 Hausgeld (monatlich, €)</label>
-        <input
-          type="number"
-          id="hausgeld"
-          required
-          min="0"
-          placeholder="z.B. 200"
-        />
-        <label for="interest">📉 Zinssatz (%)</label>
-        <input
-          type="number"
-          id="interest"
-          step="0.1"
-          required
-          min="0"
-          placeholder="z.B. 3.5"
-        />
-        <label for="repayment">📈 Tilgung (%)</label>
-        <input
-          type="number"
-          id="repayment"
-          step="0.1"
-          required
-          min="0"
-          placeholder="z.B. 2"
-        />
-        <label for="commissionType">🤝 Provisionsart</label>
-        <select id="commissionType">
-          <option value="privat">Privat</option>
-          <option value="makler">Makler (+3.57% Provision)</option>
-        </select>
-        <label for="year">🏗️ Baujahr</label>
-        <select id="year">
-          <option value="<1970">vor 1970</option>
-          <option value="1970-1999">1970–1999</option>
-          <option value=">=2000">ab 2000</option>
-        </select>
-        <label for="energy">⚡ Energieeffizienz</label>
-        <select id="energy">
-          <option value="A">A/B</option>
-          <option value="C">C</option>
-          <option value="D">D</option>
-          <option value="E">E oder schlechter</option>
-        </select>
-        <label for="location">📍 Lage</label>
-        <select id="location">
-          <option value="top">Toplage</option>
-          <option value="gut">Gut</option>
-          <option value="mittel">Mittel</option>
-          <option value="schlecht">Schlecht</option>
-        </select>
-        <label for="condition">🔧 Zustand</label>
-        <select id="condition">
-          <option value="neu">Neuwertig</option>
-          <option value="gut">Gut</option>
-          <option value="renovierung">Renovierungsbedürftig</option>
-        </select>
-        <div class="button-group">
-          <button type="submit" class="bewerten-btn">Bewerten</button>
-          <button type="button" id="resetBtn" class="reset-btn">Reset</button>
-          <button type="button" id="testBtn" class="test-btn">TEST</button>
-        </div>
-      </form>
-      <div id="result" class="score-box"></div>
-    </div>
+    <h1>🏘️ Immobilienbewertung</h1>
+
+    <form id="evaluationForm">
+      <div class="section" id="listingInput">
+        <h2>📥 Inseratsdaten</h2>
+        <label>
+          Inseratslink:
+          <input
+            type="url"
+            id="url"
+            placeholder="ImmoScout24 oder eBay Kleinanzeigen URL"
+          />
+        </label>
+        <label>
+          Immobilienart:
+          <select id="type">
+            <option>Haus</option>
+            <option>Eigentumswohnung</option>
+          </select>
+        </label>
+        <label>
+          Provisionsart:
+          <select id="agent">
+            <option value="0">Privat</option>
+            <option value="0.0357">Makler (+3.57% Provision)</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="section" id="propertyData">
+        <h2>📊 Objektdaten</h2>
+        <label>
+          Größe (m²):
+          <input type="number" id="size" placeholder="z.B. 50" required />
+        </label>
+        <label>
+          Zimmer:
+          <select id="rooms">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>>5</option>
+          </select>
+        </label>
+        <label>
+          Kaufpreis (€):
+          <input type="number" id="price" placeholder="z.B. 250000" required />
+        </label>
+        <label>
+          Miete pro m² (€):
+          <input
+            type="number"
+            id="rent"
+            placeholder="z.B. 10"
+            step="0.01"
+            required
+          />
+        </label>
+        <label>
+          Monatliches Hausgeld (€):
+          <input
+            type="number"
+            id="hoa"
+            placeholder="z.B. 120"
+            step="0.01"
+            required
+          />
+        </label>
+        <label>
+          Lagequalität:
+          <select id="location">
+            <option>Toplage</option>
+            <option>Gut</option>
+            <option>Mittel</option>
+            <option>Schlecht</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="section" id="financing">
+        <h2>💶 Finanzierung</h2>
+        <label>
+          Eigenkapital (€):
+          <input type="number" id="equity" placeholder="z.B. 10000" required />
+        </label>
+        <label>
+          Zinssatz (%):
+          <input
+            type="number"
+            id="interest"
+            placeholder="z.B. 3"
+            step="0.01"
+            required
+          />
+        </label>
+        <label>
+          Tilgungsrate (%):
+          <input
+            type="number"
+            id="repayment"
+            placeholder="z.B. 2"
+            step="0.01"
+            required
+          />
+        </label>
+      </div>
+
+      <div class="section" id="building">
+        <h2>🏗️ Bausubstanz & Energie</h2>
+        <label>
+          Baujahr:
+          <select id="year">
+            <option>&lt;1970</option>
+            <option>1970–1999</option>
+            <option>≥2000</option>
+          </select>
+        </label>
+        <label>
+          Energieeffizienz:
+          <select id="efficiency">
+            <option>A/B</option>
+            <option>C</option>
+            <option>D</option>
+            <option>E oder schlechter</option>
+          </select>
+        </label>
+        <label>
+          Zustand:
+          <select id="condition">
+            <option>Neuwertig</option>
+            <option>Gut</option>
+            <option>Renovierungsbedürftig</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" id="evaluateBtn" class="primary">
+          🔍 Bewerten
+        </button>
+        <button type="reset" id="resetBtn" class="secondary">↺ Reset</button>
+        <button type="button" id="testBtn" class="test">🧪 TEST</button>
+      </div>
+    </form>
+
+    <div class="section summary" id="summary"></div>
+
     <script src="app.js"></script>
-    <script>
-      const resultBox = document.getElementById("result");
-      resultBox.innerHTML = `
-        <div class="fazit-container metric-background ${
-          score >= 85 ? "green" : score >= 55 ? "orange" : "red"
-        }">
-          <h3>Fazit und Kaufpreisanalyse</h3>
-          <!-- Fazit content here -->
-        </div>
-        <div class="analysis-flex">
-          <div class="details-box">
-            <h3>Detaillierte Analyse</h3>
-            <div class="details-content">
-              <p>
-                <span class="metric-icon ${priceStatus.className}">${
-        priceStatus.icon
-      }</span>
-                <strong>Aktueller Kaufpreis:</strong>
-                <span>${formatCurrency(inputValues.price)}</span>
-              </p>
-              <p>
-                <span class="metric-icon ${rentStatus.className}">${
-        rentStatus.icon
-      }</span>
-                <strong>Jahresnetto-Miete:</strong>
-                <span>${formatCurrency(annualRent)}</span>
-              </p>
-              <p>
-                <span class="metric-icon ${hausgeldStatus.className}">${
-        hausgeldStatus.icon
-      }</span>
-                <strong>Monatliches Hausgeld:</strong>
-                <span>${inputValues.hausgeld.toLocaleString("de-DE", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })} €</span>
-              </p>
-              <p>
-                <span class="metric-icon ${rateStatus.className}">${
-        rateStatus.icon
-      }</span>
-                <strong>Monatliche Kreditrate:</strong>
-                <span>${monthlyPayment.toLocaleString("de-DE", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })} €</span>
-              </p>
-            </div>
-          </div>
-          <div class="chart-container-wrapper">
-            <div class="chart-center-label">
-              <canvas id="scoreChart"></canvas>
-              <div id="chartCenterText"></div>
-            </div>
-          </div>
-        </div>
-      `;
-    </script>
   </body>
 </html>

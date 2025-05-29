@@ -1,373 +1,255 @@
-// app.js
 document.addEventListener("DOMContentLoaded", function () {
-  // Register Chart plugins
-  Chart.register(ChartDataLabels);
+  const form = document.getElementById("evaluationForm");
+  const summary = document.getElementById("summary");
+  const selects = form.querySelectorAll("select");
 
-  let chartInstance = null;
+  // Add required attribute to all select elements
+  selects.forEach((select) => {
+    select.setAttribute("required", "true");
+    // Add empty default option
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.text = "Bitte auswählen";
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    select.prepend(defaultOption);
+  });
 
-  // Helper function to get metric status with icons
-  function getMetricStatus(
-    value,
-    goodThreshold,
-    mediumThreshold,
-    higherIsBetter = true
-  ) {
-    if (higherIsBetter) {
-      if (value >= goodThreshold)
-        return { icon: "✅", className: "icon-green" };
-      if (value >= mediumThreshold)
-        return { icon: "🟠", className: "icon-orange" };
-      return { icon: "❌", className: "icon-red" };
-    } else {
-      if (value <= goodThreshold)
-        return { icon: "✅", className: "icon-green" };
-      if (value <= mediumThreshold)
-        return { icon: "🟠", className: "icon-orange" };
-      return { icon: "❌", className: "icon-red" };
-    }
-  }
+  // Test button fills form with sample data
+  document.getElementById("testBtn").addEventListener("click", function () {
+    // Fill URL
+    document.getElementById("url").value =
+      "https://www.immobilienscout24.de/expose/159052211?referrer=NOT_FOUND_LAST_SEARCH#/";
 
-  // Helper function to format numbers
-  function formatCurrency(value) {
-    return value.toLocaleString("de-DE", {
-      style: "currency",
-      currency: "EUR",
-    });
-  }
+    // Fill dropdowns
+    document.getElementById("type").value = "Eigentumswohnung";
+    document.getElementById("agent").value = "0"; // Privat
+    document.getElementById("rooms").value = "1";
+    document.getElementById("location").value = "Mittel";
+    document.getElementById("year").value = "≥2000";
+    document.getElementById("efficiency").value = "C";
+    document.getElementById("condition").value = "Gut";
 
-  // Reset form function
-  function resetForm() {
-    document.getElementById("form").reset();
-    document.getElementById("result").className = "score-box";
-    document.getElementById("result").innerHTML = "";
-    document
-      .querySelectorAll(".error")
-      .forEach((el) => el.classList.remove("error"));
-    if (chartInstance) {
-      chartInstance.destroy();
-      chartInstance = null;
-    }
-  }
+    // Remove invalid class from all selects
+    selects.forEach((select) => select.classList.remove("invalid"));
 
-  // Load test data function
-  function loadTestData() {
-    resetForm();
+    // Fill numeric inputs
+    document.getElementById("size").value = "39";
+    document.getElementById("price").value = "116000";
+    document.getElementById("rent").value = "10";
+    document.getElementById("hoa").value = "120";
+    document.getElementById("equity").value = "10000";
+    document.getElementById("interest").value = "3.5";
+    document.getElementById("repayment").value = "2";
+  });
 
-    const testData = {
-      price: "116000",
-      area: "39",
-      rentPerSqm: "10",
-      hausgeld: "130",
-      interest: "3",
-      repayment: "2",
-      commissionType: "privat",
-      year: ">=2000",
-      energy: "C",
-      location: "mittel",
-      condition: "gut",
-    };
+  // Handle reset button - updated version
+  document.getElementById("resetBtn").addEventListener("click", function () {
+    // Reset the form
+    form.reset();
 
-    // Set values for all fields
-    for (const [id, value] of Object.entries(testData)) {
-      const element = document.getElementById(id);
-      if (element) {
-        if (element.type === "select-one") {
-          element.value = value;
-        } else {
-          element.value = value;
-        }
+    // Reset all select elements to their initial state
+    selects.forEach((select) => {
+      // Reset to first (default) option
+      select.selectedIndex = 0;
+      select.classList.remove("invalid");
+
+      // Ensure the default option is selected
+      const defaultOption = select.querySelector("option[value='']");
+      if (defaultOption) {
+        defaultOption.selected = true;
       }
-    }
-  }
+    });
 
-  // Add event listeners for new buttons
-  document.getElementById("resetBtn").addEventListener("click", resetForm);
-  document.getElementById("testBtn").addEventListener("click", loadTestData);
+    // Clear all input fields
+    form.querySelectorAll("input").forEach((input) => {
+      input.value = "";
+      input.classList.remove("invalid");
+    });
 
-  // Main form submission handler
-  document.getElementById("form").addEventListener("submit", function (e) {
+    // Hide summary if visible
+    document.getElementById("summary").classList.remove("show");
+  });
+
+  // Handle validation before form submit
+  form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    // Clear previous errors
-    document
-      .querySelectorAll(".error")
-      .forEach((el) => el.classList.remove("error"));
-    const resultBox = document.getElementById("result");
-    resultBox.className = "score-box";
-    resultBox.innerHTML = "";
+    // Check if all selects are valid
+    let isValid = true;
+    selects.forEach((select) => {
+      if (!select.value) {
+        select.classList.add("invalid");
+        isValid = false;
+      } else {
+        select.classList.remove("invalid");
+      }
+    });
 
-    // Validate inputs
-    const requiredFields = [
-      { id: "price", name: "Kaufpreis", min: 0.01 },
-      { id: "area", name: "Größe", min: 0.01 },
-      { id: "rentPerSqm", name: "Mietpreis pro m²", min: 0 },
-      { id: "hausgeld", name: "Hausgeld", min: 0 },
-      { id: "interest", name: "Zinssatz", min: 0 },
-      { id: "repayment", name: "Tilgung", min: 0 },
-    ];
+    if (isValid) {
+      evaluateProperty();
+    }
+  });
 
+  function evaluateProperty() {
+    // Get input values and validate each field
+    const inputs = {};
     const errors = [];
-    const inputValues = {};
 
-    // Validate each field
-    for (const field of requiredFields) {
-      const input = document.getElementById(field.id);
-      const value = parseFloat(input.value.replace(",", "."));
-
-      if (isNaN(value)) {
-        errors.push(`❌ ${field.name}: Bitte gültige Zahl eingeben`);
-        input.classList.add("error");
-      } else if (value < field.min) {
-        errors.push(`❌ ${field.name}: Muss mindestens ${field.min} sein`);
-        input.classList.add("error");
-      } else {
-        inputValues[field.id] = value;
+    try {
+      // Validate size
+      const size = parseFloat(document.getElementById("size").value);
+      if (isNaN(size) || size <= 0) {
+        errors.push("Bitte geben Sie eine gültige Wohnfläche ein (> 0 m²)");
       }
-    }
+      inputs.size = size;
 
-    // Check dropdown selections
-    const dropdowns = [
-      "commissionType",
-      "year",
-      "energy",
-      "location",
-      "condition",
-    ];
-    dropdowns.forEach((id) => {
-      inputValues[id] = document.getElementById(id).value;
-    });
+      // Validate price
+      const price = parseFloat(document.getElementById("price").value);
+      if (isNaN(price) || price <= 0) {
+        errors.push("Bitte geben Sie einen gültigen Kaufpreis ein (> 0 €)");
+      }
+      inputs.price = price;
 
-    // Show errors if any
-    if (errors.length > 0) {
-      resultBox.className = "score-box show red";
-      resultBox.innerHTML = `
-                <div class="error-box">
-                    <h2>Fehler</h2>
-                    <ul class="error-list">
-                        ${errors.map((error) => `<li>${error}</li>`).join("")}
-                    </ul>
-                </div>
+      // Validate rent
+      const rent = parseFloat(document.getElementById("rent").value);
+      if (isNaN(rent) || rent < 0) {
+        errors.push("Bitte geben Sie einen gültigen Mietpreis ein (≥ 0 €/m²)");
+      }
+      inputs.rent = rent;
+
+      // Validate HOA fees
+      const hoa = parseFloat(document.getElementById("hoa").value);
+      if (isNaN(hoa) || hoa < 0) {
+        errors.push("Bitte geben Sie gültige Hausgeldkosten ein (≥ 0 €)");
+      }
+      inputs.hoa = hoa;
+
+      // Validate equity
+      const equity = parseFloat(document.getElementById("equity").value);
+      if (isNaN(equity) || equity < 0) {
+        errors.push("Bitte geben Sie ein gültiges Eigenkapital ein (≥ 0 €)");
+      }
+      inputs.equity = equity;
+
+      // Validate interest rate
+      const interest = parseFloat(document.getElementById("interest").value);
+      if (isNaN(interest) || interest < 0 || interest > 15) {
+        errors.push("Bitte geben Sie einen gültigen Zinssatz ein (0-15%)");
+      }
+      inputs.interest = interest / 100;
+
+      // Validate repayment rate
+      const repayment = parseFloat(document.getElementById("repayment").value);
+      if (isNaN(repayment) || repayment < 0 || repayment > 15) {
+        errors.push("Bitte geben Sie eine gültige Tilgungsrate ein (0-15%)");
+      }
+      inputs.repayment = repayment / 100;
+
+      // Get other values
+      inputs.provisionRate = parseFloat(document.getElementById("agent").value);
+      inputs.condition = document.getElementById("condition").value;
+
+      // Show errors if any
+      if (errors.length > 0) {
+        summary.innerHTML = `
+                <h3>⚠️ Bitte korrigieren Sie folgende Fehler:</h3>
+                <ul class="error-list">
+                    ${errors.map((error) => `<li>${error}</li>`).join("")}
+                </ul>
             `;
-      return;
+        summary.classList.add("show");
+        return;
+      }
+
+      // Calculate metrics and update UI if no errors
+      const calculations = calculateMetrics(inputs);
+      updateSummary(calculations);
+    } catch (e) {
+      summary.innerHTML = `
+            <h3>⚠️ Ein Fehler ist aufgetreten:</h3>
+            <p class="error">Bitte überprüfen Sie alle Eingabefelder auf gültige Werte.</p>
+        `;
+      summary.classList.add("show");
+    }
+  }
+
+  function calculateMetrics(inputs) {
+    const tax = inputs.price * 0.035; // 3.5% Grunderwerbsteuer
+    const notar = inputs.price * 0.015; // 1.5% Notarkosten
+    const provision = inputs.price * inputs.provisionRate;
+    const additionalCosts = tax + notar + provision;
+    const effectivePrice = inputs.price + additionalCosts;
+
+    const annualRent = inputs.rent * inputs.size * 12;
+    const pricePerM2 = inputs.price / inputs.size;
+
+    const renovationCost =
+      inputs.condition === "Neuwertig"
+        ? 0
+        : inputs.condition === "Gut"
+        ? 100 * inputs.size
+        : 300 * inputs.size;
+
+    const loanAmount = effectivePrice - inputs.equity;
+    const monthlyRate =
+      (loanAmount * (inputs.interest + inputs.repayment)) / 12;
+    const yieldPercent = (annualRent / effectivePrice) * 100;
+
+    let rating = "nicht empfehlenswert";
+    let ratingColor = "var(--error)";
+
+    if (yieldPercent > 4) {
+      rating = "rentabel";
+      ratingColor = "var(--success)";
+    } else if (yieldPercent >= 3) {
+      rating = "grenzwertig";
+      ratingColor = "var(--warning)";
     }
 
-    // Calculations
-    const commission =
-      inputValues.commissionType === "makler" ? inputValues.price * 0.0357 : 0;
-    const effectivePrice = inputValues.price + commission;
-    const annualRent = inputValues.area * inputValues.rentPerSqm * 12;
-    const grossYield = (annualRent / effectivePrice) * 100;
-    const monthlyPayment =
-      (((inputValues.interest + inputValues.repayment) / 100) *
-        effectivePrice) /
-      12;
-    const ownerHausgeld = inputValues.hausgeld * 0.3;
-    const netMonthlyRent = annualRent / 12 - ownerHausgeld;
-    const paymentRatio = monthlyPayment / netMonthlyRent;
-    const hausgeldRatio = ownerHausgeld / (annualRent / 12);
-
-    // Score calculation
-    let score = 0;
-    score +=
-      grossYield >= 5 ? 40 : grossYield >= 4 ? 30 : grossYield >= 3 ? 25 : 20;
-    score +=
-      monthlyPayment <= netMonthlyRent
-        ? 10
-        : monthlyPayment <= netMonthlyRent * 1.1
-        ? 9
-        : monthlyPayment <= netMonthlyRent * 1.3
-        ? 8
-        : monthlyPayment <= netMonthlyRent * 1.5
-        ? 7
-        : 5;
-    score +=
-      inputValues.year === ">=2000"
-        ? 10
-        : inputValues.year === "1970-1999"
-        ? 7
-        : 4;
-    score += ["A", "C"].includes(inputValues.energy)
-      ? 10
-      : inputValues.energy === "D"
-      ? 5
-      : 2;
-    score +=
-      inputValues.location === "top"
-        ? 20
-        : inputValues.location === "gut"
-        ? 15
-        : inputValues.location === "mittel"
-        ? 12
-        : 4;
-    score +=
-      inputValues.condition === "neu"
-        ? 10
-        : inputValues.condition === "gut"
-        ? 8
-        : 3;
-
-    // Target calculations
-    const targetYield = 5;
-    const targetPrice = annualRent / (targetYield / 100);
-    const priceDiff = effectivePrice - targetPrice;
-    const reductionPct = (priceDiff / effectivePrice) * 100;
-
-    // Prepare results
-    const scoreIcon = score >= 85 ? "🏆" : score >= 70 ? "👍" : "⚠️";
-    const scoreText =
-      score >= 85
-        ? "Hervorragend"
-        : score >= 70
-        ? "Gut"
-        : score >= 55
-        ? "Mittel"
-        : "Schlecht";
-    const chartColor =
-      score >= 85 ? "#4caf50" : score >= 70 ? "#ff9f40" : "#f44336";
-
-    // Get status icons for metrics
-    const priceStatus = getMetricStatus(
+    return {
+      tax,
+      notar,
+      provision,
       effectivePrice,
-      targetPrice * 0.95,
-      targetPrice * 1.2,
-      false
-    );
-    const rentStatus = getMetricStatus(grossYield, 5.5, 4.0);
-    const hausgeldStatus = getMetricStatus(hausgeldRatio, 0.2, 0.35, false);
-    const rateStatus = getMetricStatus(paymentRatio, 0.9, 1.1, false);
+      annualRent,
+      pricePerM2,
+      renovationCost,
+      monthlyRate,
+      yieldPercent,
+      rating,
+      ratingColor,
+      equityRatio: (inputs.equity / effectivePrice) * 100,
+    };
+  }
 
-    // Build results HTML
-    resultBox.className = "score-box show";
-    resultBox.innerHTML = `
-  <div class="fazit-container metric-background ${
-    score >= 85 ? "green" : score >= 55 ? "orange" : "red"
-  }">
-    <h3>Fazit und Kaufpreisanalyse</h3>
-    <p class="fazit-content">${
-      targetPrice > 0 && priceDiff > 0
-        ? `Um eine Bruttorendite von ${targetYield}% zu erreichen, wäre ein Kaufpreis von <strong>${formatCurrency(
-            targetPrice
-          )}</strong> rentabel. Dies würde eine Reduzierung des effektiven Kaufpreises um <strong>${reductionPct.toFixed(
-            2
-          )}%</strong> (${formatCurrency(priceDiff)}) bedeuten.`
-        : targetPrice > 0 && priceDiff <= 0
-        ? `Basierend auf einer Bruttorendite von ${targetYield}%, ist der effektive Kaufpreis von <strong>${formatCurrency(
-            effectivePrice
-          )}</strong> bereits rentabel oder sogar darunter.`
-        : "Es konnte kein rentabler Kaufpreis berechnet werden (Jahresnetto-Miete ist 0)."
-    }</p>
-    <p class="fazit-content" style="margin-top: 1rem;"><strong>Gesamtwertung: ${scoreIcon} ${scoreText} (${score} Punkte)</strong></p>
-  </div>
-  <div class="analysis-flex">
-    <div class="details-box">
-      <h3>Detaillierte Analyse</h3>
-      <div class="details-content">
-        <p>
-          <span class="metric-icon ${priceStatus.className}">${
-      priceStatus.icon
-    }</span>
-          <strong>Aktueller Kaufpreis:</strong>
-          <span>${formatCurrency(inputValues.price)}</span>
-        </p>
-        <p>
-          <span class="metric-icon ${rentStatus.className}">${
-      rentStatus.icon
-    }</span>
-          <strong>Jahresnetto-Miete:</strong>
-          <span>${formatCurrency(annualRent)}</span>
-        </p>
-        <p>
-          <span class="metric-icon ${hausgeldStatus.className}">${
-      hausgeldStatus.icon
-    }</span>
-          <strong>Monatliches Hausgeld:</strong>
-          <span>${inputValues.hausgeld.toLocaleString("de-DE", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })} €</span>
-        </p>
-        <p>
-          <span class="metric-icon ${rateStatus.className}">${
-      rateStatus.icon
-    }</span>
-          <strong>Monatliche Kreditrate:</strong>
-          <span>${monthlyPayment.toLocaleString("de-DE", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })} €</span>
-        </p>
-      </div>
-    </div>
-    <div class="chart-container-wrapper">
-      <div class="chart-center-label">
-        <canvas id="scoreChart"></canvas>
-        <div id="chartCenterText"></div>
-      </div>
-    </div>
-  </div>
-`;
-
-    // Create the chart
-    const ctx = document.getElementById("scoreChart").getContext("2d");
-    if (chartInstance) chartInstance.destroy();
-
-    chartInstance = new Chart(ctx, {
-      type: "doughnut",
-      data: {
-        labels: ["Erreicht", "Fehlend"],
-        datasets: [
-          {
-            data: [score, 100 - score],
-            backgroundColor: [chartColor, "#2c2c2c"],
-            borderWidth: 2,
-            borderColor: "#1e1e1e",
-            borderRadius: 10,
-          },
-        ],
-      },
-      options: {
-        plugins: {
-          legend: { display: false },
-          tooltip: { enabled: false },
-          datalabels: { display: false },
-        },
-        cutout: "65%", // Slightly reduced cutout for a thicker ring
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: {
-          animateScale: true,
-          animateRotate: true,
-          onComplete: function () {
-            // Center the percentage text
-            const chartCenter = document.getElementById("chartCenterText");
-            if (chartCenter) {
-              chartCenter.innerHTML = `<span style="font-size:1.6em;font-weight:bold;color:${chartColor}">${score}%</span>`;
-            }
-          },
-        },
-      },
-    });
-
-    // If animation doesn't trigger (e.g. instant render), set center text
-    setTimeout(() => {
-      const chartCenter = document.getElementById("chartCenterText");
-      if (chartCenter) {
-        chartCenter.innerHTML = `<span style="font-size:2.2em;font-weight:bold;color:${chartColor}">${score}%</span>`;
-      }
-    }, 500);
-  });
-
-  // Add input validation on blur
-  document.querySelectorAll('input[type="number"]').forEach((input) => {
-    input.addEventListener("blur", function () {
-      const value = parseFloat(this.value.replace(",", "."));
-      const min = this.id === "price" || this.id === "area" ? 0.01 : 0;
-
-      if (isNaN(value) || value < min) {
-        this.classList.add("error");
-      } else {
-        this.classList.remove("error");
-      }
-    });
-  });
+  function updateSummary(calc) {
+    summary.innerHTML = `
+      <h3>📋 Auswertung</h3>
+      <p><strong>Quadratmeterpreis:</strong> ${calc.pricePerM2.toLocaleString(
+        "de-DE"
+      )} €/m²</p>
+      <p><strong>Effektiver Kaufpreis:</strong> ${calc.effectivePrice.toLocaleString(
+        "de-DE"
+      )} €</p>
+      <p><strong>Jahresnettomiete:</strong> ${calc.annualRent.toLocaleString(
+        "de-DE"
+      )} €</p>
+      <p><strong>Monatliche Kreditrate:</strong> ${calc.monthlyRate.toLocaleString(
+        "de-DE"
+      )} €</p>
+      <p><strong>Eigenkapitalquote:</strong> ${calc.equityRatio.toFixed(2)}%</p>
+      <p><strong>Renovierungskosten:</strong> ${calc.renovationCost.toLocaleString(
+        "de-DE"
+      )} €</p>
+      <p><strong>Bruttorendite:</strong> ${calc.yieldPercent.toFixed(2)}%</p>
+      <p><strong>Investitions-Fazit:</strong> <span style="color: ${
+        calc.ratingColor
+      }">${calc.rating}</span></p>
+      <p><em>Diese Immobilie ist aufgrund ihrer Daten aktuell ${
+        calc.rating
+      }.</em></p>
+    `;
+    summary.classList.add("show");
+  }
 });
