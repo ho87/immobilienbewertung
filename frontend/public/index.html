@@ -2,161 +2,353 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>🏘️ Immobilienbewertung</title>
-    <link rel="stylesheet" href="global.css" />
-    <link rel="icon" type="image/png" href="house-icon.png" sizes="32x32" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="favicon_house_16x16.png"
+      sizes="16x16"
+    />
+    <style>
+      /* Simple, friendly layout for the prototype */
+      body {
+        font-family: system-ui, sans-serif;
+        background: #f8fafc;
+        color: #222;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background: #fff;
+        border-bottom: 2px solid #e5e7eb;
+        padding: 2rem 1rem 1rem 1rem;
+        text-align: center;
+        font-size: 2rem;
+        letter-spacing: 1px;
+      }
+      form {
+        max-width: 650px;
+        margin: 2rem auto;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px #0002;
+        padding: 2rem;
+      }
+      fieldset {
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+        padding: 1rem 1.5rem;
+      }
+      legend {
+        font-weight: bold;
+        padding: 0 0.5em;
+      }
+      label {
+        display: block;
+        margin-top: 1em;
+        font-weight: 500;
+      }
+      input[type="text"],
+      input[type="number"],
+      select {
+        width: 100%;
+        margin-top: 0.25em;
+        padding: 0.5em;
+        font-size: 1em;
+        border: 1px solid #d1d5db;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      .flex-group {
+        display: flex;
+        gap: 1rem;
+      }
+      .flex-group > * {
+        flex: 1;
+      }
+      .output-field {
+        margin: 0.7em 0;
+        color: #027d53;
+        font-weight: 600;
+      }
+      .buttons {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+        justify-content: center;
+      }
+      .buttons button {
+        background: #4f46e5;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 0.6em 1.4em;
+        font-size: 1em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.18s;
+      }
+      .buttons button:hover {
+        background: #3730a3;
+      }
+      .summary-box {
+        background: #f1f5f9;
+        border: 2px solid #94a3b8;
+        border-radius: 14px;
+        padding: 1.4rem 1.2rem;
+        margin-top: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 1.13em;
+      }
+      .warning {
+        color: #e11d48;
+        font-size: 0.96em;
+        margin-top: 0.25em;
+        display: none;
+      }
+    </style>
   </head>
   <body>
-    <h1>🏘️ Immobilienbewertung</h1>
+    <header>🏘️ Immobilienbewertung</header>
 
-    <form id="evaluationForm">
-      <div class="section" id="listingInput">
-        <h2>📥 Inseratsdaten</h2>
+    <form id="immobilienForm" autocomplete="off">
+      <!-- 1. Inseratsdaten (Listing Data) -->
+      <fieldset>
+        <legend>📥 Inseratsdaten</legend>
         <label>
-          Inseratslink:
+          Inserats-URL
           <input
-            type="url"
-            id="url"
-            placeholder="ImmoScout24 oder eBay Kleinanzeigen URL"
+            type="text"
+            id="listingUrl"
+            placeholder="z.B. https://www.immobilienscout24.de/..."
+            autocomplete="off"
           />
+          <span class="warning" id="warn-listingUrl"
+            >Bitte geben Sie eine gültige URL ein.</span
+          >
         </label>
+        <div class="flex-group">
+          <label>
+            Immobilientyp
+            <select id="propertyType">
+              <option>Haus</option>
+              <option>Eigentumswohnung</option>
+            </select>
+          </label>
+          <label>
+            Anbieter
+            <select id="agentType">
+              <option value="privat">Privat</option>
+              <option value="makler">Makler (+3,57% Provision)</option>
+            </select>
+          </label>
+        </div>
+      </fieldset>
+      <!-- 2. Immobiliendaten (Property Data) -->
+      <fieldset>
+        <legend>📊 Immobiliendaten</legend>
+        <div class="flex-group">
+          <label>
+            Wohnfläche (m²)
+            <input
+              type="number"
+              id="size"
+              min="1"
+              max="99999"
+              value="50"
+              step="0.01"
+            />
+            <span class="warning" id="warn-size"></span>
+          </label>
+          <label>
+            Zimmer
+            <select id="rooms">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>&gt;5</option>
+            </select>
+          </label>
+        </div>
+        <div class="flex-group">
+          <label>
+            Kaufpreis (€)
+            <input
+              type="number"
+              id="purchasePrice"
+              min="1"
+              value="250000"
+              step="1"
+            />
+            <span class="warning" id="warn-purchasePrice"></span>
+          </label>
+          <label>
+            Quadratmeterpreis (€)
+            <div class="output-field" id="output-qmPreis"></div>
+          </label>
+        </div>
+        <div class="flex-group">
+          <label>
+            Miete pro m² (€)
+            <input
+              type="number"
+              id="rentPerM2"
+              min="1"
+              max="99999"
+              value="10"
+              step="0.01"
+            />
+            <span class="warning" id="warn-rentPerM2"></span>
+          </label>
+          <label>
+            Jahresnettomiete (€)
+            <div class="output-field" id="output-annualRent"></div>
+          </label>
+        </div>
+        <div class="flex-group">
+          <label>
+            Hausgeld (monatlich, €)
+            <input
+              type="number"
+              id="hoa"
+              min="1"
+              max="9999"
+              value="120"
+              step="1"
+            />
+            <span class="warning" id="warn-hoa"></span>
+          </label>
+          <label>
+            Lage
+            <select id="location">
+              <option>Toplage</option>
+              <option>Gut</option>
+              <option>Mittel</option>
+              <option>Schlecht</option>
+            </select>
+          </label>
+        </div>
         <label>
-          Immobilienart:
-          <select id="type">
-            <option>Haus</option>
-            <option>Eigentumswohnung</option>
-          </select>
+          Effektiver Kaufpreis (€)
+          <div class="output-field" id="output-effPurchasePrice"></div>
         </label>
+      </fieldset>
+      <!-- 3. Finanzierung (Financing) -->
+      <fieldset>
+        <legend>💶 Finanzierung</legend>
+        <div class="flex-group">
+          <label>
+            Eigenkapital (€)
+            <input type="number" id="equity" min="1" value="10000" step="1" />
+            <span class="warning" id="warn-equity"></span>
+          </label>
+          <label>
+            Zusätzliche Kaufnebenkosten (€)
+            <div class="output-field" id="output-addCosts"></div>
+          </label>
+        </div>
+        <div class="flex-group">
+          <label>
+            Zinssatz (%)
+            <input
+              type="number"
+              id="interestRate"
+              min="0.01"
+              max="20"
+              value="3"
+              step="0.01"
+            />
+            <span class="warning" id="warn-interestRate"></span>
+          </label>
+          <label>
+            Tilgungssatz (%)
+            <input
+              type="number"
+              id="repaymentRate"
+              min="0.01"
+              max="20"
+              value="2"
+              step="0.01"
+            />
+            <span class="warning" id="warn-repaymentRate"></span>
+          </label>
+        </div>
         <label>
-          Provisionsart:
-          <select id="agent">
-            <option value="0">Privat</option>
-            <option value="0.0357">Makler (+3.57% Provision)</option>
-          </select>
+          Monatliche Kreditrate (€)
+          <div class="output-field" id="output-loanPayment"></div>
         </label>
-      </div>
-
-      <div class="section" id="propertyData">
-        <h2>📊 Objektdaten</h2>
+      </fieldset>
+      <!-- 4. Gebäude & Energie (Building & Energy) -->
+      <fieldset>
+        <legend>🏗️ Gebäude & Energie</legend>
+        <div class="flex-group">
+          <label>
+            Baujahr
+            <select id="yearBuilt">
+              <option>&lt;1970</option>
+              <option>1970–1999</option>
+              <option>≥2000</option>
+            </select>
+          </label>
+          <label>
+            Energieeffizienz
+            <select id="energyClass">
+              <option>A/B</option>
+              <option>C</option>
+              <option>D</option>
+              <option>E oder schlechter</option>
+            </select>
+          </label>
+          <label>
+            Zustand
+            <select id="condition">
+              <option>Neuwertig</option>
+              <option>Gut</option>
+              <option>Renovierungsbedürftig</option>
+            </select>
+          </label>
+        </div>
         <label>
-          Größe (m²):
-          <input type="number" id="size" placeholder="z.B. 50" required />
+          Geschätzte Renovierungskosten (€)
+          <div class="output-field" id="output-renoCost"></div>
         </label>
-        <label>
-          Zimmer:
-          <select id="rooms">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>>5</option>
-          </select>
-        </label>
-        <label>
-          Kaufpreis (€):
-          <input type="number" id="price" placeholder="z.B. 250000" required />
-        </label>
-        <label>
-          Miete pro m² (€):
-          <input
-            type="number"
-            id="rent"
-            placeholder="z.B. 10"
-            step="0.01"
-            required
-          />
-        </label>
-        <label>
-          Monatliches Hausgeld (€):
-          <input
-            type="number"
-            id="hoa"
-            placeholder="z.B. 120"
-            step="0.01"
-            required
-          />
-        </label>
-        <label>
-          Lagequalität:
-          <select id="location">
-            <option>Toplage</option>
-            <option>Gut</option>
-            <option>Mittel</option>
-            <option>Schlecht</option>
-          </select>
-        </label>
-      </div>
-
-      <div class="section" id="financing">
-        <h2>💶 Finanzierung</h2>
-        <label>
-          Eigenkapital (€):
-          <input type="number" id="equity" placeholder="z.B. 10000" required />
-        </label>
-        <label>
-          Zinssatz (%):
-          <input
-            type="number"
-            id="interest"
-            placeholder="z.B. 3"
-            step="0.01"
-            required
-          />
-        </label>
-        <label>
-          Tilgungsrate (%):
-          <input
-            type="number"
-            id="repayment"
-            placeholder="z.B. 2"
-            step="0.01"
-            required
-          />
-        </label>
-      </div>
-
-      <div class="section" id="building">
-        <h2>🏗️ Bausubstanz & Energie</h2>
-        <label>
-          Baujahr:
-          <select id="year">
-            <option>&lt;1970</option>
-            <option>1970–1999</option>
-            <option>≥2000</option>
-          </select>
-        </label>
-        <label>
-          Energieeffizienz:
-          <select id="efficiency">
-            <option>A/B</option>
-            <option>C</option>
-            <option>D</option>
-            <option>E oder schlechter</option>
-          </select>
-        </label>
-        <label>
-          Zustand:
-          <select id="condition">
-            <option>Neuwertig</option>
-            <option>Gut</option>
-            <option>Renovierungsbedürftig</option>
-          </select>
-        </label>
-      </div>
-
-      <div class="button-group">
-        <button type="submit" id="evaluateBtn" class="primary">
-          🔍 Bewerten
-        </button>
-        <button type="reset" id="resetBtn" class="secondary">↺ Reset</button>
-        <button type="button" id="testBtn" class="test">🧪 TEST</button>
+      </fieldset>
+      <div class="buttons">
+        <button type="button">Bewerten</button>
+        <button type="reset">Reset</button>
+        <button type="button">TEST</button>
       </div>
     </form>
-
-    <div class="section summary" id="summary"></div>
-
-    <script src="app.js"></script>
-  </body>
+    <!-- Output summary and interpretation box (to be shown after user input) -->
+    <div class="summary-box" id="summaryBox" style="display: none">
+      <div><b>Quadratmeterpreis:</b> <span id="sum-qmPreis"></span></div>
+      <div>
+        <b>Effektiver Kaufpreis:</b> <span id="sum-effPurchasePrice"></span>
+      </div>
+      <div><b>Jahresnettomiete:</b> <span id="sum-annualRent"></span></div>
+      <div>
+        <b>Monatliche Kreditrate:</b> <span id="sum-loanPayment"></span>
+      </div>
+      <div><b>Eigenkapitalquote:</b> <span id="sum-equityRatio"></span></div>
+      <div><b>Investitions-Fazit:</b> <span id="sum-fazit"></span></div>
+      <hr />
+      <div id="sum-interpretation" style="margin-top: 0.7em"></div>
+    </div>
+    <!-- Placeholder for JavaScript logic in the future -->
+    <!-- 
+    // All calculation logic will be moved to a separate app.js file in the next step.
+    // Example calculations:
+    // Quadratmeterpreis (price per m²) = Kaufpreis / Wohnfläche
+    // Effektiver Kaufpreis (effective price) = Kaufpreis + 3.5% tax + 1.5% notary + commission if selected
+    // Jahresnettomiete (annual rent) = Rent per m² x Size x 12
+    // Kreditrate (monthly loan payment) = annuity formula
+    // Eigenkapitalquote (equity ratio) = Equity / Effective Price
+    // Fazit: Rendite > 4% = rentabel, 3–4% = grenzwertig, <3% = nicht empfehlenswert
+  --></body>
 </html>
