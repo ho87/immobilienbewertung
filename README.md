@@ -69,6 +69,6 @@ Open an issue or submit a pull request to suggest changes or improvements.
 
 This project is licensed under the MIT License.
 
----
 
-*Built with ❤️ for German property buyers and investors.*
+
+
