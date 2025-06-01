@@ -1,239 +1,280 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>🏘️ Immobilienbewertung</title>
-  <link rel="icon" type="image/png" href="favicon_house_16x16.png" sizes="16x16" />
-  <link rel="stylesheet" href="global.css" />
-</head>
-<body>
-  <div class="form-card">
-    <div class="site-header">🏘️ Immobilienbewertung</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>🏘️ Immobilienbewertung</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="favicon_house_16x16.png"
+      sizes="16x16"
+    />
+    <link rel="stylesheet" href="global.css" />
+  </head>
+  <body>
+    <div class="form-card" id="form-card">
+      <div class="site-header" id="site-header">🏘️ Immobilienbewertung</div>
+      <!-- Inseratsdaten -->
+      <section class="form-section" id="section-inseratsdaten">
+        <div class="form-section-header" id="header-inseratsdaten">
+          📥 Inseratsdaten
+        </div>
+        <label for="listingUrl">
+          URL (Inserat)
+          <input
+            type="text"
+            id="listingUrl"
+            class="placeholder-italic"
+            placeholder="z. B. https://www.immobilienscout24.de/..."
+            autocomplete="off"
+          />
+          <span class="warning" id="warn-listingUrl"
+            >Bitte geben Sie eine gültige URL ein.</span
+          >
+        </label>
+        <div class="flex-group" id="flex-inseratsdaten">
+          <label for="propertyType">
+            Immobilientyp
+            <select id="propertyType">
+              <option value="">Bitte auswählen</option>
+              <option value="house">Haus</option>
+              <option value="apartment">Eigentumswohnung</option>
+            </select>
+          </label>
+          <label for="agentType">
+            Anbieter
+            <select id="agentType">
+              <option value="">Bitte auswählen</option>
+              <option value="privat">Privat</option>
+              <option value="makler">Makler (+3,57% Provision)</option>
+            </select>
+          </label>
+        </div>
+      </section>
 
-    <!-- Inseratsdaten -->
-    <section class="form-section" id="section-inseratsdaten">
-      <div class="form-section-header">📥 Inseratsdaten</div>
-      <label>
-        URL (Inserat)
-        <input
-          type="text"
-          id="listingUrl"
-          placeholder="z. B. https://www.immobilienscout24.de/..."
-          autocomplete="off"
-        />
-        <span class="warning" id="warn-listingUrl">Bitte geben Sie eine gültige URL ein.</span>
-      </label>
-      <div class="flex-group">
-        <label>
-          Immobilientyp
-          <select id="propertyType">
-            <option>Haus</option>
-            <option>Eigentumswohnung</option>
-          </select>
-        </label>
-        <label>
-          Anbieter
-          <select id="agentType">
-            <option value="privat">Privat</option>
-            <option value="makler">Makler (+3,57% Provision)</option>
-          </select>
-        </label>
-      </div>
-    </section>
+      <!-- Immobiliendaten -->
+      <section class="form-section" id="section-immobiliendaten">
+        <div class="form-section-header" id="header-immobiliendaten">
+          📊 Immobiliendaten
+        </div>
+        <div class="flex-group" id="flex-immofields-1">
+          <label for="size">
+            Wohnfläche (m²)
+            <input
+              type="number"
+              id="size"
+              class="placeholder-italic"
+              min="1"
+              max="99999"
+              placeholder="z. B. 50"
+              step="0.5"
+            />
+            <span class="warning" id="warn-size"></span>
+          </label>
+          <label for="rooms">
+            Zimmer
+            <select id="rooms">
+              <option value="">Bitte auswählen</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">&gt;5</option>
+            </select>
+          </label>
+        </div>
+        <div class="flex-group" id="flex-immofields-2">
+          <label for="purchasePrice">
+            Kaufpreis (€)
+            <input
+              type="number"
+              id="purchasePrice"
+              class="placeholder-italic"
+              min="1"
+              placeholder="z. B. 250000"
+              step="500"
+            />
+            <span class="warning" id="warn-purchasePrice"></span>
+          </label>
+          <label for="output-qmPreis">
+            Quadratmeterpreis (€)
+            <div class="output-field" id="output-qmPreis"></div>
+          </label>
+        </div>
+        <div class="flex-group" id="flex-immofields-3">
+          <label for="rentPerM2">
+            Miete pro m² (€)
+            <input
+              type="number"
+              id="rentPerM2"
+              class="placeholder-italic"
+              min="1"
+              max="99999"
+              placeholder="z. B. 10"
+              step="0.5"
+            />
+            <span class="warning" id="warn-rentPerM2"></span>
+          </label>
+          <label for="output-annualRent">
+            Jahresnettomiete (€)
+            <div class="output-field" id="output-annualRent"></div>
+          </label>
+        </div>
+        <div class="flex-group" id="flex-immofields-4">
+          <label for="hoa">
+            Hausgeld (monatlich, €)
+            <input
+              type="number"
+              id="hoa"
+              class="placeholder-italic"
+              min="1"
+              max="9999"
+              placeholder="z. B. 120"
+              step="1"
+            />
+            <span class="warning" id="warn-hoa"></span>
+          </label>
+          <label for="location">
+            Lage
+            <select id="location">
+              <option value="">Bitte auswählen</option>
+              <option value="top">Toplage</option>
+              <option value="good">Gut</option>
+              <option value="medium">Mittel</option>
+              <option value="poor">Schlecht</option>
+            </select>
+          </label>
+        </div>
+        <div class="flex-group">
+          <label for="output-addCosts">
+            Kaufnebenkosten (~10% Kaufpreis, €)
+            <div class="output-field" id="output-addCosts"></div>
+          </label>
+          <label for="output-effPurchasePrice">
+            Effektiver Kaufpreis (€)
+            <div class="output-field" id="output-effPurchasePrice"></div>
+          </label>
+        </div>
+      </section>
 
-    <!-- Immobiliendaten -->
-    <section class="form-section" id="section-immobiliendaten">
-      <div class="form-section-header">📊 Immobiliendaten</div>
-      <div class="flex-group">
-        <label>
-          Wohnfläche (m²)
-          <input
-            type="number"
-            id="size"
-            min="1"
-            max="99999"
-            placeholder="z. B. 50"
-            step="0.5"
-          />
-          <span class="warning" id="warn-size"></span>
+      <!-- Finanzierung -->
+      <section class="form-section" id="section-finanzierung">
+        <div class="form-section-header" id="header-finanzierung">
+          💶 Finanzierung
+        </div>
+        <div class="flex-group" id="flex-finanzierung-1">
+          <label for="equity">
+            Eigenkapital (€)
+            <input
+              type="number"
+              id="equity"
+              class="placeholder-italic"
+              min="1"
+              placeholder="z. B. 10000"
+              step="500"
+            />
+            <span class="warning" id="warn-equity"></span>
+          </label>
+        </div>
+        <div class="flex-group" id="flex-finanzierung-2">
+          <label for="interestRate">
+            Zinssatz (%)
+            <input
+              type="number"
+              id="interestRate"
+              min="0.01"
+              max="20"
+              value="3"
+              step="0.01"
+            />
+            <span class="warning" id="warn-interestRate"></span>
+          </label>
+          <label for="repaymentRate">
+            Tilgungssatz (%)
+            <input
+              type="number"
+              id="repaymentRate"
+              min="0.01"
+              max="20"
+              value="2"
+              step="0.01"
+            />
+            <span class="warning" id="warn-repaymentRate"></span>
+          </label>
+        </div>
+        <label for="output-loanPayment">
+          Monatliche Kreditrate (€)
+          <div class="output-field" id="output-loanPayment"></div>
         </label>
-        <label>
-          Zimmer
-          <select id="rooms">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>&gt;5</option>
-          </select>
-        </label>
-      </div>
-      <div class="flex-group">
-        <label>
-          Kaufpreis (€)
-          <input
-            type="number"
-            id="purchasePrice"
-            min="1"
-            placeholder="z. B. 250000"
-            step="500"
-          />
-          <span class="warning" id="warn-purchasePrice"></span>
-        </label>
-        <label>
-          Quadratmeterpreis (€)
-          <div class="output-field" id="output-qmPreis"></div>
-        </label>
-      </div>
-      <div class="flex-group">
-        <label>
-          Miete pro m² (€)
-          <input
-            type="number"
-            id="rentPerM2"
-            min="1"
-            max="99999"
-            placeholder="z. B. 10"
-            step="0.5"
-          />
-          <span class="warning" id="warn-rentPerM2"></span>
-        </label>
-        <label>
-          Jahresnettomiete (€)
-          <div class="output-field" id="output-annualRent"></div>
-        </label>
-      </div>
-      <div class="flex-group">
-        <label>
-          Hausgeld (monatlich, €)
-          <input
-            type="number"
-            id="hoa"
-            min="1"
-            max="9999"
-            placeholder=" z. B. 120"
-            step="1"
-          />
-          <span class="warning" id="warn-hoa"></span>
-        </label>
-        <label>
-          Lage
-          <select id="location">
-            <option>Toplage</option>
-            <option>Gut</option>
-            <option>Mittel</option>
-            <option>Schlecht</option>
-          </select>
-        </label>
-      </div>
-      <label>
-        Effektiver Kaufpreis (€)
-        <div class="output-field" id="output-effPurchasePrice"></div>
-      </label>
-    </section>
+      </section>
 
-    <!-- Finanzierung -->
-    <section class="form-section" id="section-finanzierung">
-      <div class="form-section-header">💶 Finanzierung</div>
-      <div class="flex-group">
-        <label>
-          Eigenkapital (€)
-          <input type="number" id="equity" min="1" placeholder="z. B. 10000" step="500" />
-          <span class="warning" id="warn-equity"></span>
+      <!-- Gebäude & Energie -->
+      <section class="form-section" id="section-gebaeude">
+        <div class="form-section-header" id="header-gebaeude">
+          🏗️ Gebäudezustand
+        </div>
+        <div class="flex-group" id="flex-gebaeude">
+          <label for="yearBuilt">
+            Baujahr
+            <select id="yearBuilt">
+              <option value="">Bitte auswählen</option>
+              <option value="pre1970">&lt;1970</option>
+              <option value="1970-1999">1970–1999</option>
+              <option value="post2000">≥2000</option>
+            </select>
+          </label>
+          <label for="energyClass">
+            Energieeffizienz
+            <select id="energyClass">
+              <option value="">Bitte auswählen</option>
+              <option value="ab">A/B</option>
+              <option value="c">C</option>
+              <option value="d">D</option>
+              <option value="e">E oder schlechter</option>
+            </select>
+          </label>
+          <label for="condition">
+            Zustand
+            <select id="condition">
+              <option value="">Bitte auswählen</option>
+              <option value="new">Neuwertig</option>
+              <option value="good">Gut</option>
+              <option value="renovate">Renovierungsbedürftig</option>
+            </select>
+          </label>
+        </div>
+        <label for="output-renoCost">
+          Geschätzte Renovierungskosten (€)
+          <div class="output-field" id="output-renoCost"></div>
         </label>
-        <label>
-          Kaufnebenkosten (~10% Kaufpreis, €)
-          <div class="output-field" id="output-addCosts"></div>
-        </label>
-      </div>
-      <div class="flex-group">
-        <label>
-          Zinssatz (%)
-          <input
-            type="number"
-            id="interestRate"
-            min="0.01"
-            max="20"
-            value="3"
-            step="0.01"
-          />
-          <span class="warning" id="warn-interestRate"></span>
-        </label>
-        <label>
-          Tilgungssatz (%)
-          <input
-            type="number"
-            id="repaymentRate"
-            min="0.01"
-            max="20"
-            value="2"
-            step="0.01"
-          />
-          <span class="warning" id="warn-repaymentRate"></span>
-        </label>
-      </div>
-      <label>
-        Monatliche Kreditrate (€)
-        <div class="output-field" id="output-loanPayment"></div>
-      </label>
-    </section>
+      </section>
 
-    <!-- Gebäude & Energie -->
-    <section class="form-section" id="section-gebaeude">
-      <div class="form-section-header">🏗️ Gebäudezustand</div>
-      <div class="flex-group">
-        <label>
-          Baujahr
-          <select id="yearBuilt">
-            <option>&lt;1970</option>
-            <option>1970–1999</option>
-            <option>≥2000</option>
-          </select>
-        </label>
-        <label>
-          Energieeffizienz
-          <select id="energyClass">
-            <option>A/B</option>
-            <option>C</option>
-            <option>D</option>
-            <option>E oder schlechter</option>
-          </select>
-        </label>
-        <label>
-          Zustand
-          <select id="condition">
-            <option>Neuwertig</option>
-            <option>Gut</option>
-            <option>Renovierungsbedürftig</option>
-          </select>
-        </label>
+      <!-- Buttons -->
+      <div class="buttons" id="buttons">
+        <button type="button" id="btn-bewerten">Bewerten</button>
+        <button type="reset" id="btn-reset">Reset</button>
+        <button type="button" id="btn-test">TEST</button>
       </div>
-      <label>
-        Geschätzte Renovierungskosten (€)
-        <div class="output-field" id="output-renoCost"></div>
-      </label>
-    </section>
 
-    <!-- Buttons -->
-    <div class="buttons">
-      <button type="button">Bewerten</button>
-      <button type="reset">Reset</button>
-      <button type="button">TEST</button>
+      <!-- Results Placeholder (initially hidden) -->
+      <section
+        class="results-placeholder"
+        id="results-placeholder"
+        style="display: none"
+      >
+        <div class="fazit-section" id="fazit-section">
+          <div class="fazit-section-header" id="header-fazit">Fazit</div>
+          <!-- Fazit content here -->
+        </div>
+        <div class="analyse-section" id="analyse-section">
+          <div class="analyse-section-header" id="header-analyse">
+            Detaillierte Analyse
+          </div>
+          <!-- Analyse content here -->
+        </div>
+      </section>
     </div>
-
-    <!-- Results Placeholder (initially hidden) -->
-    <section class="results-placeholder" style="display:none;">
-      <div class="fazit-section">
-        <div class="fazit-section-header">Fazit</div>
-        <!-- Fazit content here -->
-      </div>
-      <div class="analyse-section">
-        <div class="analyse-section-header">Detaillierte Analyse</div>
-        <!-- Analyse content here -->
-      </div>
-    </section>
-  </div>
-</body>
+  </body>
 </html>

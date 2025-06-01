@@ -47,11 +47,11 @@ html {
   font-size: 2.1rem;
   font-weight: 800;
   text-align: center;
-  #color: #ffd86a;
-  #color: #ffd580;
-  color: #cceecc;
+  /* color: #cceecc;
+  color: #ffd580; */
+  color: #ffd86a;
   margin-bottom: 1em;
-  border-bottom: 3px solid #cceecc;
+  border-bottom: 3px solid #ffd86a;
   border-radius: 0;
   background: transparent;
   padding-bottom: 0.4em;
@@ -71,7 +71,7 @@ html {
   display: flex;
   flex-direction: column;
   gap: 1.1em;
-  border: 1.4px solid #353577;
+  border: 2px solid #ffd86a;
   position: relative;
   box-shadow: 0 2px 14px #0002;
 }
@@ -164,7 +164,7 @@ select:valid {
   display: flex;
   align-items: center;
   gap: 0.6em;
-  border: none;
+  border: 3px solid transparent; /* Add default transparent border */
   border-radius: 10px;
   padding: 0.8em 2.1em;
   font-size: 1.07em;
@@ -173,8 +173,9 @@ select:valid {
   box-shadow: 0 2px 10px #0002;
   outline: none;
   user-select: none;
-  transition: background 0.17s, transform 0.08s;
+  transition: all 0.3s ease;
   color: #fff; /* White text and icon */
+  background: #1a1b1f; /* Darker background to make gradient text visible */
 }
 
 /* Bewerten: Green background, ☑ icon */
@@ -205,16 +206,51 @@ select:valid {
 }
 
 .buttons button:focus {
-  outline: 2px solid #ffd86a;
-  outline-offset: 2px;
+  outline: none;
   transform: scale(1.04);
+  border: 3px solid transparent;
+  animation: gradientBorder 12s ease infinite,
+    /* Changed from 6s to 12s */ gradientText 12s ease infinite; /* Changed from 6s to 12s */
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+  background: #1a1b1f; /* Ensure dark background when focused */
 }
+
 .buttons button:active {
   filter: brightness(0.96);
+  /* Keep the animation running during active state */
+  animation: gradientBorder 12s ease infinite; /* Changed from 6s to 12s */
 }
 
 .buttons button:hover {
   filter: brightness(1.09);
+  border: 3px solid transparent;
+  animation: gradientBorder 12s ease infinite,
+    /* Changed from 6s to 12s */ gradientText 12s ease infinite; /* Changed from 6s to 12s */
+  outline: none;
+  background: #1a1b1f;
+}
+
+/* Update icon animations */
+.buttons button:focus::before,
+.buttons button:hover::before {
+  animation: gradientText 12s ease infinite; /* Changed from 6s to 12s */
+}
+
+/* Keep original button colors for non-hover/focus state */
+.buttons button:nth-child(1) {
+  background: #22c55e;
+}
+.buttons button:nth-child(2) {
+  background: #ef4444;
+}
+.buttons button:nth-child(3) {
+  background: #f59e42;
+}
+
+/* Remove previous animations when not hovered/focused */
+.buttons button:not(:hover):not(:focus) {
+  animation: none;
+  color: #fff;
 }
 
 /* =========================================================
@@ -309,6 +345,8 @@ button {
 button:focus-visible {
   outline: 2.5px solid #ffd86a;
 }
+
+/* Default placeholder color for all input fields */
 ::-webkit-input-placeholder {
   color: #aaaabf;
 }
@@ -320,4 +358,74 @@ button:focus-visible {
 }
 ::placeholder {
   color: #aaaabf;
+}
+
+/* ================================================
+   CLASS: .placeholder-italic
+   Usage: Add this class to any <input> to make its
+   placeholder text appear in italic style.
+   Example: <input class="placeholder-italic" ... />
+   ================================================ */
+
+/* Standard modern browsers */
+.placeholder-italic::placeholder {
+  font-style: italic;
+}
+
+/* Chrome, Safari, newer Edge (WebKit browsers) */
+.placeholder-italic::-webkit-input-placeholder {
+  font-style: italic;
+}
+
+/* Firefox (Mozilla browsers) */
+.placeholder-italic::-moz-placeholder {
+  font-style: italic;
+}
+
+/* Internet Explorer 10-11 */
+.placeholder-italic:-ms-input-placeholder {
+  font-style: italic;
+}
+
+/* Legacy Edge, some older browsers */
+.placeholder-italic::-ms-input-placeholder {
+  font-style: italic;
+}
+
+/* Multicolr border on buttons */
+@keyframes gradientBorder {
+  0% {
+    border-color: #ff69b4;
+  }
+  25% {
+    border-color: #afeeee;
+  }
+  50% {
+    border-color: #ffd86a;
+  }
+  75% {
+    border-color: #afeeee;
+  }
+  100% {
+    border-color: #ff69b4;
+  }
+}
+
+/* First, add a new text color animation */
+@keyframes gradientText {
+  0% {
+    color: #ff69b4;
+  }
+  25% {
+    color: #afeeee;
+  }
+  50% {
+    color: #ffd86a;
+  }
+  75% {
+    color: #afeeee;
+  }
+  100% {
+    color: #ff69b4;
+  }
 }
