@@ -1,40 +1,47 @@
 /* =========================================================
-   1. BACKGROUND — Multicolored gradient for the whole page
+   1. RESET & BASE STYLES
    ========================================================= */
 body,
 html {
   height: 100%;
   margin: 0;
   padding: 0;
-  color: #f7f8fa;
+  color: var(--color-text);
   font-family: "Inter", system-ui, sans-serif;
-  background: linear-gradient(-45deg, #1e1e2f, #383869, #5643fd, #232346);
+  background: linear-gradient(
+    -45deg,
+    var(--gradient-start),
+    var(--gradient-mid1),
+    var(--gradient-mid2),
+    var(--gradient-end)
+  );
   background-size: 400% 400%;
   animation: shimmer 18s ease infinite;
+}
 
-  @keyframes shimmer {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
 /* =========================================================
-   2. FORM — Card in the center with site header inside
+   2. LAYOUT COMPONENTS
    ========================================================= */
+/* Main Form Container */
 .form-card {
-  background: #121212;
-  color: #f7f8fa;
+  background: var(--color-background);
+  color: var(--color-text);
   max-width: 650px;
   margin: 3.5rem auto;
   border-radius: 20px;
-  box-shadow: 0 4px 32px #0006;
+  box-shadow: var(--shadow-md);
   padding: 2.4rem 1.7rem 2.2rem 1.7rem;
   display: flex;
   flex-direction: column;
@@ -49,9 +56,9 @@ html {
   text-align: center;
   /* color: #cceecc;
   color: #ffd580; */
-  color: #ffd86a;
+  color: var(--color-secondary);
   margin-bottom: 1em;
-  border-bottom: 3px solid #ffd86a;
+  border-bottom: 3px solid var(--color-secondary);
   border-radius: 0;
   background: transparent;
   padding-bottom: 0.4em;
@@ -59,26 +66,24 @@ html {
   letter-spacing: 1px;
 }
 
-/* =========================================================
-   3. FORM SUBSECTIONS — Each area with internal headers
-   ========================================================= */
+/* Form Sections */
 .form-section {
-  background: #232346e8;
+  background: var(--color-form-bg);
   border-radius: 13px;
-  box-shadow: 0 1px 8px #0002;
+  box-shadow: 0 1px 8px var(--color-shadow-light);
   margin-bottom: 1.2em;
   padding: 1.25rem 1.25rem 1rem 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 1.1em;
-  border: 2px solid #ffd86a;
+  border: 2px solid var(--color-secondary);
   position: relative;
-  box-shadow: 0 2px 14px #0002;
+  box-shadow: 0 2px 14px var(--shadow-sm);
 }
 .form-section-header {
   font-size: 1.18rem;
   font-weight: 650;
-  color: #7fd3ff;
+  color: var(--color-primary);
   margin-bottom: 0.8em;
   display: flex;
   align-items: center;
@@ -86,15 +91,45 @@ html {
   letter-spacing: 0.03em;
 }
 
-label {
+/* Specific Section Styles */
+#section-costs {
+  background: var(--color-form-bg);
+  border-radius: 13px;
+  box-shadow: 0 1px 8px var(--color-shadow-light);
+  margin-bottom: 1.2em;
+  padding: 1.25rem 1.25rem 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1em;
+  border: 2px solid var(--color-secondary);
+  position: relative;
+}
+
+#header-costs {
+  font-size: 1.18rem;
+  font-weight: 650;
+  color: var(--color-primary);
+  margin-bottom: 0.8em;
+  display: flex;
+  align-items: center;
+  gap: 0.55em;
+  letter-spacing: 0.03em;
+}
+
+/* =========================================================
+   3. FORM CONTROLS
+   ========================================================= */
+/* Labels */
+.label-input,
+.label-output {
   font-weight: 500;
-  color: #f0f4fa;
+  color: var(--color-secondary); /* Changed from var(--color-label) */
   margin-bottom: 0.11em;
   letter-spacing: 0.01em;
   margin-top: 0.35em;
 }
 
-/* ========== INPUT FIELD COLORS ========== */
+/* Inputs & Selects */
 input[type="text"],
 input[type="number"],
 select {
@@ -102,56 +137,67 @@ select {
   padding: 0.62em 0.8em;
   margin-top: 0.18em;
   font-size: 1rem;
-  background: #181833;
-  color: #f7f8fa;
-  border: 2px solid #ef4444; /* Default: Red border */
+  background: var(--color-input-bg);
+  color: var(--color-text);
+  border: 2px solid var(--color-input-border); /* Default: Red border */
   border-radius: 7px;
   outline: none;
   box-sizing: border-box;
   transition: border 0.17s, box-shadow 0.17s;
 }
 
-/* On focus (clicked or tabbed in): Hot pink border */
+/* Input States */
 input[type="text"]:focus,
 input[type="number"]:focus,
 select:focus {
-  border-color: #ff69b4;
-  box-shadow: 0 0 0 2px #ff69b433;
-  outline: 2.5px solid #ffd86a; /* optional */
-  outline-offset: 2px; /* optional */
+  border-color: var(--color-input-focus);
+  box-shadow: 0 0 0 2px var(--color-focus-shadow);
+  outline: 2.5px solid var(--color-secondary);
+  outline-offset: 2px;
 }
 
-/* On valid input: Green border */
 input[type="text"]:valid,
-input[type="number"]:valid {
-  border-color: #22c55e;
-}
+input[type="number"]:valid,
 select:valid {
-  border-color: #22c55e;
+  border-color: --color-success;
 }
 
-/* Flex row layout for grouped fields */
-.flex-group {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-.flex-group > * {
-  flex: 1;
-}
-
-/* Output fields */
+/* Output Fields */
 .output-field {
-  margin: 0.48em 0;
-  color: #60a5fa;
-  font-weight: 600;
-  font-size: 1.02rem;
+  width: 100%;
+  padding: 0.62em 0.8em;
+  margin-top: 0.18em;
+  font-size: 1rem;
+  background: var(--color-input-bg);
+  color: var(--color-output);
+  border: 2px solid var(--color-input-border);
+  border-radius: 7px;
   min-height: 1.7em;
-  background: transparent;
+  font-weight: 600;
+  user-select: none;
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.9;
+  box-sizing: border-box;
+}
+
+.output-field:empty::before {
+  content: "Auto-Berechnung 🧮";
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-placeholder);
+}
+
+.output-field:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 /* =========================================================
-   4. BUTTONS — Colored backgrounds, white bold text, correct icons
+   4. BUTTONS & INTERACTIONS
    ========================================================= */
 .buttons {
   display: flex;
@@ -170,142 +216,126 @@ select:valid {
   font-size: 1.07em;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 2px 10px #0002;
+  box-shadow: var(--shadow-sm);
   outline: none;
   user-select: none;
   transition: all 0.3s ease;
-  color: #fff; /* White text and icon */
-  background: #1a1b1f; /* Darker background to make gradient text visible */
+  color: var(--color-text);
+  background: var(--color-button-bg);
 }
 
-/* Bewerten: Green background, ☑ icon */
-.buttons button:nth-child(1) {
-  background: #22c55e;
-}
+/* Button Types */
+.buttons button:nth-child(1),
 .buttons button:nth-child(1)::before {
+  background: var(--color-success);
   content: "☑";
   font-size: 1.12em;
 }
 
-/* Reset: Red background, 🗑️ icon */
-.buttons button:nth-child(2) {
-  background: #ef4444;
-}
+.buttons button:nth-child(2),
 .buttons button:nth-child(2)::before {
+  background: var(--color-error);
   content: "🗑️";
   font-size: 1.12em;
 }
 
-/* TEST: Orange background, 🧪 icon */
-.buttons button:nth-child(3) {
-  background: #f59e42;
-}
+.buttons button:nth-child(3),
 .buttons button:nth-child(3)::before {
+  background: var(--color-warning);
   content: "🧪";
   font-size: 1.12em;
 }
 
-.buttons button:focus {
+/* Button States */
+.buttons button:focus,
+.buttons button:hover,
+.buttons button:active {
   outline: none;
   transform: scale(1.04);
   border: 3px solid transparent;
-  animation: gradientBorder 12s ease infinite,
+  animation: gradientAnimation 12s ease infinite,
     /* Changed from 6s to 12s */ gradientText 12s ease infinite; /* Changed from 6s to 12s */
-  box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
-  background: #1a1b1f; /* Ensure dark background when focused */
+  box-shadow: 0 0 15px var(--color-button-shadow);
+  background: var(--color-button-bg); /* Ensure dark background when focused */
 }
 
-.buttons button:active {
-  filter: brightness(0.96);
-  /* Keep the animation running during active state */
-  animation: gradientBorder 12s ease infinite; /* Changed from 6s to 12s */
-}
-
-.buttons button:hover {
-  filter: brightness(1.09);
-  border: 3px solid transparent;
-  animation: gradientBorder 12s ease infinite,
-    /* Changed from 6s to 12s */ gradientText 12s ease infinite; /* Changed from 6s to 12s */
-  outline: none;
-  background: #1a1b1f;
-}
-
-/* Update icon animations */
-.buttons button:focus::before,
-.buttons button:hover::before {
-  animation: gradientText 12s ease infinite; /* Changed from 6s to 12s */
-}
-
-/* Keep original button colors for non-hover/focus state */
-.buttons button:nth-child(1) {
-  background: #22c55e;
-}
-.buttons button:nth-child(2) {
-  background: #ef4444;
-}
-.buttons button:nth-child(3) {
-  background: #f59e42;
-}
-
-/* Remove previous animations when not hovered/focused */
-.buttons button:not(:hover):not(:focus) {
-  animation: none;
-  color: #fff;
+/* Animation */
+@keyframes gradientAnimation {
+  0% {
+    border-color: var(--anim-color-1);
+    color: var(--anim-color-1);
+  }
+  25% {
+    border-color: var(--anim-color-2);
+    color: var(--anim-color-2);
+  }
+  50% {
+    border-color: var(--anim-color-3);
+    color: var(--anim-color-3);
+  }
+  75% {
+    border-color: var(--anim-color-4);
+    color: var(--anim-color-4);
+  }
+  100% {
+    border-color: var(--anim-color-1);
+    color: var(--anim-color-1);
+  }
 }
 
 /* =========================================================
-   5. RESULTS PLACEHOLDER (after Bewerten)
-      - Divided into Fazit & Detaillierte Analyse
+   5. RESULTS DISPLAY
    ========================================================= */
 .results-placeholder {
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
-  background: #21193aee;
-  border: 2px solid #7fd3ff;
+  background: var(--color-results-bg);
+  border: 2px solid var(--color-primary);
   border-radius: 15px;
   margin: 2.3rem 0 0 0;
   padding: 1.2rem 1.1rem 1.1rem 1.1rem;
-  box-shadow: 0 3px 18px #0002;
+  box-shadow: var(--shadow-sm2);
 }
 
-.fazit-section {
+.fazit-section,
+.fazit-section-header {
   padding: 1.2em;
-  background: #222944cc;
+  background: var(--color-fazit-bg);
   border-radius: 12px;
   margin-bottom: 1em;
-  border-left: 4px solid #22c55e;
-}
-.fazit-section-header {
-  font-size: 1.08rem;
-  font-weight: 700;
-  color: #22c55e;
-  margin-bottom: 0.6em;
+  border-left: 4px solid var(--color-success);
 }
 
-.analyse-section {
-  padding: 1.2em;
-  background: #25194acc;
-  border-radius: 12px;
-  border-left: 4px solid #60a5fa;
-}
+.analyse-section,
 .analyse-section-header {
-  font-size: 1.08rem;
-  font-weight: 700;
-  color: #60a5fa;
-  margin-bottom: 0.6em;
+  padding: 1.2em;
+  background: var(--color-analyse-bg);
+  border-radius: 12px;
+  border-left: 4px solid var(--color-output);
 }
 
-/* Validation warning */
+/* =========================================================
+   6. UTILITIES
+   ========================================================= */
+.flex-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.flex-group > * {
+  flex: 1;
+}
+
 .warning {
-  color: #ef4444;
+  color: var(--color-error);
   font-size: 0.97em;
   margin-top: 0.25em;
   display: none;
 }
 
 /* =========================================================
-   6. RESPONSIVE DESIGN
+   7. RESPONSIVE DESIGN
    ========================================================= */
 @media (max-width: 800px) {
   .form-card,
@@ -335,97 +365,31 @@ select:valid {
 }
 
 /* =========================================================
-   7. ACCESSIBILITY & INPUTS
+   8. ACCESSIBILITY & INPUTS
    ========================================================= */
+/* Minimum touch targets */
 input,
 select,
 button {
   min-height: 44px;
 }
+
 button:focus-visible {
-  outline: 2.5px solid #ffd86a;
+  outline: 2.5px solid var(--color-secondary);
 }
 
-/* Default placeholder color for all input fields */
-::-webkit-input-placeholder {
-  color: #aaaabf;
-}
-::-moz-placeholder {
-  color: #aaaabf;
-}
+/* Placeholders */
+::placeholder,
+::-webkit-input-placeholder,
+::-moz-placeholder,
 :-ms-input-placeholder {
-  color: #aaaabf;
-}
-::placeholder {
-  color: #aaaabf;
+  color: var(--color-placeholder);
 }
 
-/* ================================================
-   CLASS: .placeholder-italic
-   Usage: Add this class to any <input> to make its
-   placeholder text appear in italic style.
-   Example: <input class="placeholder-italic" ... />
-   ================================================ */
-
-/* Standard modern browsers */
-.placeholder-italic::placeholder {
-  font-style: italic;
-}
-
-/* Chrome, Safari, newer Edge (WebKit browsers) */
-.placeholder-italic::-webkit-input-placeholder {
-  font-style: italic;
-}
-
-/* Firefox (Mozilla browsers) */
-.placeholder-italic::-moz-placeholder {
-  font-style: italic;
-}
-
-/* Internet Explorer 10-11 */
-.placeholder-italic:-ms-input-placeholder {
-  font-style: italic;
-}
-
-/* Legacy Edge, some older browsers */
+.placeholder-italic::placeholder,
+.placeholder-italic::-webkit-input-placeholder,
+.placeholder-italic::-moz-placeholder,
+.placeholder-italic::-ms-input-placeholder,
 .placeholder-italic::-ms-input-placeholder {
   font-style: italic;
-}
-
-/* Multicolr border on buttons */
-@keyframes gradientBorder {
-  0% {
-    border-color: #ff69b4;
-  }
-  25% {
-    border-color: #afeeee;
-  }
-  50% {
-    border-color: #ffd86a;
-  }
-  75% {
-    border-color: #afeeee;
-  }
-  100% {
-    border-color: #ff69b4;
-  }
-}
-
-/* First, add a new text color animation */
-@keyframes gradientText {
-  0% {
-    color: #ff69b4;
-  }
-  25% {
-    color: #afeeee;
-  }
-  50% {
-    color: #ffd86a;
-  }
-  75% {
-    color: #afeeee;
-  }
-  100% {
-    color: #ff69b4;
-  }
 }

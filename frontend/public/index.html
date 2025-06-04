@@ -10,6 +10,7 @@
       href="favicon_house_16x16.png"
       sizes="16x16"
     />
+    <link rel="stylesheet" href="colors.css" />
     <link rel="stylesheet" href="global.css" />
   </head>
   <body>
@@ -20,7 +21,7 @@
         <div class="form-section-header" id="header-inseratsdaten">
           📥 Inseratsdaten
         </div>
-        <label for="listingUrl">
+        <label class="label-input" for="listingUrl">
           URL (Inserat)
           <input
             type="text"
@@ -34,7 +35,7 @@
           >
         </label>
         <div class="flex-group" id="flex-inseratsdaten">
-          <label for="propertyType">
+          <label class="label-input" for="propertyType">
             Immobilientyp
             <select id="propertyType">
               <option value="">Bitte auswählen</option>
@@ -42,7 +43,7 @@
               <option value="apartment">Eigentumswohnung</option>
             </select>
           </label>
-          <label for="agentType">
+          <label class="label-input" for="agentType">
             Anbieter
             <select id="agentType">
               <option value="">Bitte auswählen</option>
@@ -59,7 +60,7 @@
           📊 Immobiliendaten
         </div>
         <div class="flex-group" id="flex-immofields-1">
-          <label for="size">
+          <label class="label-input" for="size">
             Wohnfläche (m²)
             <input
               type="number"
@@ -72,7 +73,7 @@
             />
             <span class="warning" id="warn-size"></span>
           </label>
-          <label for="rooms">
+          <label class="label-input" for="rooms">
             Zimmer
             <select id="rooms">
               <option value="">Bitte auswählen</option>
@@ -86,44 +87,34 @@
           </label>
         </div>
         <div class="flex-group" id="flex-immofields-2">
-          <label for="purchasePrice">
+          <label class="label-input" for="purchasePrice">
             Kaufpreis (€)
             <input
               type="number"
               id="purchasePrice"
               class="placeholder-italic"
               min="1"
-              placeholder="z. B. 250000"
-              step="500"
+              placeholder="z. B. 100000"
+              step="1000"
             />
             <span class="warning" id="warn-purchasePrice"></span>
           </label>
-          <label for="output-qmPreis">
-            Quadratmeterpreis (€)
-            <div class="output-field" id="output-qmPreis"></div>
-          </label>
-        </div>
-        <div class="flex-group" id="flex-immofields-3">
-          <label for="rentPerM2">
+          <label class="label-input" for="rentPerM2">
             Miete pro m² (€)
             <input
               type="number"
               id="rentPerM2"
               class="placeholder-italic"
-              min="1"
-              max="99999"
-              placeholder="z. B. 10"
-              step="0.5"
+              min="0.01"
+              max="99.99"
+              placeholder="z. B. 8.50"
+              step="0.01"
             />
             <span class="warning" id="warn-rentPerM2"></span>
           </label>
-          <label for="output-annualRent">
-            Jahresnettomiete (€)
-            <div class="output-field" id="output-annualRent"></div>
-          </label>
         </div>
-        <div class="flex-group" id="flex-immofields-4">
-          <label for="hoa">
+        <div class="flex-group" id="flex-immofields-3">
+          <label class="label-input" for="hoa">
             Hausgeld (monatlich, €)
             <input
               type="number"
@@ -136,7 +127,7 @@
             />
             <span class="warning" id="warn-hoa"></span>
           </label>
-          <label for="location">
+          <label class="label-input" for="location">
             Lage
             <select id="location">
               <option value="">Bitte auswählen</option>
@@ -148,13 +139,13 @@
           </label>
         </div>
         <div class="flex-group">
-          <label for="output-addCosts">
-            Kaufnebenkosten (~10% Kaufpreis, €)
-            <div class="output-field" id="output-addCosts"></div>
+          <label class="label-output" for="output-qmPreis">
+            Quadratmeterpreis (€)
+            <div class="output-field" id="output-qmPreis"></div>
           </label>
-          <label for="output-effPurchasePrice">
-            Effektiver Kaufpreis (€)
-            <div class="output-field" id="output-effPurchasePrice"></div>
+          <label class="label-output" for="output-annualRent">
+            Jahresnettomiete (€)
+            <div class="output-field" id="output-annualRent"></div>
           </label>
         </div>
       </section>
@@ -165,7 +156,7 @@
           💶 Finanzierung
         </div>
         <div class="flex-group" id="flex-finanzierung-1">
-          <label for="equity">
+          <label class="label-input" for="equity">
             Eigenkapital (€)
             <input
               type="number"
@@ -179,7 +170,7 @@
           </label>
         </div>
         <div class="flex-group" id="flex-finanzierung-2">
-          <label for="interestRate">
+          <label class="label-input" for="interestRate">
             Zinssatz (%)
             <input
               type="number"
@@ -191,7 +182,7 @@
             />
             <span class="warning" id="warn-interestRate"></span>
           </label>
-          <label for="repaymentRate">
+          <label class="label-input" for="repaymentRate">
             Tilgungssatz (%)
             <input
               type="number"
@@ -204,7 +195,7 @@
             <span class="warning" id="warn-repaymentRate"></span>
           </label>
         </div>
-        <label for="output-loanPayment">
+        <label class="label-output" for="output-loanPayment">
           Monatliche Kreditrate (€)
           <div class="output-field" id="output-loanPayment"></div>
         </label>
@@ -216,7 +207,7 @@
           🏗️ Gebäudezustand
         </div>
         <div class="flex-group" id="flex-gebaeude">
-          <label for="yearBuilt">
+          <label class="label-input" for="yearBuilt">
             Baujahr
             <select id="yearBuilt">
               <option value="">Bitte auswählen</option>
@@ -225,7 +216,7 @@
               <option value="post2000">≥2000</option>
             </select>
           </label>
-          <label for="energyClass">
+          <label class="label-input" for="energyClass">
             Energieeffizienz
             <select id="energyClass">
               <option value="">Bitte auswählen</option>
@@ -235,7 +226,7 @@
               <option value="e">E oder schlechter</option>
             </select>
           </label>
-          <label for="condition">
+          <label class="label-input" for="condition">
             Zustand
             <select id="condition">
               <option value="">Bitte auswählen</option>
@@ -245,9 +236,24 @@
             </select>
           </label>
         </div>
-        <label for="output-renoCost">
-          Geschätzte Renovierungskosten (€)
-          <div class="output-field" id="output-renoCost"></div>
+      </section>
+
+      <!-- Kosten -->
+      <section class="form-section" id="section-costs">
+        <div class="form-section-header" id="header-costs">💰 Kosten</div>
+        <div class="flex-group">
+          <label class="label-output" for="output-addCosts">
+            Kaufnebenkosten (~10% Kaufpreis, €)
+            <div class="output-field" id="output-addCosts"></div>
+          </label>
+          <label class="label-output" for="output-renoCost">
+            Geschätzte Renovierungskosten (€)
+            <div class="output-field" id="output-renoCost"></div>
+          </label>
+        </div>
+        <label class="label-output" for="output-effPurchasePrice">
+          Effektiver Kaufpreis (€)
+          <div class="output-field" id="output-effPurchasePrice"></div>
         </label>
       </section>
 
