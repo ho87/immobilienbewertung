@@ -1,0 +1,6 @@
+- Quadratmeterpreis (output-qmPreis):  purchasePrice / size
+- Jahresnettomiete: rentPerM2 * size * 12
+- Monatliche Kreditrate: ((purchasePrice-equity) * ((interestRate/100) + (repaymentRate/100))) /12
+- Kaufnebenkosten: purchasePrice * 0,1 (mit provision) oder purchasePrice * 0,05 (ohne provision)
+- Geschätzte Renovierungskosten: purchasePrice * 0,08
+- Effektiver Kaufpreis: purchasePrice + output-renoCost + output-addCosts

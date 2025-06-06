@@ -5,6 +5,7 @@
   /* Core colors palette */
   --color-white: #fff;
   --color-black: #121212;
+  --color-black2: #1E1E1E;
   --color-gray-100: #f7f8fa;
   --color-gray-200: #f0f4fa;
   --color-gray-300: #aaaabf;
@@ -21,7 +22,8 @@
   --color-cyan: #afeeee;
 
   /* Theme colors (using core palette) */
-  --color-background: var(--color-black);
+  /* --color-background: var(--color-black); */
+  --color-background: var(--color-black2); 
   --color-text: var(--color-gray-100);
   --color-text-muted: var(--color-gray-300);
   --color-primary: var(--color-blue-light);

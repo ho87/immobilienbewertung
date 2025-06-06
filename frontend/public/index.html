@@ -63,13 +63,11 @@
           <label class="label-input" for="size">
             Wohnfläche (m²)
             <input
-              type="number"
+              type="text"
               id="size"
               class="placeholder-italic"
-              min="1"
-              max="99999"
+              data-max="99999"
               placeholder="z. B. 50"
-              step="0.5"
             />
             <span class="warning" id="warn-size"></span>
           </label>
@@ -90,25 +88,22 @@
           <label class="label-input" for="purchasePrice">
             Kaufpreis (€)
             <input
-              type="number"
+              type="text"
               id="purchasePrice"
               class="placeholder-italic"
-              min="1"
+              data-max="99999999"
               placeholder="z. B. 100000"
-              step="1000"
             />
             <span class="warning" id="warn-purchasePrice"></span>
           </label>
           <label class="label-input" for="rentPerM2">
             Miete pro m² (€)
             <input
-              type="number"
+              type="text"
               id="rentPerM2"
               class="placeholder-italic"
-              min="0.01"
-              max="99.99"
+              data-max="99999"
               placeholder="z. B. 8.50"
-              step="0.01"
             />
             <span class="warning" id="warn-rentPerM2"></span>
           </label>
@@ -117,13 +112,11 @@
           <label class="label-input" for="hoa">
             Hausgeld (monatlich, €)
             <input
-              type="number"
+              type="text"
               id="hoa"
               class="placeholder-italic"
-              min="1"
-              max="9999"
+              data-max="99999"
               placeholder="z. B. 120"
-              step="1"
             />
             <span class="warning" id="warn-hoa"></span>
           </label>
@@ -141,11 +134,19 @@
         <div class="flex-group">
           <label class="label-output" for="output-qmPreis">
             Quadratmeterpreis (€)
-            <div class="output-field" id="output-qmPreis"></div>
+            <div
+              class="output-field"
+              id="output-qmPreis"
+              data-max="99999"
+            ></div>
           </label>
           <label class="label-output" for="output-annualRent">
             Jahresnettomiete (€)
-            <div class="output-field" id="output-annualRent"></div>
+            <div
+              class="output-field"
+              id="output-annualRent"
+              data-max="9999999"
+            ></div>
           </label>
         </div>
       </section>
@@ -159,12 +160,11 @@
           <label class="label-input" for="equity">
             Eigenkapital (€)
             <input
-              type="number"
+              type="text"
               id="equity"
               class="placeholder-italic"
-              min="1"
+              data-max="9999999"
               placeholder="z. B. 10000"
-              step="500"
             />
             <span class="warning" id="warn-equity"></span>
           </label>
@@ -173,31 +173,33 @@
           <label class="label-input" for="interestRate">
             Zinssatz (%)
             <input
-              type="number"
+              type="text"
               id="interestRate"
-              min="0.01"
-              max="20"
-              value="3"
-              step="0.01"
+              class="placeholder-italic"
+              data-max="20"
+              placeholder="z. B. 3"
             />
             <span class="warning" id="warn-interestRate"></span>
           </label>
           <label class="label-input" for="repaymentRate">
             Tilgungssatz (%)
             <input
-              type="number"
+              type="text"
               id="repaymentRate"
-              min="0.01"
-              max="20"
-              value="2"
-              step="0.01"
+              class="placeholder-italic"
+              data-max="20"
+              placeholder="z. B. 2"
             />
             <span class="warning" id="warn-repaymentRate"></span>
           </label>
         </div>
         <label class="label-output" for="output-loanPayment">
           Monatliche Kreditrate (€)
-          <div class="output-field" id="output-loanPayment"></div>
+          <div
+            class="output-field"
+            id="output-loanPayment"
+            data-max="999999"
+          ></div>
         </label>
       </section>
 
@@ -244,16 +246,28 @@
         <div class="flex-group">
           <label class="label-output" for="output-addCosts">
             Kaufnebenkosten (~10% Kaufpreis, €)
-            <div class="output-field" id="output-addCosts"></div>
+            <div
+              class="output-field"
+              id="output-addCosts"
+              data-max="999999"
+            ></div>
           </label>
           <label class="label-output" for="output-renoCost">
             Geschätzte Renovierungskosten (€)
-            <div class="output-field" id="output-renoCost"></div>
+            <div
+              class="output-field"
+              id="output-renoCost"
+              data-max="99999999"
+            ></div>
           </label>
         </div>
         <label class="label-output" for="output-effPurchasePrice">
           Effektiver Kaufpreis (€)
-          <div class="output-field" id="output-effPurchasePrice"></div>
+          <div
+            class="output-field"
+            id="output-effPurchasePrice"
+            data-max="99999999"
+          ></div>
         </label>
       </section>
 
@@ -282,5 +296,6 @@
         </div>
       </section>
     </div>
+    <script type="module" src="app.js"></script>
   </body>
 </html>
