@@ -279,23 +279,32 @@
       </div>
 
       <!-- Results Placeholder (initially hidden) -->
-      <section
-        class="results-placeholder"
-        id="results-placeholder"
-        style="display: none"
-      >
-        <div class="fazit-section" id="fazit-section">
-          <div class="fazit-section-header" id="header-fazit">Fazit</div>
-          <!-- Fazit content here -->
-        </div>
-        <div class="analyse-section" id="analyse-section">
-          <div class="analyse-section-header" id="header-analyse">
-            Detaillierte Analyse
-          </div>
-          <!-- Analyse content here -->
-        </div>
-      </section>
+      <div id="form-result">
+        <!-- Fazit Section -->
+        <h3 style="display: flex; align-items: center; gap: 0.6em">
+          <span id="result-icon" aria-label="Ergebnis" style="font-size: 1.5em"
+            >👌</span
+          >
+          Fazit
+        </h3>
+        <div class="section-content" id="result-fazit"></div>
+        <!-- Analyse Section -->
+        <h3 style="display: flex; align-items: center; gap: 0.6em">
+          <span aria-label="Detaillierte Analyse" style="font-size: 1.3em"
+            >🔬</span
+          >
+          Detaillierte Analyse
+        </h3>
+        <div class="section-content" id="result-analyse"></div>
+        <!-- Empfehlung Section -->
+        <h3 style="display: flex; align-items: center; gap: 0.6em">
+          <span aria-label="Empfehlung" style="font-size: 1.3em">💡</span>
+          Empfehlung
+        </h3>
+        <div class="section-content" id="result-empfehlung"></div>
+      </div>
     </div>
+    
     <script type="module" src="app.js"></script>
   </body>
 </html>

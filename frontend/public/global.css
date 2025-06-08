@@ -315,6 +315,20 @@ select:valid {
   border-left: 4px solid var(--color-output);
 }
 
+#form-result {
+  display: none;
+  background: var(--color-form-bg);
+  border-radius: 13px;
+  box-shadow: 0 1px 8px var(--color-shadow-light);
+  margin-bottom: 1.2em;
+  padding: 1.25rem 1.25rem 1rem 1.25rem;
+  flex-direction: column;
+  gap: 1.1em;
+  border: 2px solid var(--color-secondary);
+  position: relative;
+  box-shadow: 0 2px 14px var(--shadow-sm);
+}
+
 /* =========================================================
    6. UTILITIES
    ========================================================= */
@@ -335,7 +349,7 @@ select:valid {
 }
 
 .warning.visible {
-    display: block;
+  display: block;
 }
 
 /* =========================================================

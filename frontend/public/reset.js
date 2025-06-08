@@ -50,5 +50,9 @@ export function initReset() {
       warn.textContent = "";
       warn.style.display = "none";
     });
+
+    // Hide the result form
+    const resultDiv = document.getElementById("form-result");
+    if (resultDiv) resultDiv.style.display = "none";
   });
 }
