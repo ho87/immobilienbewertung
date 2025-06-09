@@ -2,9 +2,9 @@
 
 	📰 Headers
 
-	🏘️ Immobilienbewertung: id="site-header">
+	🏘️ Immobilienbewertung: id="site-header"
 
-	📥 Inseratsdaten: id="header-inseratsdaten">
+	📥 Inseratsdaten: id="header-inseratsdaten"
 
 	📊 Immobiliendaten: id="header-immobiliendaten"
 	

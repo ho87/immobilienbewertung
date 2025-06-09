@@ -16,8 +16,13 @@
   <body>
     <div class="form-card" id="form-card">
       <div class="site-header" id="site-header">🏘️ Immobilienbewertung</div>
+
       <!-- Inseratsdaten -->
       <section class="form-section" id="section-inseratsdaten">
+        <!-- Legend for required fields -->
+        <div class="legend-required">
+          <span class="legend-asterisk">*</span> Pflichtfeld
+        </div>
         <div class="form-section-header" id="header-inseratsdaten">
           📥 Inseratsdaten
         </div>
@@ -36,16 +41,16 @@
         </label>
         <div class="flex-group" id="flex-inseratsdaten">
           <label class="label-input" for="propertyType">
-            Immobilientyp
-            <select id="propertyType">
+            <span class="legend-asterisk">*</span> Immobilientyp
+            <select id="propertyType" required>
               <option value="">Bitte auswählen</option>
               <option value="house">Haus</option>
               <option value="apartment">Eigentumswohnung</option>
             </select>
           </label>
           <label class="label-input" for="agentType">
-            Anbieter
-            <select id="agentType">
+            <span class="legend-asterisk">*</span> Anbieter
+            <select id="agentType" required>
               <option value="">Bitte auswählen</option>
               <option value="privat">Privat</option>
               <option value="makler">Makler (+3,57% Provision)</option>
@@ -60,14 +65,16 @@
           📊 Immobiliendaten
         </div>
         <div class="flex-group" id="flex-immofields-1">
+          <!-- Wohnfläche (required) -->
           <label class="label-input" for="size">
-            Wohnfläche (m²)
+            <span class="legend-asterisk">*</span> Wohnfläche (m²)
             <input
               type="text"
               id="size"
               class="placeholder-italic"
               data-max="99999"
               placeholder="z. B. 50"
+              required
             />
             <span class="warning" id="warn-size"></span>
           </label>
@@ -85,14 +92,16 @@
           </label>
         </div>
         <div class="flex-group" id="flex-immofields-2">
+          <!-- Kaufpreis (required) -->
           <label class="label-input" for="purchasePrice">
-            Kaufpreis (€)
+            <span class="legend-asterisk">*</span> Kaufpreis (€)
             <input
               type="text"
               id="purchasePrice"
               class="placeholder-italic"
               data-max="99999999"
               placeholder="z. B. 100000"
+              required
             />
             <span class="warning" id="warn-purchasePrice"></span>
           </label>
@@ -120,9 +129,10 @@
             />
             <span class="warning" id="warn-hoa"></span>
           </label>
+          <!-- Lage (required) -->
           <label class="label-input" for="location">
-            Lage
-            <select id="location">
+            <span class="legend-asterisk">*</span> Lage
+            <select id="location" required>
               <option value="">Bitte auswählen</option>
               <option value="top">Toplage</option>
               <option value="good">Gut</option>
@@ -157,38 +167,44 @@
           💶 Finanzierung
         </div>
         <div class="flex-group" id="flex-finanzierung-1">
+          <!-- Eigenkapital (required) -->
           <label class="label-input" for="equity">
-            Eigenkapital (€)
+            <span class="legend-asterisk">*</span> Eigenkapital (€)
             <input
               type="text"
               id="equity"
               class="placeholder-italic"
               data-max="9999999"
               placeholder="z. B. 10000"
+              required
             />
             <span class="warning" id="warn-equity"></span>
           </label>
         </div>
         <div class="flex-group" id="flex-finanzierung-2">
+          <!-- Zinssatz (required) -->
           <label class="label-input" for="interestRate">
-            Zinssatz (%)
+            <span class="legend-asterisk">*</span> Zinssatz (%)
             <input
               type="text"
               id="interestRate"
               class="placeholder-italic"
               data-max="20"
               placeholder="z. B. 3"
+              required
             />
             <span class="warning" id="warn-interestRate"></span>
           </label>
+          <!-- Tilgungssatz (required) -->
           <label class="label-input" for="repaymentRate">
-            Tilgungssatz (%)
+            <span class="legend-asterisk">*</span> Tilgungssatz (%)
             <input
               type="text"
               id="repaymentRate"
               class="placeholder-italic"
               data-max="20"
               placeholder="z. B. 2"
+              required
             />
             <span class="warning" id="warn-repaymentRate"></span>
           </label>
@@ -209,9 +225,10 @@
           🏗️ Gebäudezustand
         </div>
         <div class="flex-group" id="flex-gebaeude">
+          <!-- Baujahr (required) -->
           <label class="label-input" for="yearBuilt">
-            Baujahr
-            <select id="yearBuilt">
+            <span class="legend-asterisk">*</span> Baujahr
+            <select id="yearBuilt" required>
               <option value="">Bitte auswählen</option>
               <option value="pre1970">&lt;1970</option>
               <option value="1970-1999">1970–1999</option>
@@ -228,9 +245,10 @@
               <option value="e">E oder schlechter</option>
             </select>
           </label>
+          <!-- Zustand (required) -->
           <label class="label-input" for="condition">
-            Zustand
-            <select id="condition">
+            <span class="legend-asterisk">*</span> Zustand
+            <select id="condition" required>
               <option value="">Bitte auswählen</option>
               <option value="new">Neuwertig</option>
               <option value="good">Gut</option>
@@ -304,7 +322,7 @@
         <div class="section-content" id="result-empfehlung"></div>
       </div>
     </div>
-    
+
     <script type="module" src="app.js"></script>
   </body>
 </html>
