@@ -15,7 +15,13 @@
   </head>
   <body>
     <div class="form-card" id="form-card">
-      <div class="site-header" id="site-header">🏘️ Immobilienbewertung</div>
+      <div class="site-header" id="site-header">
+        🏘️ Immobilienbewertung
+        <div class="progress-bar-container" id="progress-bar-container">
+          <div class="progress-bar" id="progress-bar"></div>
+          <div class="progress-text" id="progress-text">0%</div>
+        </div>
+      </div>
 
       <!-- Inseratsdaten -->
       <section class="form-section" id="section-inseratsdaten">
@@ -34,6 +40,7 @@
             class="placeholder-italic"
             placeholder="z. B. https://www.immobilienscout24.de/..."
             autocomplete="off"
+            data-form-type="other"
           />
           <span class="warning" id="warn-listingUrl"
             >Bitte geben Sie eine gültige URL ein.</span
@@ -75,6 +82,8 @@
               data-max="99999"
               placeholder="z. B. 50"
               required
+              autocomplete="off"
+              data-form-type="other"
             />
             <span class="warning" id="warn-size"></span>
           </label>
@@ -102,6 +111,8 @@
               data-max="99999999"
               placeholder="z. B. 100000"
               required
+              autocomplete="off"
+              data-form-type="other"
             />
             <span class="warning" id="warn-purchasePrice"></span>
           </label>
@@ -113,6 +124,8 @@
               class="placeholder-italic"
               data-max="99999"
               placeholder="z. B. 8.50"
+              autocomplete="off"
+              data-form-type="other"
             />
             <span class="warning" id="warn-rentPerM2"></span>
           </label>
@@ -126,6 +139,8 @@
               class="placeholder-italic"
               data-max="99999"
               placeholder="z. B. 120"
+              autocomplete="off"
+              data-form-type="other"
             />
             <span class="warning" id="warn-hoa"></span>
           </label>
@@ -177,6 +192,8 @@
               data-max="9999999"
               placeholder="z. B. 10000"
               required
+              autocomplete="off"
+              data-form-type="other"
             />
             <span class="warning" id="warn-equity"></span>
           </label>
@@ -192,6 +209,8 @@
               data-max="20"
               placeholder="z. B. 3"
               required
+              autocomplete="off"
+              data-form-type="other"
             />
             <span class="warning" id="warn-interestRate"></span>
           </label>
@@ -205,6 +224,8 @@
               data-max="20"
               placeholder="z. B. 2"
               required
+              autocomplete="off"
+              data-form-type="other"
             />
             <span class="warning" id="warn-repaymentRate"></span>
           </label>
@@ -296,32 +317,39 @@
         <button type="button" id="btn-test">TEST</button>
       </div>
 
-      <!-- Results Placeholder (initially hidden) -->
-      <div id="form-result">
-        <!-- Fazit Section -->
-        <h3 style="display: flex; align-items: center; gap: 0.6em">
-          <span id="result-icon" aria-label="Ergebnis" style="font-size: 1.5em"
-            >👌</span
-          >
-          Fazit
-        </h3>
-        <div class="section-content" id="result-fazit"></div>
-        <!-- Analyse Section -->
-        <h3 style="display: flex; align-items: center; gap: 0.6em">
-          <span aria-label="Detaillierte Analyse" style="font-size: 1.3em"
-            >🔬</span
-          >
-          Detaillierte Analyse
-        </h3>
-        <div class="section-content" id="result-analyse"></div>
-        <!-- Empfehlung Section -->
-        <h3 style="display: flex; align-items: center; gap: 0.6em">
-          <span aria-label="Empfehlung" style="font-size: 1.3em">💡</span>
-          Empfehlung
-        </h3>
-        <div class="section-content" id="result-empfehlung"></div>
-      </div>
-    </div>
+      <!-- Results Section (initially hidden) -->
+      <div class="form-result" id="form-result">
+  <section class="result-section" id="section-fazit">
+    <header class="result-section-header" id="header-fazit">
+      <span id="result-icon" aria-label="Ergebnis" style="font-size: 1.5em">👌</span>
+      Fazit
+    </header>
+    <div class="section-content" id="result-fazit"></div>
+  </section>
+  <section class="result-section" id="section-analyse">
+    <header class="result-section-header" id="header-analyse">
+      <span aria-label="Detaillierte Analyse" style="font-size: 1.3em">🔬</span>
+      Detaillierte Analyse
+    </header>
+    <div class="section-content" id="result-analyse"></div>
+  </section>
+  <section class="result-section" id="section-empfehlung">
+    <header class="result-section-header" id="header-empfehlung">
+      <span aria-label="Empfehlung" style="font-size: 1.3em">💡</span>
+      Empfehlung
+    </header>
+    <div class="section-content" id="result-empfehlung"></div>
+  </section>
+  <div class="legend-scoring">
+  <strong>Score:</strong>
+  <div class="scoring-badges">
+    <span class="score-badge score-verygood"><span class="score-icon">🔥</span> &gt;90 Sehr Gut</span>
+    <span class="score-badge score-good"><span class="score-icon">👍</span> 80–89 Gut</span>
+    <span class="score-badge score-ok"><span class="score-icon">🤷</span> 70–79 Ok</span>
+    <span class="score-badge score-bad"><span class="score-icon">👎</span> &lt;69 Schlecht</span>
+  </div>
+</div>
+</div>
 
     <script type="module" src="app.js"></script>
   </body>

@@ -2,9 +2,9 @@
 
 	📰 Headers
 
-	🏘️ Immobilienbewertung: id="site-header"
+	🏘️ Immobilienbewertung: id="site-header">
 
-	📥 Inseratsdaten: id="header-inseratsdaten"
+	📥 Inseratsdaten: id="header-inseratsdaten">
 
 	📊 Immobiliendaten: id="header-immobiliendaten"
 	
@@ -21,7 +21,13 @@
 	💶 Finanzierung: id="section-finanzierung"
 
 	🏗️ Gebäudezustand: id="section-gebaeude"
-
+	
+	👌 Fazit: id="result-fazit"
+	
+	🔬 Detaillierte Analyse: id="result-analyse"
+	
+	💡 Empfehlung: id="result-empfehlung"
+	
 🖊️ Inputfields
 
 	URL (Inserat): id="listingUrl"

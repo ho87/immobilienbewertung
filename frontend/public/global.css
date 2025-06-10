@@ -54,16 +54,83 @@ html {
   font-size: 2.1rem;
   font-weight: 800;
   text-align: center;
-  /* color: #cceecc;
-  color: #ffd580; */
   color: var(--color-secondary);
   margin-bottom: 1em;
-  border-bottom: 3px solid var(--color-secondary);
-  border-radius: 0;
+  border-bottom: 2px solid var(--color-secondary);
+  transition: border-bottom 0.3s ease;
+  position: relative;
   background: transparent;
-  padding-bottom: 0.4em;
+  padding-bottom: 2.2em;
   box-shadow: none;
   letter-spacing: 1px;
+}
+
+.site-header.progress-active {
+  border-bottom: none;
+}
+
+/* Progress Bar Styles */
+.progress-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px; /* Match border-bottom width */
+  background: var(--color-secondary);
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+.progress-container.active {
+  opacity: 1;
+  height: 4px; /* Slightly thicker when active */
+}
+
+.progress-bar-container {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 28px; /* Increased height */
+  background: var(--color-secondary);
+  border-radius: 100px;
+  overflow: hidden;
+  display: none;
+}
+
+.progress-bar-container.active {
+  display: block;
+}
+
+.progress-bar {
+  width: 0;
+  height: 100%;
+  background: var(--progress-red); /* Default starting color */
+  transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  position: relative;
+  border-radius: 100px;
+}
+
+.progress-text {
+  position: absolute;
+  left: 50%; /* Center horizontally */
+  top: 50%; /* Center vertically */
+  transform: translate(-50%, -50%); /* Perfect centering */
+  color: #fff;
+  font-size: 0.85em; /* Reduced from 1.2em */
+  font-weight: 600;
+  z-index: 1;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 540px) {
+  .progress-bar-container {
+    height: 22px;
+  }
+  .progress-text {
+    font-size: 0.75em; /* Reduced from 1em */
+  }
 }
 
 /* Form Sections */
@@ -286,36 +353,7 @@ select:valid {
 /* =========================================================
    5. RESULTS DISPLAY
    ========================================================= */
-.results-placeholder {
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-  background: var(--color-results-bg);
-  border: 2px solid var(--color-primary);
-  border-radius: 15px;
-  margin: 2.3rem 0 0 0;
-  padding: 1.2rem 1.1rem 1.1rem 1.1rem;
-  box-shadow: var(--shadow-sm2);
-}
-
-.fazit-section,
-.fazit-section-header {
-  padding: 1.2em;
-  background: var(--color-fazit-bg);
-  border-radius: 12px;
-  margin-bottom: 1em;
-  border-left: 4px solid var(--color-success);
-}
-
-.analyse-section,
-.analyse-section-header {
-  padding: 1.2em;
-  background: var(--color-analyse-bg);
-  border-radius: 12px;
-  border-left: 4px solid var(--color-output);
-}
-
-#form-result {
+.form-result {
   display: none;
   background: var(--color-form-bg);
   border-radius: 13px;
@@ -329,6 +367,32 @@ select:valid {
   box-shadow: 0 2px 14px var(--shadow-sm);
 }
 
+/* Section headers */
+.result-section-header {
+  font-size: 1.18rem;
+  font-weight: 650;
+  color: var(--color-primary);
+  margin-bottom: 0.5em;
+  display: flex;
+  align-items: center;
+  gap: 0.55em;
+  letter-spacing: 0.03em;
+  background: transparent;
+  border: none;
+  padding: 0.3em 0 0.3em 0;
+}
+
+#section-fazit {
+  border-left: 5px solid var(--color-green);
+}
+
+#section-analyse {
+  border-left: 5px solid var(--color-blue-light);
+}
+
+#section-empfehlung {
+  border-left: 5px solid var(--color-orange);
+}
 /* =========================================================
    6. UTILITIES
    ========================================================= */
@@ -356,7 +420,7 @@ select:valid {
 .legend-required {
   margin: 0.01em 0;
   font-size: 0.98em;
-  color: var(--color-secondary);
+  color: var(--color-error);
   display: flex;
   align-items: center;
   gap: 0.4em;
@@ -366,6 +430,64 @@ select:valid {
   color: var(--color-error);
   font-weight: bold;
   font-size: 1.1em;
+}
+
+.legend-scoring {
+  margin-top: 1.2em;
+  font-size: 0.98em;
+  color: var(--color-error);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  padding-left: 0.1em;
+}
+.legend-scoring strong {
+  margin-bottom: 0.2em;
+  color: var(--color-error);
+  font-weight: 600;
+}
+.scoring-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+.score-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0.18em 0.7em;
+  border-radius: 1.2em;
+  font-weight: 500;
+  font-size: 1em;
+  background: var(--color-form-bg);
+  border: 1.5px solid var(--color-secondary);
+  box-shadow: 0 1px 4px var(--color-shadow-light);
+  white-space: nowrap;
+}
+.score-badge .score-icon {
+  font-size: 1.18em;
+  margin-right: 0.15em;
+  vertical-align: middle;
+}
+.score-verygood {
+  background: var(--score-verygood-bg);
+  border-color: var(--score-verygood-border);
+  color: var(--score-verygood-text);
+}
+.score-good {
+  background: var(--score-good-bg);
+  border-color: var(--score-good-border);
+  color: var(--score-good-text);
+}
+.score-ok {
+  background: var(--score-ok-bg);
+  border-color: var(--score-ok-border);
+  color: var(--score-ok-text);
+}
+.score-bad {
+  background: var(--score-bad-bg);
+  border-color: var(--score-bad-border);
+  color: var(--score-bad-text);
 }
 
 /* =========================================================

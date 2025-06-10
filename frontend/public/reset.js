@@ -3,6 +3,13 @@ export function initReset() {
   if (!btn) return;
 
   btn.addEventListener("click", () => {
+    // Get the form element
+    const form = document.querySelector("form");
+    if (form) {
+      // Native form reset to clear browser's form history
+      form.reset();
+    }
+
     // Input fields to clear
     [
       "listingUrl",
@@ -15,7 +22,11 @@ export function initReset() {
       "repaymentRate",
     ].forEach((id) => {
       const el = document.getElementById(id);
-      if (el) el.value = "";
+      if (el) {
+        el.value = "";
+        // Clear browser's autocomplete history for this field
+        el.setAttribute("autocomplete", "off");
+      }
     });
 
     // Dropdowns to reset
@@ -54,5 +65,20 @@ export function initReset() {
     // Hide the result form
     const resultDiv = document.getElementById("form-result");
     if (resultDiv) resultDiv.style.display = "none";
+
+    // Reset progress bar
+    const progressContainer = document.getElementById("progress-bar-container");
+    const progressBar = document.getElementById("progress-bar");
+    const progressText = document.getElementById("progress-text");
+
+    if (progressContainer) {
+      progressContainer.classList.remove("active");
+    }
+    if (progressBar) {
+      progressBar.style.width = "0%";
+    }
+    if (progressText) {
+      progressText.textContent = "0%";
+    }
   });
 }

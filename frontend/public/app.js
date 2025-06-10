@@ -5,6 +5,7 @@ import { initEventHandlers } from "./eventHandlers.js";
 import { initTest } from "./TEST.js";
 import { initReset } from "./reset.js";
 import { initBewerten } from "./bewerten.js";
+import { initProgressBar } from "./progressBar.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initNumberFormatting();
@@ -14,4 +15,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initTest();
   initReset();
   initBewerten();
+  initProgressBar();
 });
