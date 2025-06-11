@@ -56,11 +56,10 @@ html {
   text-align: center;
   color: var(--color-secondary);
   margin-bottom: 1em;
-  border-bottom: 2px solid var(--color-secondary);
-  transition: border-bottom 0.3s ease;
+  border-bottom: 3px solid var(--color-secondary);
   position: relative;
   background: transparent;
-  padding-bottom: 2.2em;
+  padding-bottom: 0.8em;
   box-shadow: none;
   letter-spacing: 1px;
 }
@@ -89,18 +88,56 @@ html {
 
 .progress-bar-container {
   position: absolute;
-  bottom: -2px;
+  position: relative;
   left: 0;
   width: 100%;
-  height: 28px; /* Increased height */
-  background: var(--color-secondary);
+  height: 28px;
+  background: var(--color-cyan);
+  background: var(--color-cyan);
   border-radius: 100px;
   overflow: hidden;
-  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.4s ease;
+  z-index: 10;
+  margin-top: 0.7rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid transparent;
+  transition: opacity 0.3s ease, transform 0.4s ease, border-color 0.3s ease;
+  transition: opacity 0.3s ease, border-color 0.3s ease;
+}
+
+.progress-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  width: 4px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  /* Add white border using box-shadow */
+  box-shadow: 0 0 0 1px var(--color-white);
+}
+
+.progress-marker-33 {
+  left: 33%;
+  background: var(--progress-two);
+}
+
+.progress-marker-66 {
+  left: 66%;
+  background: var(--progress-three);
+}
+
+/* Make markers more visible when progress is near them */
+.progress-marker.active {
+  opacity: 1;
+  width: 6px;
+  /* Increase white border when active */
+  box-shadow: 0 0 0 1.5px var(--color-white);
 }
 
 .progress-bar-container.active {
-  display: block;
+  opacity: 1;
 }
 
 .progress-bar {
@@ -190,7 +227,7 @@ html {
 .label-input,
 .label-output {
   font-weight: 500;
-  color: var(--color-secondary); /* Changed from var(--color-label) */
+  color: var(--color-secondary); 
   margin-bottom: 0.11em;
   letter-spacing: 0.01em;
   margin-top: 0.35em;
@@ -206,27 +243,45 @@ select {
   font-size: 1rem;
   background: var(--color-input-bg);
   color: var(--color-text);
-  border: 2px solid var(--color-input-border); /* Default: Red border */
+  border: 2px solid var(--progress-one); /* Default: Red */
   border-radius: 7px;
   outline: none;
   box-sizing: border-box;
-  transition: border 0.17s, box-shadow 0.17s;
+  transition: all 0.2s ease-in-out;
 }
 
-/* Input States */
+/* Focus State */
 input[type="text"]:focus,
 input[type="number"]:focus,
 select:focus {
-  border-color: var(--color-input-focus);
+  border-color: var(--progress-two); /* Focus: Orange/Blue */
   box-shadow: 0 0 0 2px var(--color-focus-shadow);
   outline: 2.5px solid var(--color-secondary);
   outline-offset: 2px;
 }
 
-input[type="text"]:valid,
-input[type="number"]:valid,
-select:valid {
-  border-color: --color-success;
+/* Valid State */
+input[type="text"]:valid:not(:placeholder-shown),
+input[type="number"]:valid:not(:placeholder-shown),
+select:valid:not([value=""]) {
+  border-color: var(--progress-three); /* Valid: Green */
+}
+
+/* Invalid State - Optional */
+input[type="text"]:invalid:not(:placeholder-shown),
+input[type="number"]:invalid:not(:placeholder-shown),
+select:invalid:not(:focus) {
+  border-color: var(--progress-one); /* Invalid: Red */
+}
+
+/* High Contrast Focus Ring for Accessibility */
+@media (forced-colors: active) {
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  select:focus {
+    outline: 3px solid SelectedItem;
+    outline-offset: 2px;
+  }
 }
 
 /* Output Fields */
@@ -237,15 +292,33 @@ select:valid {
   font-size: 1rem;
   background: var(--color-input-bg);
   color: var(--color-output);
-  border: 2px solid var(--color-input-border);
+  border: 2px solid var(--progress-one); /* Default: Red */
   border-radius: 7px;
   min-height: 1.7em;
   font-weight: 600;
   user-select: none;
   cursor: default;
   pointer-events: none;
-  opacity: 0.9;
   box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Empty state (waiting for calculation) */
+.output-field:empty {
+  border-color: var(--progress-one);
+  opacity: 0.7;
+}
+
+/* Focus state (while calculating) */
+.output-field.calculating {
+  border-color: var(--progress-two);
+  box-shadow: 0 0 0 2px var(--color-focus-shadow);
+}
+
+/* Valid state (has value) */
+.output-field:not(:empty) {
+  border-color: var(--progress-three);
+  opacity: 1;
 }
 
 .output-field:empty::before {
@@ -256,11 +329,6 @@ select:valid {
   justify-content: center;
   height: 100%;
   color: var(--color-placeholder);
-}
-
-.output-field:focus {
-  outline: none;
-  box-shadow: none;
 }
 
 /* =========================================================
@@ -367,6 +435,13 @@ select:valid {
   box-shadow: 0 2px 14px var(--shadow-sm);
 }
 
+#result-fazit {
+  padding: 1.5rem;
+  line-height: 1.6;
+  font-size: 1.1rem;
+  white-space: pre-line;
+}
+
 /* Section headers */
 .result-section-header {
   font-size: 1.18rem;
@@ -380,6 +455,10 @@ select:valid {
   background: transparent;
   border: none;
   padding: 0.3em 0 0.3em 0;
+  padding: 1rem 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-border);
 }
 
 #section-fazit {
@@ -430,6 +509,22 @@ select:valid {
   color: var(--color-error);
   font-weight: bold;
   font-size: 1.1em;
+}
+
+.legend-separator {
+  color: vvar(--color-error); 
+  opacity: 0.5;
+  margin: 0 0.2em;
+}
+
+.legend-unknown {
+  color: var(--color-error);
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.legend-unknown + span {
+  color: var(--color-error);
 }
 
 .legend-scoring {

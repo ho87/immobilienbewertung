@@ -56,6 +56,14 @@ export function initReset() {
       if (el) el.textContent = "–";
     });
 
+    // Reset all output fields
+    const outputFields = document.querySelectorAll(".output-field");
+    outputFields.forEach((field) => {
+      field.textContent = ""; // Clear content
+      field.classList.remove("calculating");
+      field.classList.add("reset"); // Add reset state
+    });
+
     // Hide all warnings
     document.querySelectorAll(".warning").forEach((warn) => {
       warn.textContent = "";

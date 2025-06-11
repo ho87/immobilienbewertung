@@ -28,6 +28,8 @@
         <!-- Legend for required fields -->
         <div class="legend-required">
           <span class="legend-asterisk">*</span> Pflichtfeld
+          <span class="legend-separator">|</span>
+          <span class="legend-unknown">?</span> Unbekannt
         </div>
         <div class="form-section-header" id="header-inseratsdaten">
           📥 Inseratsdaten
@@ -72,7 +74,6 @@
           📊 Immobiliendaten
         </div>
         <div class="flex-group" id="flex-immofields-1">
-          <!-- Wohnfläche (required) -->
           <label class="label-input" for="size">
             <span class="legend-asterisk">*</span> Wohnfläche (m²)
             <input
@@ -89,7 +90,7 @@
           </label>
           <label class="label-input" for="rooms">
             Zimmer
-            <select id="rooms">
+            <select id="rooms" required>
               <option value="">Bitte auswählen</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -101,7 +102,6 @@
           </label>
         </div>
         <div class="flex-group" id="flex-immofields-2">
-          <!-- Kaufpreis (required) -->
           <label class="label-input" for="purchasePrice">
             <span class="legend-asterisk">*</span> Kaufpreis (€)
             <input
@@ -117,7 +117,7 @@
             <span class="warning" id="warn-purchasePrice"></span>
           </label>
           <label class="label-input" for="rentPerM2">
-            Miete pro m² (€)
+            <span class="legend-unknown">?</span> Miete pro m² (€)
             <input
               type="text"
               id="rentPerM2"
@@ -132,7 +132,7 @@
         </div>
         <div class="flex-group" id="flex-immofields-3">
           <label class="label-input" for="hoa">
-            Hausgeld (monatlich, €)
+            <span class="legend-unknown">?</span> Hausgeld (monatlich, €)
             <input
               type="text"
               id="hoa"
@@ -201,7 +201,7 @@
         <div class="flex-group" id="flex-finanzierung-2">
           <!-- Zinssatz (required) -->
           <label class="label-input" for="interestRate">
-            <span class="legend-asterisk">*</span> Zinssatz (%)
+            <span class="legend-asterisk">*</span> <span class="legend-unknown">?</span> Zinssatz (%)
             <input
               type="text"
               id="interestRate"
@@ -216,7 +216,7 @@
           </label>
           <!-- Tilgungssatz (required) -->
           <label class="label-input" for="repaymentRate">
-            <span class="legend-asterisk">*</span> Tilgungssatz (%)
+            <span class="legend-asterisk">*</span> <span class="legend-unknown">?</span> Tilgungssatz (%)
             <input
               type="text"
               id="repaymentRate"
@@ -257,8 +257,8 @@
             </select>
           </label>
           <label class="label-input" for="energyClass">
-            Energieeffizienz
-            <select id="energyClass">
+            <span class="legend-unknown">?</span> Energieeffizienz
+            <select id="energyClass" required>
               <option value="">Bitte auswählen</option>
               <option value="ab">A/B</option>
               <option value="c">C</option>
