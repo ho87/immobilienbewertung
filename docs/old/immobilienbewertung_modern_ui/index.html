@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏘️ Immobilienbewertung 2.0</title>
+  <link rel="stylesheet" href="global.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+  <div class="main-card">
+    <h1>🏡 Immobilienbewertung<br>2.0</h1>
+
+    <form id="form" autocomplete="off">
+      <div class="section">
+        <label>💳 Kaufpreis (€)
+          <input id="price" type="number" placeholder="z.B. 250000" required>
+        </label>
+        <label>✏️ Größe (m²)
+          <input id="size" type="number" placeholder="z.B. 70" required>
+        </label>
+        <label>💰 Mietpreis pro m² (€)
+          <input id="rent" type="number" placeholder="z.B. 10.5" required>
+        </label>
+        <label>🏢 Hausgeld (monatlich, €)
+          <input id="hoa" type="number" placeholder="z.B. 200" required>
+        </label>
+        <label>📈 Zinssatz (%)
+          <input id="interest" type="number" placeholder="z.B. 3.5" required>
+        </label>
+        <label>📉 Tilgung (%)
+          <input id="repayment" type="number" placeholder="z.B. 2" required>
+        </label>
+        <label>🤝 Provisionsart
+          <select id="agent">
+            <option value="0">Privat</option>
+            <option value="0.0357">Makler (+3.57% Provision)</option>
+          </select>
+        </label>
+        <label>🏛️ Baujahr
+          <select id="year">
+            <option>vor 1970</option>
+            <option>1970–1999</option>
+            <option>ab 2000</option>
+          </select>
+        </label>
+        <label>⚡ Energieeffizienz
+          <select id="efficiency">
+            <option>A/B</option>
+            <option>C</option>
+            <option>D</option>
+            <option>E oder schlechter</option>
+          </select>
+        </label>
+        <label>📍 Lage
+          <select id="location">
+            <option>Toplage</option>
+            <option>Gut</option>
+            <option>Mittel</option>
+            <option>Schlecht</option>
+          </select>
+        </label>
+        <label>🔧 Zustand
+          <select id="condition">
+            <option>Neuwertig</option>
+            <option>Gut</option>
+            <option>Renovierungsbedürftig</option>
+          </select>
+        </label>
+      </div>
+      <div class="btn-row">
+        <button type="submit" class="btn-green" id="bewerten">✓ Bewerten</button>
+        <button type="button" class="btn-red" id="reset"><span>🗑️</span> Reset</button>
+        <button type="button" class="btn-yellow" id="test"><span>🧪</span> TEST</button>
+      </div>
+    </form>
+
+    <div id="fazit"></div>
+    <div id="analysis"></div>
+    <canvas id="scoreChart" width="200" height="200" style="display:none;margin:0 auto 1rem auto;"></canvas>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

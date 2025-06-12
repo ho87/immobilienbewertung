@@ -1,0 +1,65 @@
+Icons
+
+⬆️ Upgrade
+🐞 Bug
+🎯 Goal
+🏘️ Immobilien
+📥 Inseratsdaten
+📊 Immobiliendaten
+💶 Finanzierung
+🏗️ Gebäudezustand
+📈 Chart Increasing
+🚀 Rocket
+✨ Sparkles
+✅ Check Mark
+🆕 NEW Button
+🛠️ Hammer
+⚙️ Gear
+❌ Cross Mark
+⚠️ Warning 
+🛑 Stop 
+🚨 Alert
+💾 Floppy Disk
+🔗 Link
+🔒 Locked
+💨 Dizzy 
+💬 Speech Bubble
+📝 Note
+👁️ Eye
+❓ Question Mark
+🔍 Magnifying Glass
+🚧 Construction Barrier
+🗑️ Wastebasket
+🧑‍💻 Developer
+
+
+
+
+Colors
+
+#f7f8fa – Soft Cloud
+#1e1e2f – Midnight Shadow
+#383869 – Royal Indigo
+#5643fd – Electric Violet
+#232346 – Deep Twilight
+#121212 – Pure Black
+#0006   – Almost Black
+#ffd86a – Golden Glow
+#ffd580 – Warm Peach
+#cceecc – Mint Mist
+#353577 – Twilight Blue
+#7fd3ff – Sky Breeze
+#f0f4fa – Arctic Frost
+#181833 – Cosmic Night
+#ef4444 – Fiery Red
+#ff69b4 – Bubblegum Pink
+#22c55e – Fresh Meadow
+#60a5fa – Cerulean Wave
+#fff    – Pure White
+#f59e42 – Sunset Orange
+#aaaabf – Lavender Smoke
+
+
+
+
+
