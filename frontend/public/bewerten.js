@@ -1,8 +1,12 @@
 export function initBewerten() {
+  const form = document.getElementById("property-form");
   const btn = document.getElementById("btn-bewerten");
   const resultDiv = document.getElementById("form-result");
   const iconSpan = document.getElementById("result-icon");
   const fazitDiv = document.getElementById("result-fazit");
+
+  // Add debug logging
+  console.log("Init bewerten:", { form, btn, resultDiv, fazitDiv });
 
   function getResultValue() {
     // Replace with actual calculation
@@ -10,23 +14,23 @@ export function initBewerten() {
       score: 85,
       currentPrice: 300000,
       targetPrice: 250000,
-      grossYield: 4.5
+      grossYield: 4.5,
     };
   }
 
   function formatPrice(price) {
-    return new Intl.NumberFormat('de-DE', { 
-      style: 'currency', 
-      currency: 'EUR',
-      maximumFractionDigits: 0 
+    return new Intl.NumberFormat("de-DE", {
+      style: "currency",
+      currency: "EUR",
+      maximumFractionDigits: 0,
     }).format(price);
   }
 
   function formatPercent(value) {
-    return new Intl.NumberFormat('de-DE', { 
-      style: 'percent',
+    return new Intl.NumberFormat("de-DE", {
+      style: "percent",
       minimumFractionDigits: 1,
-      maximumFractionDigits: 1 
+      maximumFractionDigits: 1,
     }).format(value / 100);
   }
 
@@ -37,31 +41,46 @@ export function initBewerten() {
     return "👎 Schlecht";
   }
 
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      console.log("Form submission prevented");
+    });
+  }
+
   if (btn && resultDiv && iconSpan && fazitDiv) {
     btn.addEventListener("click", () => {
+      console.log("Button clicked");
       // Get evaluation results
       const result = getResultValue();
-      
+
       // Calculate price difference
       const priceDiff = result.currentPrice - result.targetPrice;
       const priceDiffPercent = (priceDiff / result.currentPrice) * 100;
 
       // Format text with proper line breaks
       const fazitText = [
-        `Um eine Bruttorendite von ${formatPercent(result.grossYield)} zu erreichen, wäre ein Kaufpreis von ${formatPrice(result.targetPrice)} rentabel.`,
-        `Dafür muss der Kaufpreis um ${formatPrice(priceDiff)} (${formatPercent(priceDiffPercent)}) reduziert werden.`,
+        `Um eine Bruttorendite von ${formatPercent(
+          result.grossYield
+        )} zu erreichen, wäre ein Kaufpreis von ${formatPrice(
+          result.targetPrice
+        )} rentabel.`,
+        `Dafür muss der Kaufpreis um ${formatPrice(priceDiff)} (${formatPercent(
+          priceDiffPercent
+        )}) reduziert werden.`,
         ``,
-        `Score: ${getScoreIcon(result.score)} (${result.score} Punkte)`
-      ].join('\n');
+        `Score: ${getScoreIcon(result.score)} (${result.score} Punkte)`,
+      ].join("\n");
 
       // Show results
-      resultDiv.style.display = "block";
-      fazitDiv.style.whiteSpace = "pre-line"; // Preserve line breaks
+      resultDiv.removeAttribute("hidden");
+      fazitDiv.style.whiteSpace = "pre-line";
       fazitDiv.textContent = fazitText;
 
-      // Set icon
-      iconSpan.textContent = getScoreIcon(result.score).split(' ')[0]; // Only get the emoji
-      iconSpan.setAttribute("aria-label", getScoreIcon(result.score));
+      // Scroll results into view
+      resultDiv.scrollIntoView({ behavior: "smooth" });
+
+      console.log("Results displayed");
     });
   }
 }

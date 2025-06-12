@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
+  <!-- =================================================
+       HEAD: Meta, Title, and Stylesheets
+       ================================================= -->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
@@ -13,344 +16,400 @@
     <link rel="stylesheet" href="colors.css" />
     <link rel="stylesheet" href="global.css" />
   </head>
+
   <body>
-    <div class="form-card" id="form-card">
-      <div class="site-header" id="site-header">
+    <!-- =================================================
+         MAIN: Form Container
+         ================================================= -->
+    <form id="property-form" class="form-card" novalidate aria-labelledby="form-title">
+      <!-- Header Section with Progress Bar -->
+      <header class="site-header" id="site-header">
         🏘️ Immobilienbewertung
         <div class="progress-bar-container" id="progress-bar-container">
           <div class="progress-bar" id="progress-bar"></div>
           <div class="progress-text" id="progress-text">0%</div>
         </div>
+      </header>
+
+      <!-- =================================================
+           INPUT SECTIONS: Property & Financial Details
+           ================================================= -->
+      <!-- Better group structure for form sections -->
+      <div class="form-sections">
+        <!-- Group all input sections -->
+        <div class="form-section-group input-sections">
+          <!-- Section 1: Listing Information -->
+          <section class="form-section" id="section-inseratsdaten">
+            <!-- Legend for required fields -->
+            <div class="legend-required">
+              <span class="legend-asterisk">*</span> Pflichtfeld
+              <span class="legend-separator">|</span>
+              <span class="legend-unknown">?</span> Unbekannt
+            </div>
+
+            <div class="form-section-header" id="header-inseratsdaten">
+              📥 Inseratsdaten
+            </div>
+
+            <label class="label-input" for="listingUrl">
+              URL (Inserat)
+              <input
+                type="text"
+                id="listingUrl"
+                class="placeholder-italic"
+                placeholder="z. B. https://www.immobilienscout24.de/..."
+                autocomplete="off"
+                data-form-type="other"
+              />
+              <span class="warning" id="warn-listingUrl"
+                >Bitte geben Sie eine gültige URL ein.</span
+              >
+            </label>
+
+            <div class="flex-group" id="flex-inseratsdaten">
+              <label class="label-input" for="propertyType">
+                <span class="legend-asterisk">*</span> Immobilientyp
+                <select id="propertyType" required>
+                  <option value="">Bitte auswählen</option>
+                  <option value="house">Haus</option>
+                  <option value="apartment">Eigentumswohnung</option>
+                </select>
+              </label>
+              <label class="label-input" for="agentType">
+                <span class="legend-asterisk">*</span> Anbieter
+                <select id="agentType" required>
+                  <option value="">Bitte auswählen</option>
+                  <option value="privat">Privat</option>
+                  <option value="makler">Makler (+3,57% Provision)</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <!-- Section 2: Property Details -->
+          <section class="form-section" id="section-immobiliendaten">
+            <div class="form-section-header" id="header-immobiliendaten">
+              📊 Immobiliendaten
+            </div>
+            <div class="flex-group">
+              <label class="label-input" for="size">
+                <span class="legend-asterisk">*</span> Wohnfläche (m²)
+                <input
+                  type="text"
+                  id="size"
+                  class="placeholder-italic"
+                  placeholder="z. B. 50"
+                  required
+                  data-max="99999"
+                  pattern="[0-9]*\.?[0-9]*"
+                  inputmode="decimal"
+                  minlength="2"
+                  maxlength="5"
+                  aria-describedby="warn-size"
+                  autocomplete="off"
+                  data-form-type="other"
+                />
+                <span class="warning" id="warn-size"></span>
+              </label>
+              <label class="label-input" for="rooms">
+                Zimmer
+                <select id="rooms" required>
+                  <option value="">Bitte auswählen</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">&gt;5</option>
+                </select>
+              </label>
+            </div>
+            <div class="flex-group">
+              <label class="label-input" for="purchasePrice">
+                <span class="legend-asterisk">*</span> Kaufpreis (€)
+                <input
+                  type="text"
+                  id="purchasePrice"
+                  class="placeholder-italic"
+                  placeholder="z. B. 100000"
+                  required
+                  data-max="99999999"
+                  pattern="[0-9]*\.?[0-9]*"
+                  inputmode="decimal"
+                  minlength="4"
+                  maxlength="8"
+                  aria-describedby="warn-purchasePrice"
+                  autocomplete="off"
+                  data-form-type="other"
+                />
+                <span class="warning" id="warn-purchasePrice"></span>
+              </label>
+              <label class="label-input" for="rentPerM2">
+                <span class="legend-unknown">?</span> Miete pro m² (€)
+                <input
+                  type="text"
+                  id="rentPerM2"
+                  class="placeholder-italic"
+                  placeholder="z. B. 8.50"
+                  data-max="99999"
+                  pattern="[0-9]*\.?[0-9]*"
+                  inputmode="decimal"
+                  minlength="1"
+                  maxlength="5"
+                  aria-describedby="warn-rentPerM2"
+                  autocomplete="off"
+                  data-form-type="other"
+                />
+                <span class="warning" id="warn-rentPerM2"></span>
+              </label>
+            </div>
+            <div class="flex-group">
+              <label class="label-input" for="hoa">
+                <span class="legend-unknown">?</span> Hausgeld (monatlich, €)
+                <input
+                  type="text"
+                  id="hoa"
+                  class="placeholder-italic"
+                  data-max="99999"
+                  placeholder="z. B. 120"
+                  pattern="[0-9]*\.?[0-9]*"
+                  inputmode="decimal"
+                  minlength="1"
+                  maxlength="5"
+                  aria-describedby="warn-hoa"
+                  autocomplete="off"
+                  data-form-type="other"
+                />
+                <span class="warning" id="warn-hoa"></span>
+              </label>
+              <!-- Lage (required) -->
+              <label class="label-input" for="location">
+                <span class="legend-asterisk">*</span> Lage
+                <select id="location" required>
+                  <option value="">Bitte auswählen</option>
+                  <option value="top">Toplage</option>
+                  <option value="good">Gut</option>
+                  <option value="medium">Mittel</option>
+                  <option value="poor">Schlecht</option>
+                </select>
+              </label>
+            </div>
+            <div class="flex-group">
+              <label class="label-output" for="output-qmPreis">
+                Quadratmeterpreis (€)
+                <div
+                  class="output-field"
+                  id="output-qmPreis"
+                  data-max="99999"
+                ></div>
+              </label>
+              <label class="label-output" for="output-annualRent">
+                Jahresnettomiete (€)
+                <div
+                  class="output-field"
+                  id="output-annualRent"
+                  data-max="9999999"
+                ></div>
+              </label>
+            </div>
+          </section>
+
+          <!-- Section 3: Financing Information -->
+          <section class="form-section" id="section-finanzierung">
+            <div class="form-section-header" id="header-finanzierung">
+              💶 Finanzierung
+            </div>
+            <div class="flex-group">
+              <!-- Eigenkapital (required) -->
+              <label class="label-input" for="equity">
+                <span class="legend-asterisk">*</span> Eigenkapital (€)
+                <input
+                  type="text"
+                  id="equity"
+                  class="placeholder-italic"
+                  placeholder="z. B. 10000"
+                  required
+                  data-max="99999999"
+                  pattern="[0-9]*\.?[0-9]*"
+                  inputmode="decimal"
+                  minlength="1"
+                  maxlength="8"
+                  aria-describedby="warn-equity"
+                  autocomplete="off"
+                  data-form-type="other"
+                />
+                <span class="warning" id="warn-equity"></span>
+              </label>
+            </div>
+            <div class="flex-group">
+              <!-- Zinssatz (required) -->
+              <label class="label-input" for="interestRate">
+                <span class="legend-asterisk">*</span>
+                <span class="legend-unknown">?</span> Zinssatz (%)
+                <input
+                  type="text"
+                  id="interestRate"
+                  class="placeholder-italic"
+                  placeholder="z. B. 3"
+                  required
+                  data-max="20"
+                  pattern="[0-9]*\.?[0-9]*"
+                  inputmode="decimal"
+                  min="0.1"
+                  max="20"
+                  aria-describedby="warn-interestRate"
+                  autocomplete="off"
+                  data-form-type="other"
+                />
+                <span class="warning" id="warn-interestRate"></span>
+              </label>
+              <!-- Tilgungssatz (required) -->
+              <label class="label-input" for="repaymentRate">
+                <span class="legend-asterisk">*</span>
+                <span class="legend-unknown">?</span> Tilgungssatz (%)
+                <input
+                  type="text"
+                  id="repaymentRate"
+                  class="placeholder-italic"
+                  data-max="20"
+                  placeholder="z. B. 2"
+                  required
+                  pattern="[0-9]*\.?[0-9]*"
+                  inputmode="decimal"
+                  min="0.1"
+                  max="20"
+                  aria-describedby="warn-repaymentRate"
+                  autocomplete="off"
+                  data-form-type="other"
+                />
+                <span class="warning" id="warn-repaymentRate"></span>
+              </label>
+            </div>
+            <label class="label-output" for="output-loanPayment">
+              Monatliche Kreditrate (€)
+              <div
+                class="output-field"
+                id="output-loanPayment"
+                data-max="999999"
+              ></div>
+            </label>
+          </section>
+
+          <!-- Section 4: Building Condition & Energy -->
+          <section class="form-section" id="section-gebaeude">
+            <div class="form-section-header" id="header-gebaeude">
+              🏗️ Gebäudezustand
+            </div>
+            <div class="flex-group">
+              <!-- Baujahr (required) -->
+              <label class="label-input" for="yearBuilt">
+                <span class="legend-asterisk">*</span> Baujahr
+                <select id="yearBuilt" required>
+                  <option value="">Bitte auswählen</option>
+                  <option value="pre1970">&lt;1970</option>
+                  <option value="1970-1999">1970–1999</option>
+                  <option value="post2000">≥2000</option>
+                </select>
+              </label>
+              <label class="label-input" for="energyClass">
+                <span class="legend-unknown">?</span> Energieeffizienz
+                <select id="energyClass" required>
+                  <option value="">Bitte auswählen</option>
+                  <option value="ab">A/B</option>
+                  <option value="c">C</option>
+                  <option value="d">D</option>
+                  <option value="e">E oder schlechter</option>
+                </select>
+              </label>
+              <!-- Zustand (required) -->
+              <label class="label-input" for="condition">
+                <span class="legend-asterisk">*</span> Zustand
+                <select id="condition" required>
+                  <option value="">Bitte auswählen</option>
+                  <option value="new">Neuwertig</option>
+                  <option value="good">Gut</option>
+                  <option value="renovate">Renovierungsbedürftig</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <!-- Section 5: Cost Summary -->
+          <section class="form-section" id="section-costs">
+            <div class="form-section-header" id="header-costs">💰 Kosten</div>
+            <div class="flex-group">
+              <label class="label-output" for="output-addCosts">
+                Kaufnebenkosten (~10% Kaufpreis, €)
+                <div
+                  class="output-field"
+                  id="output-addCosts"
+                  data-max="999999"
+                ></div>
+              </label>
+              <label class="label-output" for="output-renoCost">
+                Geschätzte Renovierungskosten (€)
+                <div
+                  class="output-field"
+                  id="output-renoCost"
+                  data-max="99999999"
+                ></div>
+              </label>
+            </div>
+            <label class="label-output" for="output-effPurchasePrice">
+              Effektiver Kaufpreis (€)
+              <div
+                class="output-field"
+                id="output-effPurchasePrice"
+                data-max="99999999"
+              ></div>
+            </label>
+          </section>
+        </div>
+
+        <!-- =================================================
+           CONTROLS: Action Buttons
+           ================================================= -->
+        <div class="buttons" id="buttons">
+          <button type="submit" id="btn-bewerten">Bewerten</button>
+          <button type="reset" id="btn-reset">Reset</button>
+          <button type="button" id="btn-test">TEST</button>
+        </div>
+
+        <!-- =================================================
+           RESULTS: Evaluation Output (Initially Hidden)
+           ================================================= -->
+        <div class="form-result" id="form-result" hidden>
+          <!-- Summary Section -->
+          <section class="result-section" id="section-fazit">
+            <header class="result-section-header" id="header-fazit">
+              <span aria-hidden="true">👌</span>
+              Fazit
+            </header>
+            <div class="section-content" id="result-fazit"></div>
+          </section>
+
+          <section class="result-section" id="section-analyse">
+            <header class="result-section-header" id="header-analyse">
+              <span aria-hidden="true">🔬</span>
+              Detaillierte Analyse
+            </header>
+            <div class="section-content" id="result-analyse"></div>
+          </section>
+
+          <section class="result-section" id="section-empfehlung">
+            <header class="result-section-header" id="header-empfehlung">
+              <span aria-hidden="true">💡</span>
+              Empfehlung
+            </header>
+            <div class="section-content" id="result-empfehlung"></div>
+          </section>
+        </div>
       </div>
 
-      <!-- Inseratsdaten -->
-      <section class="form-section" id="section-inseratsdaten">
-        <!-- Legend for required fields -->
-        <div class="legend-required">
-          <span class="legend-asterisk">*</span> Pflichtfeld
-          <span class="legend-separator">|</span>
-          <span class="legend-unknown">?</span> Unbekannt
-        </div>
-        <div class="form-section-header" id="header-inseratsdaten">
-          📥 Inseratsdaten
-        </div>
-        <label class="label-input" for="listingUrl">
-          URL (Inserat)
-          <input
-            type="text"
-            id="listingUrl"
-            class="placeholder-italic"
-            placeholder="z. B. https://www.immobilienscout24.de/..."
-            autocomplete="off"
-            data-form-type="other"
-          />
-          <span class="warning" id="warn-listingUrl"
-            >Bitte geben Sie eine gültige URL ein.</span
-          >
-        </label>
-        <div class="flex-group" id="flex-inseratsdaten">
-          <label class="label-input" for="propertyType">
-            <span class="legend-asterisk">*</span> Immobilientyp
-            <select id="propertyType" required>
-              <option value="">Bitte auswählen</option>
-              <option value="house">Haus</option>
-              <option value="apartment">Eigentumswohnung</option>
-            </select>
-          </label>
-          <label class="label-input" for="agentType">
-            <span class="legend-asterisk">*</span> Anbieter
-            <select id="agentType" required>
-              <option value="">Bitte auswählen</option>
-              <option value="privat">Privat</option>
-              <option value="makler">Makler (+3,57% Provision)</option>
-            </select>
-          </label>
-        </div>
-      </section>
-
-      <!-- Immobiliendaten -->
-      <section class="form-section" id="section-immobiliendaten">
-        <div class="form-section-header" id="header-immobiliendaten">
-          📊 Immobiliendaten
-        </div>
-        <div class="flex-group" id="flex-immofields-1">
-          <label class="label-input" for="size">
-            <span class="legend-asterisk">*</span> Wohnfläche (m²)
-            <input
-              type="text"
-              id="size"
-              class="placeholder-italic"
-              data-max="99999"
-              placeholder="z. B. 50"
-              required
-              autocomplete="off"
-              data-form-type="other"
-            />
-            <span class="warning" id="warn-size"></span>
-          </label>
-          <label class="label-input" for="rooms">
-            Zimmer
-            <select id="rooms" required>
-              <option value="">Bitte auswählen</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">&gt;5</option>
-            </select>
-          </label>
-        </div>
-        <div class="flex-group" id="flex-immofields-2">
-          <label class="label-input" for="purchasePrice">
-            <span class="legend-asterisk">*</span> Kaufpreis (€)
-            <input
-              type="text"
-              id="purchasePrice"
-              class="placeholder-italic"
-              data-max="99999999"
-              placeholder="z. B. 100000"
-              required
-              autocomplete="off"
-              data-form-type="other"
-            />
-            <span class="warning" id="warn-purchasePrice"></span>
-          </label>
-          <label class="label-input" for="rentPerM2">
-            <span class="legend-unknown">?</span> Miete pro m² (€)
-            <input
-              type="text"
-              id="rentPerM2"
-              class="placeholder-italic"
-              data-max="99999"
-              placeholder="z. B. 8.50"
-              autocomplete="off"
-              data-form-type="other"
-            />
-            <span class="warning" id="warn-rentPerM2"></span>
-          </label>
-        </div>
-        <div class="flex-group" id="flex-immofields-3">
-          <label class="label-input" for="hoa">
-            <span class="legend-unknown">?</span> Hausgeld (monatlich, €)
-            <input
-              type="text"
-              id="hoa"
-              class="placeholder-italic"
-              data-max="99999"
-              placeholder="z. B. 120"
-              autocomplete="off"
-              data-form-type="other"
-            />
-            <span class="warning" id="warn-hoa"></span>
-          </label>
-          <!-- Lage (required) -->
-          <label class="label-input" for="location">
-            <span class="legend-asterisk">*</span> Lage
-            <select id="location" required>
-              <option value="">Bitte auswählen</option>
-              <option value="top">Toplage</option>
-              <option value="good">Gut</option>
-              <option value="medium">Mittel</option>
-              <option value="poor">Schlecht</option>
-            </select>
-          </label>
-        </div>
-        <div class="flex-group">
-          <label class="label-output" for="output-qmPreis">
-            Quadratmeterpreis (€)
-            <div
-              class="output-field"
-              id="output-qmPreis"
-              data-max="99999"
-            ></div>
-          </label>
-          <label class="label-output" for="output-annualRent">
-            Jahresnettomiete (€)
-            <div
-              class="output-field"
-              id="output-annualRent"
-              data-max="9999999"
-            ></div>
-          </label>
-        </div>
-      </section>
-
-      <!-- Finanzierung -->
-      <section class="form-section" id="section-finanzierung">
-        <div class="form-section-header" id="header-finanzierung">
-          💶 Finanzierung
-        </div>
-        <div class="flex-group" id="flex-finanzierung-1">
-          <!-- Eigenkapital (required) -->
-          <label class="label-input" for="equity">
-            <span class="legend-asterisk">*</span> Eigenkapital (€)
-            <input
-              type="text"
-              id="equity"
-              class="placeholder-italic"
-              data-max="9999999"
-              placeholder="z. B. 10000"
-              required
-              autocomplete="off"
-              data-form-type="other"
-            />
-            <span class="warning" id="warn-equity"></span>
-          </label>
-        </div>
-        <div class="flex-group" id="flex-finanzierung-2">
-          <!-- Zinssatz (required) -->
-          <label class="label-input" for="interestRate">
-            <span class="legend-asterisk">*</span> <span class="legend-unknown">?</span> Zinssatz (%)
-            <input
-              type="text"
-              id="interestRate"
-              class="placeholder-italic"
-              data-max="20"
-              placeholder="z. B. 3"
-              required
-              autocomplete="off"
-              data-form-type="other"
-            />
-            <span class="warning" id="warn-interestRate"></span>
-          </label>
-          <!-- Tilgungssatz (required) -->
-          <label class="label-input" for="repaymentRate">
-            <span class="legend-asterisk">*</span> <span class="legend-unknown">?</span> Tilgungssatz (%)
-            <input
-              type="text"
-              id="repaymentRate"
-              class="placeholder-italic"
-              data-max="20"
-              placeholder="z. B. 2"
-              required
-              autocomplete="off"
-              data-form-type="other"
-            />
-            <span class="warning" id="warn-repaymentRate"></span>
-          </label>
-        </div>
-        <label class="label-output" for="output-loanPayment">
-          Monatliche Kreditrate (€)
-          <div
-            class="output-field"
-            id="output-loanPayment"
-            data-max="999999"
-          ></div>
-        </label>
-      </section>
-
-      <!-- Gebäude & Energie -->
-      <section class="form-section" id="section-gebaeude">
-        <div class="form-section-header" id="header-gebaeude">
-          🏗️ Gebäudezustand
-        </div>
-        <div class="flex-group" id="flex-gebaeude">
-          <!-- Baujahr (required) -->
-          <label class="label-input" for="yearBuilt">
-            <span class="legend-asterisk">*</span> Baujahr
-            <select id="yearBuilt" required>
-              <option value="">Bitte auswählen</option>
-              <option value="pre1970">&lt;1970</option>
-              <option value="1970-1999">1970–1999</option>
-              <option value="post2000">≥2000</option>
-            </select>
-          </label>
-          <label class="label-input" for="energyClass">
-            <span class="legend-unknown">?</span> Energieeffizienz
-            <select id="energyClass" required>
-              <option value="">Bitte auswählen</option>
-              <option value="ab">A/B</option>
-              <option value="c">C</option>
-              <option value="d">D</option>
-              <option value="e">E oder schlechter</option>
-            </select>
-          </label>
-          <!-- Zustand (required) -->
-          <label class="label-input" for="condition">
-            <span class="legend-asterisk">*</span> Zustand
-            <select id="condition" required>
-              <option value="">Bitte auswählen</option>
-              <option value="new">Neuwertig</option>
-              <option value="good">Gut</option>
-              <option value="renovate">Renovierungsbedürftig</option>
-            </select>
-          </label>
-        </div>
-      </section>
-
-      <!-- Kosten -->
-      <section class="form-section" id="section-costs">
-        <div class="form-section-header" id="header-costs">💰 Kosten</div>
-        <div class="flex-group">
-          <label class="label-output" for="output-addCosts">
-            Kaufnebenkosten (~10% Kaufpreis, €)
-            <div
-              class="output-field"
-              id="output-addCosts"
-              data-max="999999"
-            ></div>
-          </label>
-          <label class="label-output" for="output-renoCost">
-            Geschätzte Renovierungskosten (€)
-            <div
-              class="output-field"
-              id="output-renoCost"
-              data-max="99999999"
-            ></div>
-          </label>
-        </div>
-        <label class="label-output" for="output-effPurchasePrice">
-          Effektiver Kaufpreis (€)
-          <div
-            class="output-field"
-            id="output-effPurchasePrice"
-            data-max="99999999"
-          ></div>
-        </label>
-      </section>
-
-      <!-- Buttons -->
-      <div class="buttons" id="buttons">
-        <button type="button" id="btn-bewerten">Bewerten</button>
-        <button type="reset" id="btn-reset">Reset</button>
-        <button type="button" id="btn-test">TEST</button>
-      </div>
-
-      <!-- Results Section (initially hidden) -->
-      <div class="form-result" id="form-result">
-  <section class="result-section" id="section-fazit">
-    <header class="result-section-header" id="header-fazit">
-      <span id="result-icon" aria-label="Ergebnis" style="font-size: 1.5em">👌</span>
-      Fazit
-    </header>
-    <div class="section-content" id="result-fazit"></div>
-  </section>
-  <section class="result-section" id="section-analyse">
-    <header class="result-section-header" id="header-analyse">
-      <span aria-label="Detaillierte Analyse" style="font-size: 1.3em">🔬</span>
-      Detaillierte Analyse
-    </header>
-    <div class="section-content" id="result-analyse"></div>
-  </section>
-  <section class="result-section" id="section-empfehlung">
-    <header class="result-section-header" id="header-empfehlung">
-      <span aria-label="Empfehlung" style="font-size: 1.3em">💡</span>
-      Empfehlung
-    </header>
-    <div class="section-content" id="result-empfehlung"></div>
-  </section>
-  <div class="legend-scoring">
-  <strong>Score:</strong>
-  <div class="scoring-badges">
-    <span class="score-badge score-verygood"><span class="score-icon">🔥</span> &gt;90 Sehr Gut</span>
-    <span class="score-badge score-good"><span class="score-icon">👍</span> 80–89 Gut</span>
-    <span class="score-badge score-ok"><span class="score-icon">🤷</span> 70–79 Ok</span>
-    <span class="score-badge score-bad"><span class="score-icon">👎</span> &lt;69 Schlecht</span>
-  </div>
-</div>
-</div>
-
-    <script type="module" src="app.js"></script>
+      <!-- =================================================
+           SCRIPTS: JavaScript Imports
+           ================================================= -->
+      <script type="module" src="app.js"></script>
+    </form>
   </body>
 </html>

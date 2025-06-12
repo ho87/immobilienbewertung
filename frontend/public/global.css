@@ -59,7 +59,7 @@ html {
   border-bottom: 3px solid var(--color-secondary);
   position: relative;
   background: transparent;
-  padding-bottom: 0.8em;
+  padding-bottom: 0.4em;
   box-shadow: none;
   letter-spacing: 1px;
 }
@@ -87,30 +87,25 @@ html {
 }
 
 .progress-bar-container {
-  position: absolute;
   position: relative;
   left: 0;
   width: 100%;
   height: 28px;
   background: var(--color-cyan);
-  background: var(--color-cyan);
   border-radius: 100px;
   overflow: hidden;
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.4s ease;
   z-index: 10;
   margin-top: 0.7rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--shadow-10);
   border: 2px solid transparent;
   transition: opacity 0.3s ease, transform 0.4s ease, border-color 0.3s ease;
-  transition: opacity 0.3s ease, border-color 0.3s ease;
 }
 
 .progress-marker {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 2px;
   width: 4px;
   opacity: 0.7;
   transition: opacity 0.3s ease;
@@ -154,11 +149,11 @@ html {
   left: 50%; /* Center horizontally */
   top: 50%; /* Center vertically */
   transform: translate(-50%, -50%); /* Perfect centering */
-  color: #fff;
+  color: var(--color-white);
   font-size: 0.85em; /* Reduced from 1.2em */
   font-weight: 600;
   z-index: 1;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 1px var(--shadow-20);
 }
 
 @media (max-width: 540px) {
@@ -174,7 +169,7 @@ html {
 .form-section {
   background: var(--color-form-bg);
   border-radius: 13px;
-  box-shadow: 0 1px 8px var(--color-shadow-light);
+  /*box-shadow: 0 1px 8px var(--color-shadow-light); */
   margin-bottom: 1.2em;
   padding: 1.25rem 1.25rem 1rem 1.25rem;
   display: flex;
@@ -435,6 +430,11 @@ select:invalid:not(:focus) {
   box-shadow: 0 2px 14px var(--shadow-sm);
 }
 
+/* Result icons sizing */
+#result-icon {
+  font-size: 1.5em;
+}
+
 #result-fazit {
   padding: 1.5rem;
   line-height: 1.6;
@@ -459,6 +459,14 @@ select:invalid:not(:focus) {
   font-size: 1.2rem;
   font-weight: 600;
   border-bottom: 1px solid var(--color-border);
+}
+
+/* Result section header icons */
+.result-section-header span[aria-label] {
+  font-size: 1.3em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #section-fazit {

@@ -87,4 +87,10 @@
   --progress-one: #ff4d4d;
   --progress-two: var(--color-blue-light);
   --progress-three: #4caf50;
+
+  /* shadow */
+  --shadow-10: rgba(0, 0, 0, 0.1);
+  --shadow-20: rgba(0, 0, 0, 0.2);
+  --white-30: rgba(255, 255, 255, 0.3);
+
 }
