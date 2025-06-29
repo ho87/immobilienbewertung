@@ -1,0 +1,12 @@
+🎯Ziel
+-ich möchte zunächst eine einfache Seite index.html mit der Überschrift 🏘️ Immobilienbewertung 2.0
+-WCAG konform
+-ARIA konform
+-HTML-Validator konform
+-Suchmaschinenoptimierung (SEO)
+-Offline-Fähigkeit: Inhalte können auch ohne Internetverbindung abgerufen werden.
+-Schnelle Ladezeiten: Durch Caching von Ressourcen.
+-Schutz vor gängigen Angriffen:
+	-SQL-Injection: Verwenden Sie parametrisierte Abfragen.
+	-Cross-Site Scripting (XSS): Validieren und bereinigen Sie Nutzereingaben.
+	-Cross-Site Request Forgery (CSRF): Setzen Sie CSRF-Tokens ein.

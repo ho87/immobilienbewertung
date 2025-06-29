@@ -1,147 +1,136 @@
 🔢 Variables
 
+			
+	🗂️ Sections
+
+		📥 Inseratsdaten: id="section-listingData", class="form-section"
+
+		📊 Immobiliendaten: id="section-buildingData", class="form-section"
+		
+		💶 Finanzierung: id="section-financing", class="form-section"
+
+		🏗️ Gebäudezustand: id="section-buildingStatus", class="form-section"
+		
+		💰 Kosten: id="section-costs", class="form-section"
+		
+		👌 Fazit: id="section-result", class="result-section"
+		
+		🔬 Detaillierte Analyse: id="section-analysis", class="result-section"
+		
+		💡 Empfehlung: id="section-recommendation", class="result-section"
+
 	📰 Headers
 
-	🏘️ Immobilienbewertung: id="site-header">
+		🏘️ Immobilienbewertung: id="site-header"
 
-	📥 Inseratsdaten: id="header-inseratsdaten">
+		📥 Inseratsdaten: id="header-listingData", class="form-section-header"
 
-	📊 Immobiliendaten: id="header-immobiliendaten"
-	
-	💶 Finanzierung: id="header-finanzierung"
+		📊 Immobiliendaten: id="header-buildingData", class="form-section-header"
+			
+		💶 Finanzierung: id="header-financing", class="form-section-header"
 
-	🏗️ Gebäudezustand: id="header-gebaeude"
-	
-🗂️ Sections
-
-	📥 Inseratsdaten: id="section-inseratsdaten"
-
-	📊 Immobiliendaten: id="section-immobiliendaten"
-	
-	💶 Finanzierung: id="section-finanzierung"
-
-	🏗️ Gebäudezustand: id="section-gebaeude"
-	
-	👌 Fazit: id="result-fazit"
-	
-	🔬 Detaillierte Analyse: id="result-analyse"
-	
-	💡 Empfehlung: id="result-empfehlung"
-	
-🖊️ Inputfields
-
-	URL (Inserat): id="listingUrl"
-	
-	Wohnfläche: id="size"
-	
-	Kaufpreis: id="purchasePrice"
-	
-	Miete pro m²: id="rentPerM2"
-	
-	Hausgeld: id="hoa"
-	
-	Eigenkapital: id="equity"
+		🏗️ Gebäudezustand: id="header-buildingStatus", class="form-section-header"
+			
+		💰 Kosten: id="header-costs", class="form-section-header"
+			
+	📜 Labels
+			
+		URL (Inserat): class="label-field"
 		
-☰ Dropdownfield
+		Immobilientyp: class="label-field"
 
-	Immobilientyp: id="propertyType"
+		Anbieter: class="label-field"
+		
+		Wohnfläche (m²): class="label-field"
+		
+		Zimmer: class="label-field"
+		
+		Kaufpreis (€): class="label-field"
+		
+		Miete pro m² (€): class="label-field"
+		
+		Hausgeld (monatlich, €): class="label-field"
+		
+		Lage: class="label-field" 
+		
+		Quadratmeterpreis (€): class="label-field"
+		
+		Jahresnettomiete (€): class="label-field"
+		
+		Eigenkapital (€): class="label-field"
+		
+		Zinssatz (%): class="label-field"
+		
+		Tilgungssatz (%): class="label-field"
+		
+		Monatliche Kreditrate (€): class="label-field"
+		
+		Baujahr: class="label-field"
+		
+		Energieeffizienz: class="label-field" 
+		
+		Zustand: class="label-field" 
+		
+		Kaufnebenkosten (~10% Kaufpreis, €): class="label-field"
+		
+		Geschätzte Renovierungskosten (€): class="label-field"
+		
+		Effektiver Kaufpreis (€): class="label-field"
 	
-	Anbieter: id="agentType"
-	
-	Zimmer: id="rooms"
-	
-	Lage: id="location"
-	
-	Zinssatz: id="interestRate"
-	
-	Tilgungssatz: id="repaymentRate"
-	
-	Baujahr: id="yearBuilt"
-	
-	Energieeffizienz: id="energyClass"
-	
-	Zustand: id="condition"
-	
-👁️ Outputfields
+		
+	🖊️ Inputfields
 
-	Quadratmeterpreis: id="output-qmPreis"
-	
-	Jahresnettomiete: id="output-annualRent"
-	
-	Effektiver Kaufpreis: id="output-effPurchasePrice"
-	
-	Kaufnebenkosten: id="output-addCosts"
-	
-	Monatliche Kreditrate: id="output-loanPayment"
-	
-	Geschätzte Renovierungskosten: id="output-renoCost"
-	
-🔲 Buttons
+		URL (Inserat): class="input-field", id="input-listingUrl"
+		
+		Wohnfläche: class="input-field", id="input-listingSize"
+		
+		Kaufpreis: class="input-field", id="input-purchasePrice"
+		
+		Miete pro m²: class="input-field", id="input-rentPerM2"
+		
+		Hausgeld: class="input-field", id="input-hoa"
+		
+		Eigenkapital: class="input-field", id="input-equity"
+		
+		Zinssatz: class="input-field", id="input-interest"
+		
+		Tilgungssatz: class="input-field", id="input-depreciationRate"
+		
+	☰ Dropdownfield
 
-	Bewerten: id="btn-bewerten"
-	
-	Reset: id="btn-reset"
-	
-	Test: id="btn-test"
-	
-🎨 Colors
+		Immobilientyp: id="listingType"
+		
+		Anbieter: id="agentType"
+		
+		Zimmer: id="rooms"
+		
+		Lage: id="location"
+		
+		Baujahr: id="yearBuilt"
+		
+		Energieeffizienz: id="energyClass"
+		
+		Zustand: id="condition"
+		
+	👁️ Outputfields
 
-/* Core colors palette */
-  --color-white: #fff;
-  --color-black: #121212;
-  --color-gray-100: #f7f8fa;
-  --color-gray-200: #f0f4fa;
-  --color-gray-300: #aaaabf;
+		Quadratmeterpreis: class="output-field", id="output-qmPreis"
+		
+		Jahresnettomiete: class="output-field", id="output-annualRent"
+		
+		Monatliche Kreditrate: class="output-field", id="output-loanPayment"
+		
+		Kaufnebenkosten: class="output-field", id="output-addCosts"
+		
+		Geschätzte Renovierungskosten: class="output-field", id="output-renovationCosts"
+		
+		Effektiver Kaufpreis: class="output-field", id="output-effPurchasePrice"
+		
+	🔲 Buttons
 
-  /* Brand colors */
-  --color-blue-light: #7fd3ff;
-  --color-blue: #60a5fa;
-  --color-gold: #ffd86a;
-  --color-green: #22c55e;
-  --color-red: #ef4444;
-  --color-orange: #f59e42;
-  --color-pink: #ff69b4;
-  --color-magenta: #ff00ff;
-  --color-cyan: #afeeee;
-
-  /* Theme colors (using core palette) */
-  --color-background: var(--color-black);
-  --color-text: var(--color-gray-100);
-  --color-text-muted: var(--color-gray-300);
-  --color-primary: var(--color-blue-light);
-  --color-secondary: var(--color-gold);
-  --color-success: var(--color-green);
-  --color-error: var(--color-red);
-  --color-warning: var(--color-orange);
-  --color-output: var(--color-blue);
-
-  /* Form specific */
-  --color-form-bg: #232346e8;
-  --color-input-bg: #181833;
-  --color-input-border: var(--color-red);
-  --color-input-focus: var(--color-pink);
-  --color-label: var(--color-gray-200);
-  --color-placeholder: var(--color-gray-300);
-  --color-button-bg: #1a1b1f;
-
-  /* Background gradient */
-  --gradient-start: #1e1e2f;
-  --gradient-mid1: #383869;
-  --gradient-mid2: #5643fd;
-  --gradient-end: #232346;
-
-  /* Results sections */
-  --color-results-bg: #21193aee;
-  --color-fazit-bg: #222944cc;
-  --color-analyse-bg: #25194acc;
-
-  /* Animation colors */
-  --anim-color-1: var(--color-pink);
-  --anim-color-2: var(--color-cyan);
-  --anim-color-3: var(--color-gold);
-  --anim-color-4: var(--color-magenta);
-
-  /* Shadows */
-  --shadow-sm: 0 2px 10px #0002;
-  --shadow-sm2: 0 3px 18px #0002;
-  --shadow-md: 0 4px 32px #0006;
+		Bewerten: id="btn-bewerten"
+		
+		Reset: id="btn-reset"
+		
+		Test: id="btn-test"
+		

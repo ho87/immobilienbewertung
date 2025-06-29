@@ -1,0 +1,56 @@
+/* =========================================================
+   1. RESET & BASE STYLES
+   ========================================================= */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  color: var(--color-text);
+  font-family: "Inter", system-ui, sans-serif;
+  background: linear-gradient(
+    -45deg,
+    var(--gradient-start),
+    var(--gradient-mid1),
+    var(--gradient-mid2),
+    var(--gradient-end)
+  );
+  background-size: 400% 400%;
+  animation: shimmer 18s ease infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* =================================================
+   Header Styling - Site Header
+   ================================================= */
+.site-header {
+  /* Center alignment */
+  text-align: center;
+  width: 100%;
+
+  /* Flexbox layout for vertical alignment */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Horizontal centering */
+  justify-content: center; /* Vertical centering when header has height */
+
+  /* Spacing */
+  padding: 2rem 0; /* Top and bottom padding */
+}
+
+/* Main heading within site header */
+.site-header h1 {
+  margin: 0; /* Remove default heading margins */
+  color: var(--color-secondary);
+}

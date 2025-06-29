@@ -1,0 +1,96 @@
+/* =========================================================
+   COLOR VARIABLES — Centralized color definitions
+   ========================================================= */
+:root {
+  /* Core colors palette */
+  --color-white: #fff;
+  --color-black: #121212;
+  --color-black2: #1e1e1e;
+  --color-gray-100: #f7f8fa;
+  --color-gray-200: #f0f4fa;
+  --color-gray-300: #aaaabf;
+
+  /* Brand colors */
+  --color-blue-light: #7fd3ff;
+  --color-blue: #60a5fa;
+  --color-gold: #ffd86a;
+  --color-green: #22c55e;
+  --color-red: #ef4444;
+  --color-orange: #f59e42;
+  --color-pink: #ff69b4;
+  --color-magenta: #ff00ff;
+  --color-cyan: #afeeee;
+
+  /* Theme colors (using core palette) */
+  /* --color-background: var(--color-black); */
+  --color-background: var(--color-black2);
+  --color-text: var(--color-gray-100);
+  --color-text-muted: var(--color-gray-300);
+  --color-primary: var(--color-blue-light);
+  --color-secondary: var(--color-gold);
+  --color-success: var(--color-green);
+  --color-error: var(--color-red);
+  --color-warning: var(--color-orange);
+  --color-output: var(--color-blue);
+
+  /* Form specific */
+  --color-form-bg: #232346e8;
+  --color-input-bg: #181833;
+  --color-input-border: var(--color-red);
+  --color-input-focus: var(--color-pink);
+  --color-label: var(--color-gray-200);
+  --color-placeholder: var(--color-gray-300);
+  --color-button-bg: #1a1b1f;
+
+  /* Background gradient */
+  --gradient-start: #1e1e2f;
+  --gradient-mid1: #383869;
+  --gradient-mid2: #5643fd;
+  --gradient-end: #232346;
+
+  /* Results sections */
+  --color-results-bg: #21193aee;
+  --color-fazit-bg: #222944cc;
+  --color-analyse-bg: #25194acc;
+  --color-empfehlung-bg: #25194acc;
+
+  /* Animation colors */
+  --anim-color-1: var(--color-pink);
+  --anim-color-2: var(--color-cyan);
+  --anim-color-3: var(--color-gold);
+  --anim-color-4: var(--color-magenta);
+
+  /* Shadows and transparencies */
+  --color-focus-shadow: rgba(255, 105, 180, 0.2);
+  --color-button-shadow: rgba(76, 175, 80, 0.3);
+  --color-shadow-light: rgba(0, 0, 0, 0.133);
+  --color-shadow-medium: rgba(0, 0, 0, 0.4);
+
+  /* Score colors */
+  --score-verygood-bg: #ffe5c2;
+  --score-verygood-border: var(--color-gold);
+  --score-verygood-text: #b85c00;
+
+  --score-good-bg: #e6f7e6;
+  --score-good-border: var(--color-green);
+  --score-good-text: #256029;
+
+  --score-ok-bg: #eaf1fb;
+  --score-ok-border: var(--color-blue);
+  --score-ok-text: #174a7c;
+
+  --score-bad-bg: #ffeaea;
+  --score-bad-border: var(--color-error);
+  --score-bad-text: #a11a1a;
+
+  /* Progress colors */
+  --progress-one: #ff4d4d;
+  --progress-two: var(--color-blue-light);
+  --progress-three: #4caf50;
+
+  /* shadow */
+  --shadow-10: rgba(0, 0, 0, 0.1);
+  --shadow-20: rgba(0, 0, 0, 0.2);
+  --white-30: rgba(255, 255, 255, 0.3);
+
+}
