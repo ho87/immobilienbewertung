@@ -3,35 +3,41 @@
 			
 	🗂️ Sections
 
-		📥 Inseratsdaten: id="section-listingData", class="form-section"
+		Inseratsdaten: class="form-section"
 
-		📊 Immobiliendaten: id="section-buildingData", class="form-section"
+		Immobiliendaten: class="form-section"
 		
-		💶 Finanzierung: id="section-financing", class="form-section"
+		Finanzierung: class="form-section"
 
-		🏗️ Gebäudezustand: id="section-buildingStatus", class="form-section"
+		Gebäudezustand: class="form-section"
 		
-		💰 Kosten: id="section-costs", class="form-section"
+		Kosten: class="form-section"
 		
-		👌 Fazit: id="section-result", class="result-section"
+		Fazit: class="result-section"
 		
-		🔬 Detaillierte Analyse: id="section-analysis", class="result-section"
+		Detaillierte Analyse: class="result-section"
 		
-		💡 Empfehlung: id="section-recommendation", class="result-section"
+		Empfehlung: class="result-section"
 
 	📰 Headers
 
 		🏘️ Immobilienbewertung: id="site-header"
 
-		📥 Inseratsdaten: id="header-listingData", class="form-section-header"
+		📥 Inseratsdaten: class="form-section-header"
 
-		📊 Immobiliendaten: id="header-buildingData", class="form-section-header"
+		📊 Immobiliendaten: class="form-section-header"
 			
-		💶 Finanzierung: id="header-financing", class="form-section-header"
+		💶 Finanzierung: class="form-section-header"
 
-		🏗️ Gebäudezustand: id="header-buildingStatus", class="form-section-header"
+		🏗️ Gebäudezustand: class="form-section-header"
 			
-		💰 Kosten: id="header-costs", class="form-section-header"
+		💰 Kosten: class="form-section-header"
+		
+		👌 Fazit: class="result-section-header"
+		
+		🔬 Detaillierte Analyse: class="result-section-header"
+		
+		💡 Empfehlung: class="result-section-header"
 			
 	📜 Labels
 			

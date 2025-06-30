@@ -1,5 +1,5 @@
 /* =========================================================
-   1. RESET & BASE STYLES
+   1. BASIC SITES STYLES
    ========================================================= */
 body,
 html {
@@ -32,8 +32,30 @@ html {
 }
 
 /* =================================================
-   Header Styling - Site Header
+   2. FORM CARD STYLING - Main form container & elements
    ================================================= */
+.form-card {
+  /* Positioning */
+  max-width: 800px; /* Limit width */
+  width: 90%; /* Responsive width */
+  margin: 2rem auto; /* Center horizontally with space at top/bottom */
+
+  /* Visual styling */
+  background-color: var(--color-background);
+  color: var(--color-white); /* Light text for contrast */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Drop shadow for depth */
+
+  /* Layout */
+  padding: 2rem; /* Inner spacing */
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack content vertically */
+
+  /* Additional visual enhancements */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+}
+
+/* Form Header Styling */
 .site-header {
   /* Center alignment */
   text-align: center;
@@ -47,10 +69,161 @@ html {
 
   /* Spacing */
   padding: 2rem 0; /* Top and bottom padding */
+  
 }
 
 /* Main heading within site header */
 .site-header h1 {
   margin: 0; /* Remove default heading margins */
-  color: var(--color-secondary);
+  color: var(--color-secondary); 
 }
+
+/* Center main content to position the form */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh; /* Use most of viewport height */
+  padding: 2rem 1rem; /* Add some padding */
+}
+
+/* Enhanced form section styling for centering */
+.form-section {
+  /* Existing properties */
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  
+  /* Enhanced border */
+  border: 2px solid var(--color-secondary); /* More visible gold border */
+  border-radius: 8px;
+  background-color: rgba(30, 30, 30, 0.7);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  
+  /* Centering */
+  width: 90%;           /* Control width */
+  max-width: 700px;     /* Maximum width */
+  margin-left: auto;    /* Center horizontally */
+  margin-right: auto;   /* Center horizontally */
+  
+  /* Focus state for keyboard navigation */
+  position: relative;   /* For focus outline positioning */
+}
+
+/* Make the form section header centered */
+.form-section-header {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* =================================================
+   3. FORM SECTION STYLE UPDATE - Match image design
+   ================================================= */
+.form-section {
+  /* Layout and spacing remain the same */
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  
+  /* Visual styling updated to match image */
+  background-color: #1e2233; /* Dark navy background */
+  border: 2px solid #c8a656; /* Gold border */
+  border-radius: 16px; /* More rounded corners */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); /* Shadow */
+  box-sizing: border-box; /* Make sure padding is included in width */
+}
+
+.form-section-content {
+  width: 100%; /* Ensure content stays within section */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Section header styling to match image */
+.form-section-header {
+  color: #62cef9; /* Light blue for section titles */
+  text-align: left; /* Left-aligned as in image */
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: none; /* Remove border bottom */
+}
+
+.input-field {
+  width: 100%; /* Full width of parent */
+  box-sizing: border-box; /* Include padding in width calculation */
+  margin-bottom: 1rem; /* Space between input groups */
+}
+
+/* Update selector for label styling to match index.html */
+.input-field label, 
+.label-field {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #f5d389; /* Gold color for labels */
+}
+
+/* Update selector for input and select styling */
+.input-field input,
+.input-field select,
+.dropdown-field {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background-color: rgba(20, 24, 46, 0.7); /* Darker input background */
+  border: 2px solid #ff5757; /* Red border as in image */
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* Input placeholder text */
+.input-field input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+}
+
+/* Style for help text to match index.html */
+.help-text {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: white;
+}
+
+/* Fix for select dropdown styling */
+.dropdown-field {
+  appearance: none; /* Remove default styling */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.5em;
+  padding-right: 2.5rem;
+}
+
+.dropdown-field:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 2px rgba(200, 166, 86, 0.25);
+}
+
+/* Add focus styles for inputs */
+.input-field input:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 2px rgba(200, 166, 86, 0.25);
+}
+
+
+
+
