@@ -30,17 +30,14 @@
         </header>
 
         <!-- =================================================
-             SECTION 1: First Input Group
-             Contains four different types of input fields with labels
+             SECTION 1: advertisement
              ================================================= -->
         <section class="form-section">
           <header class="form-section-header">📥 Inseratsdaten</header>
           <div class="form-section-content">
             <!-- URL -->
             <div class="input-field">
-              <label class="label-field" for="input-listingUrl"
-                >URL (Inserat)</label
-              >
+              <label class="label-field" for="input-listingUrl">URL (Inserat)</label>
               <input
                 type="text"
                 id="input-listingUrl"
@@ -49,198 +46,236 @@
               />
             </div>
 
-            <!-- Listing Type -->
-            <div class="input-field">
-              <label class="label-field" for="dropdown-listingType"
-                >Immobilientyp
-                <select class="dropdown-field" id="dropdown-listingType" required>
+            <!-- Flex container for side-by-side dropdowns -->
+            <div class="flex-row">
+              <!-- Listing Type -->
+              <div class="input-field">
+                <label class="label-field" for="dropdown-buildingType">Immobilientyp</label>
+                <select class="dropdown-field" id="dropdown-buildingType" required>
                   <option value="">Bitte auswählen</option>
                   <option value="house">Haus</option>
                   <option value="apartment">Eigentumswohnung</option>
                 </select>
-              </label>
-            </div>
+              </div>
 
-            <!-- Date input -->
-            <div class="input-field">
-              <label class="label-field" for="dropdown-agentType"
-                >Anbieter
+              <!-- Agent Type -->
+              <div class="input-field">
+                <label class="label-field" for="dropdown-agentType">Anbieter</label>
                 <select class="dropdown-field" id="dropdown-agentType" required>
                   <option value="">Bitte auswählen</option>
                   <option value="privat">Privat</option>
                   <option value="makler">Makler (+3,57% Provision)</option>
                 </select>
-              </label>
+              </div>
             </div>
           </div>
         </section>
 
+        <!-- =================================================
+             SECTION 2: listingData
+             ================================================= -->
         <section class="form-section">
           <header class="form-section-header">📊 Immobiliendaten</header>
           <div class="form-section-content">
-            <!-- URL -->
-            <div class="input-field">
-              <label class="label-field" for="input-listingSize"
-                >Wohnfläche (m²)</label
-              >
-              <input
-                type="text"
-                id="input-listingSize"
-                placeholder="z. B. 50"
-                autocomplete="off"
-              />
+            <!-- Flex container for side-by-side fields -->
+            <div class="flex-row">
+              <!-- Size -->
+              <div class="input-field">
+                <label class="label-field" for="input-buildingSize">Wohnfläche (m²)</label>
+                <input
+                  type="text"
+                  id="input-buildingSize"
+                  placeholder="z. B. 50"
+                  autocomplete="off"
+                />
+              </div>
+
+              <!-- Rooms -->
+              <div class="input-field">
+                <label class="label-field" for="dropdown-rooms">Zimmer</label>
+                <select class="dropdown-field" id="dropdown-rooms" required>
+                  <option value="">Bitte auswählen</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">&gt;5</option>
+                </select>
+              </div>
             </div>
 
-            <!-- Listing Type -->
-            <div class="input-field">
-              <label class="label-field" for="dropdown-listingType"
-                >Immobilientyp
-                <select class="dropdown-field" id="dropdown-listingType" required>
-                  <option value="">Bitte auswählen</option>
-                  <option value="house">Haus</option>
-                  <option value="apartment">Eigentumswohnung</option>
-                </select>
-              </label>
+            <div class="flex-row">
+              <!-- purchasePrice -->
+              <div class="input-field">
+                <label class="label-field" for="input-purchasePrice">Kaufpreis (€)</label>
+                <input type="text" id="input-purchasePrice" placeholder="z. B. 100000" autocomplete="off" />
+              </div>
+
+              <!-- rentPerM2 -->
+              <div class="input-field">
+                <label class="label-field" for="input-rentPerM2">Miete pro m² (€)</label>
+                <input type="text" id="input-rentPerM2" placeholder="z. B. 8,50" autocomplete="off" />
+              </div>
             </div>
 
-            <!-- Date input -->
-            <div class="input-field">
-              <label class="label-field" for="dropdown-agentType"
-                >Anbieter
-                <select class="dropdown-field" id="dropdown-agentType" required>
+            <div class="flex-row">
+              <!-- HOA -->
+              <div class="input-field">
+                <label class="label-field" for="input-hoa">Hausgeld (monatlich, €)</label>
+                <input
+                  type="text"
+                  id="input-hoa"
+                  placeholder="z. B. 120"
+                  autocomplete="off"
+                />
+              </div>
+
+              <!-- Location -->
+              <div class="input-field">
+                <label class="label-field" for="dropdown-location">Lage</label>
+                <select class="dropdown-field" id="dropdown-location" required>
                   <option value="">Bitte auswählen</option>
-                  <option value="privat">Privat</option>
-                  <option value="makler">Makler (+3,57% Provision)</option>
+                  <option value="top">Toplage</option>
+                  <option value="good">Gut</option>
+                  <option value="medium">Mittel</option>
+                  <option value="poor">Schlecht</option>
                 </select>
-              </label>
+              </div>
             </div>
-          </div>
+
+            <div class="flex-row">
+              <!-- qmPrice -->
+              <div class="output-field">
+                <label class="label-field" for="output-qmPrice">Quadratmeterpreis (€)</label>
+                <div id="output-qmPrice" class="display-value">
+                  <span class="auto-calc">Auto-Berechnung 🧮</span>
+                </div>
+              </div>
+
+              <!-- annualRent -->
+              <div class="output-field">
+                <label class="label-field" for="output-annualRent">Jahresnettomiete (€)</label>
+                <div id="output-annualRent" class="display-value">
+                  <span class="auto-calc">Auto-Berechnung 🧮</span>
+                </div>
+              </div>
+            </div>
         </section>
 
+        <!-- =================================================
+             SECTION 3: funding
+             ================================================= -->
         <section class="form-section">
           <header class="form-section-header">💶 Finanzierung</header>
           <div class="form-section-content">
-            <!-- URL -->
-            <div class="input-field">
-              <label class="label-field" for="input-listingUrl"
-                >URL (Inserat)</label
-              >
-              <input
-                type="text"
-                id="input-listingUrl"
-                placeholder="z. B. https://www.immobilienscout24.de/..."
-                autocomplete="off"
-              />
+            <div class="flex-row">
+              <!-- interest -->
+              <div class="input-field">
+                <label class="label-field" for="input-interest">Zinssatz (%)</label>
+                <input type="text" id="input-interest" placeholder="z. B. 3" autocomplete="off" />
+              </div>
+
+              <!-- depreciationRate -->
+              <div class="input-field">
+                <label class="label-field" for="input-depreciationRate">Tilgungssatz (%)</label>
+                <input type="text" id="input-depreciationRate" placeholder="z. B. 2" autocomplete="off" />
+              </div>
             </div>
 
-            <!-- Listing Type -->
-            <div class="input-field">
-              <label class="label-field" for="dropdown-listingType"
-                >Immobilientyp
-                <select class="dropdown-field" id="dropdown-listingType" required>
-                  <option value="">Bitte auswählen</option>
-                  <option value="house">Haus</option>
-                  <option value="apartment">Eigentumswohnung</option>
-                </select>
-              </label>
-            </div>
+            <div class="flex-row">
+              <!-- equity -->
+              <div class="input-field">
+                <label class="label-field" for="input-purchasePrice">Eigenkapital (€)</label>
+                <input type="text" id="input-purchasePrice" placeholder="z. B. 100000" autocomplete="off" />
+              </div>
 
-            <!-- Date input -->
-            <div class="input-field">
-              <label class="label-field" for="dropdown-agentType"
-                >Anbieter
-                <select class="dropdown-field" id="dropdown-agentType" required>
-                  <option value="">Bitte auswählen</option>
-                  <option value="privat">Privat</option>
-                  <option value="makler">Makler (+3,57% Provision)</option>
-                </select>
-              </label>
-            </div>
-          </div>
+              <!-- loanPayment -->
+              <div class="output-field">
+                <label class="label-field" for="output-qmPrice">Monatliche Kreditrate (€)</label>
+                <div id="output-qmPrice" class="display-value">
+                  <span class="auto-calc">Auto-Berechnung 🧮</span>
+                </div>
+              </div>
         </section>
 
+        <!-- =================================================
+             SECTION 4: buildingCondition
+             ================================================= -->
         <section class="form-section">
           <header class="form-section-header">🏗️ Gebäudezustand</header>
           <div class="form-section-content">
-            <!-- URL -->
-            <div class="input-field">
-              <label class="label-field" for="input-listingUrl"
-                >URL (Inserat)</label
-              >
-              <input
-                type="text"
-                id="input-listingUrl"
-                placeholder="z. B. https://www.immobilienscout24.de/..."
-                autocomplete="off"
-              />
-            </div>
-
-            <!-- Listing Type -->
-            <div class="input-field">
-              <label class="label-field" for="dropdown-listingType"
-                >Immobilientyp
-                <select class="dropdown-field" id="dropdown-listingType" required>
+            <div class="flex-row">
+              <!-- yearBuilt -->
+              <div class="input-field">
+                <label class="label-field" for="dropdown-yearBuilt">Baujahr</label>
+                <select class="dropdown-field" id="dropdown-yearBuilt" required>
                   <option value="">Bitte auswählen</option>
-                  <option value="house">Haus</option>
-                  <option value="apartment">Eigentumswohnung</option>
+                  <option value="pre1970">&lt;1970</option>
+                  <option value="1970-1999">1970–1999</option>
+                  <option value="post2000">≥2000</option>
                 </select>
-              </label>
-            </div>
+              </div>
 
-            <!-- Date input -->
-            <div class="input-field">
-              <label class="label-field" for="dropdown-agentType"
-                >Anbieter
-                <select class="dropdown-field" id="dropdown-agentType" required>
+              <!-- energyClass -->
+              <div class="input-field">
+                <label class="label-field" for="dropdown-energyClass">Energieeffizienz</label>
+                <select class="dropdown-field" id="dropdown-energyClass" required>
                   <option value="">Bitte auswählen</option>
-                  <option value="privat">Privat</option>
-                  <option value="makler">Makler (+3,57% Provision)</option>
+                  <option value="ab">A/B</option>
+                  <option value="c">C</option>
+                  <option value="d">D</option>
+                  <option value="e">E oder schlechter</option>
                 </select>
-              </label>
+              </div>
+
+              <!-- condition -->
+              <div class="input-field">
+                <label class="label-field" for="dropdown-condition">Zustand</label>
+                <select class="dropdown-field" id="dropdown-condition" required>
+                  <option value="">Bitte auswählen</option>
+                  <option value="new">Neuwertig</option>
+                  <option value="good">Gut</option>
+                  <option value="renovate">Renovierungsbedürftig</option>
+                </select>
+              </div>
             </div>
           </div>
         </section>
 
+        <!-- =================================================
+             SECTION 5: costs
+             ================================================= -->
         <section class="form-section">
           <header class="form-section-header">💰 Kosten</header>
           <div class="form-section-content">
-            <!-- URL -->
-            <div class="input-field">
-              <label class="label-field" for="input-listingUrl"
-                >URL (Inserat)</label
-              >
-              <input
-                type="text"
-                id="input-listingUrl"
-                placeholder="z. B. https://www.immobilienscout24.de/..."
-                autocomplete="off"
-              />
-            </div>
+            <div class="flex-row">
+              <!-- addCosts -->
+              <div class="output-field">
+                <label class="label-field" for="output-addCosts">Kaufnebenkosten (~10% Kaufpreis)</label>
+                <div id="output-addCosts" class="display-value">
+                  <span class="auto-calc">Auto-Berechnung 🧮</span>
+                </div>
+              </div>
 
-            <!-- Listing Type -->
-            <div class="input-field">
-              <label class="label-field" for="dropdown-listingType"
-                >Immobilientyp
-                <select class="dropdown-field" id="dropdown-listingType" required>
-                  <option value="">Bitte auswählen</option>
-                  <option value="house">Haus</option>
-                  <option value="apartment">Eigentumswohnung</option>
-                </select>
-              </label>
-            </div>
-
-            <!-- Date input -->
-            <div class="input-field">
-              <label class="label-field" for="dropdown-agentType"
-                >Anbieter
-                <select class="dropdown-field" id="dropdown-agentType" required>
-                  <option value="">Bitte auswählen</option>
-                  <option value="privat">Privat</option>
-                  <option value="makler">Makler (+3,57% Provision)</option>
-                </select>
-              </label>
-            </div>
+              <!-- renovationCosts -->
+              <div class="output-field">
+                <label class="label-field" for="output-renovationCosts">Geschätzte Renovierungskosten (€)</label>
+                <div id="output-renovationCosts" class="display-value">
+                  <span class="auto-calc">Auto-Berechnung 🧮</span>
+                </div>
+              </div>
           </div>
+              
+               <!-- effPurchasePrice -->
+              <div class="output-field">
+                <label class="label-field" for="output-effPurchasePrice">Effektiver Kaufpreis (€)</label>
+                <div id="output-effPurchasePrice" class="display-value">
+                  <span class="auto-calc">Auto-Berechnung 🧮</span>
+                </div>
+              </div>
+              
+
         </section>
 
         <!-- Form content will go here later -->

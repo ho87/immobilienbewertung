@@ -69,7 +69,6 @@ html {
 
   /* Spacing */
   padding: 2rem 0; /* Top and bottom padding */
-  
 }
 
 /* Main heading within site header */
@@ -87,53 +86,24 @@ main {
   padding: 2rem 1rem; /* Add some padding */
 }
 
-/* Enhanced form section styling for centering */
-.form-section {
-  /* Existing properties */
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  
-  /* Enhanced border */
-  border: 2px solid var(--color-secondary); /* More visible gold border */
-  border-radius: 8px;
-  background-color: rgba(30, 30, 30, 0.7);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  
-  /* Centering */
-  width: 90%;           /* Control width */
-  max-width: 700px;     /* Maximum width */
-  margin-left: auto;    /* Center horizontally */
-  margin-right: auto;   /* Center horizontally */
-  
-  /* Focus state for keyboard navigation */
-  position: relative;   /* For focus outline positioning */
-}
-
-/* Make the form section header centered */
-.form-section-header {
-  text-align: center;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--color-secondary);
-  padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
 /* =================================================
-   3. FORM SECTION STYLE UPDATE - Match image design
+   3. FORM SECTION STYLE - Match image design
    ================================================= */
 .form-section {
-  /* Layout and spacing remain the same */
+ /* Existing properties */
   margin-bottom: 2rem;
   padding: 1.5rem;
-  width: 90%;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
   
-  /* Visual styling updated to match image */
+   /* Centering */
+  width: 90%;           
+  max-width: 700px;     
+  margin-left: auto;    
+  margin-right: auto;   
+  
+  /* Focus state for keyboard navigation */
+  position: relative; 
+  
+   /* Enhanced border */
   background-color: #1e2233; /* Dark navy background */
   border: 2px solid #c8a656; /* Gold border */
   border-radius: 16px; /* More rounded corners */
@@ -157,13 +127,31 @@ main {
   border-bottom: none; /* Remove border bottom */
 }
 
+/* =================================================
+   4. FORM INPUTS STYLING
+   ================================================= */
+/* Structural containers first */
 .input-field {
-  width: 100%; /* Full width of parent */
-  box-sizing: border-box; /* Include padding in width calculation */
-  margin-bottom: 1rem; /* Space between input groups */
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
 }
 
-/* Update selector for label styling to match index.html */
+/* Flex container for side-by-side inputs */
+.flex-row {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Each item in the flex row takes equal width */
+.flex-row .input-field {
+  flex: 1;
+  min-width: 0; /* Prevents flex items from overflowing */
+}
+
+/* Then style components within those containers */
 .input-field label, 
 .label-field {
   display: block;
@@ -193,6 +181,14 @@ main {
   font-style: italic;
 }
 
+/* Add focus styles for inputs */
+.input-field input:focus,
+.dropdown-field:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 2px rgba(200, 166, 86, 0.25); /* Color for focused field */
+}
+
 /* Style for help text to match index.html */
 .help-text {
   display: block;
@@ -211,17 +207,39 @@ main {
   padding-right: 2.5rem;
 }
 
-.dropdown-field:focus {
-  outline: none;
-  border-color: var(--color-secondary);
-  box-shadow: 0 0 0 2px rgba(200, 166, 86, 0.25);
+/* Output field styling to match input field */
+.output-field {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
 }
 
-/* Add focus styles for inputs */
-.input-field input:focus {
-  outline: none;
-  border-color: var(--color-secondary);
-  box-shadow: 0 0 0 2px rgba(200, 166, 86, 0.25);
+/* Make output fields take equal width in flex rows */
+.flex-row .output-field {
+  flex: 1;
+  min-width: 0; /* Prevents flex items from overflowing */
+}
+
+/* Styling for the output field display */
+.output-field .display-value {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background-color: rgba(20, 24, 46, 0.7); /* Darker background */
+  border: 2px solid #5b6b8d; /* Different border color to distinguish from inputs */
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+/* Auto-calculation text */
+.auto-calc {
+  width: 100%;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+  text-align: center;
 }
 
 

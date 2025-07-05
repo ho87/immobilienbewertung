@@ -104,23 +104,23 @@
 		
 	☰ Dropdownfield
 
-		Immobilientyp: id="listingType"
+		Immobilientyp: class="dropdown-field", id="dropdown-listingType"
 		
-		Anbieter: id="agentType"
+		Anbieter: class="dropdown-field", id="dropdown-agentType"
 		
-		Zimmer: id="rooms"
+		Zimmer: class="dropdown-field", id="dropdown-rooms"
 		
-		Lage: id="location"
+		Lage: class="dropdown-field", id="dropdown-location"
 		
-		Baujahr: id="yearBuilt"
+		Baujahr: class="dropdown-field", id="dropdown-yearBuilt"
 		
-		Energieeffizienz: id="energyClass"
+		Energieeffizienz: class="dropdown-field", id="dropdown-energyClass"
 		
-		Zustand: id="condition"
+		Zustand: class="dropdown-field", id="dropdown-condition"
 		
 	👁️ Outputfields
 
-		Quadratmeterpreis: class="output-field", id="output-qmPreis"
+		Quadratmeterpreis: class="output-field", id="output-qmPrice"
 		
 		Jahresnettomiete: class="output-field", id="output-annualRent"
 		
