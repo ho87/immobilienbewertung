@@ -33,6 +33,12 @@
              SECTION 1: advertisement
              ================================================= -->
         <section class="form-section">
+          <!-- Legend for required fields -->
+            <div class="legend">
+              <span class="legend-asterisk" title="Pflichtfelder">*</span> 
+              <span class="legend-separator">|</span>
+              <span class="legend-unknown" title="Unbekannt">?</span>
+            </div>
           <header class="form-section-header">📥 Inseratsdaten</header>
           <div class="form-section-content">
             <!-- URL -->
@@ -50,7 +56,7 @@
             <div class="flex-row">
               <!-- Listing Type -->
               <div class="input-field">
-                <label class="label-field" for="dropdown-buildingType">Immobilientyp</label>
+                <label class="label-field" for="dropdown-buildingType"><span class="legend-asterisk">*</span> Immobilientyp</label>
                 <select class="dropdown-field" id="dropdown-buildingType" required>
                   <option value="">Bitte auswählen</option>
                   <option value="house">Haus</option>
@@ -60,7 +66,7 @@
 
               <!-- Agent Type -->
               <div class="input-field">
-                <label class="label-field" for="dropdown-agentType">Anbieter</label>
+                <label class="label-field" for="dropdown-agentType"><span class="legend-asterisk">*</span> Anbieter</label>
                 <select class="dropdown-field" id="dropdown-agentType" required>
                   <option value="">Bitte auswählen</option>
                   <option value="privat">Privat</option>
@@ -81,7 +87,7 @@
             <div class="flex-row">
               <!-- Size -->
               <div class="input-field">
-                <label class="label-field" for="input-buildingSize">Wohnfläche (m²)</label>
+                <label class="label-field" for="input-buildingSize"><span class="legend-asterisk">*</span> Wohnfläche (m²)</label>
                 <input
                   type="text"
                   id="input-buildingSize"
@@ -108,13 +114,13 @@
             <div class="flex-row">
               <!-- purchasePrice -->
               <div class="input-field">
-                <label class="label-field" for="input-purchasePrice">Kaufpreis (€)</label>
+                <label class="label-field" for="input-purchasePrice"><span class="legend-asterisk">*</span> Kaufpreis (€)</label>
                 <input type="text" id="input-purchasePrice" placeholder="z. B. 100000" autocomplete="off" />
               </div>
 
               <!-- rentPerM2 -->
               <div class="input-field">
-                <label class="label-field" for="input-rentPerM2">Miete pro m² (€)</label>
+                <label class="label-field" for="input-rentPerM2"><span class="legend-unknown">?</span> Miete pro m² (€)</label>
                 <input type="text" id="input-rentPerM2" placeholder="z. B. 8,50" autocomplete="off" />
               </div>
             </div>
@@ -122,7 +128,7 @@
             <div class="flex-row">
               <!-- HOA -->
               <div class="input-field">
-                <label class="label-field" for="input-hoa">Hausgeld (monatlich, €)</label>
+                <label class="label-field" for="input-hoa"><span class="legend-unknown">?</span> Hausgeld (monatlich, €)</label>
                 <input
                   type="text"
                   id="input-hoa"
@@ -133,7 +139,7 @@
 
               <!-- Location -->
               <div class="input-field">
-                <label class="label-field" for="dropdown-location">Lage</label>
+                <label class="label-field" for="dropdown-location"><span class="legend-asterisk">*</span> Lage</label>
                 <select class="dropdown-field" id="dropdown-location" required>
                   <option value="">Bitte auswählen</option>
                   <option value="top">Toplage</option>
@@ -172,13 +178,13 @@
             <div class="flex-row">
               <!-- interest -->
               <div class="input-field">
-                <label class="label-field" for="input-interest">Zinssatz (%)</label>
+                <label class="label-field" for="input-interest"><span class="legend-asterisk">* <span class="legend-unknown">?</span> </span> Zinssatz (%)</label>
                 <input type="text" id="input-interest" placeholder="z. B. 3" autocomplete="off" />
               </div>
 
               <!-- depreciationRate -->
               <div class="input-field">
-                <label class="label-field" for="input-depreciationRate">Tilgungssatz (%)</label>
+                <label class="label-field" for="input-depreciationRate"><span class="legend-asterisk">* </span><span class="legend-unknown">?</span>  Tilgungssatz (%)</label>
                 <input type="text" id="input-depreciationRate" placeholder="z. B. 2" autocomplete="off" />
               </div>
             </div>
@@ -186,8 +192,8 @@
             <div class="flex-row">
               <!-- equity -->
               <div class="input-field">
-                <label class="label-field" for="input-purchasePrice">Eigenkapital (€)</label>
-                <input type="text" id="input-purchasePrice" placeholder="z. B. 100000" autocomplete="off" />
+                <label class="label-field" for="input-equity"><span class="legend-asterisk">*</span> Eigenkapital (€)</label>
+                <input type="text" id="input-equity" placeholder="z. B. 100000" autocomplete="off" />
               </div>
 
               <!-- loanPayment -->
@@ -208,7 +214,7 @@
             <div class="flex-row">
               <!-- yearBuilt -->
               <div class="input-field">
-                <label class="label-field" for="dropdown-yearBuilt">Baujahr</label>
+                <label class="label-field" for="dropdown-yearBuilt"><span class="legend-asterisk">*</span> Baujahr</label>
                 <select class="dropdown-field" id="dropdown-yearBuilt" required>
                   <option value="">Bitte auswählen</option>
                   <option value="pre1970">&lt;1970</option>
@@ -219,7 +225,7 @@
 
               <!-- energyClass -->
               <div class="input-field">
-                <label class="label-field" for="dropdown-energyClass">Energieeffizienz</label>
+                <label class="label-field" for="dropdown-energyClass"><span class="legend-unknown">?</span> Energieeffizienz</label>
                 <select class="dropdown-field" id="dropdown-energyClass" required>
                   <option value="">Bitte auswählen</option>
                   <option value="ab">A/B</option>
@@ -231,7 +237,7 @@
 
               <!-- condition -->
               <div class="input-field">
-                <label class="label-field" for="dropdown-condition">Zustand</label>
+                <label class="label-field" for="dropdown-condition"><span class="legend-asterisk">*</span> Zustand</label>
                 <select class="dropdown-field" id="dropdown-condition" required>
                   <option value="">Bitte auswählen</option>
                   <option value="new">Neuwertig</option>
@@ -278,6 +284,15 @@
 
         </section>
 
+        <!-- =================================================
+             FORM ACTION BUTTONS
+             ================================================= -->
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-primary">☑ Bewerten</button>
+          <button type="reset" class="btn btn-danger">🗑️ Reset</button>
+          <button type="button" class="btn btn-warning">🧪 Test</button>
+        </div>
+
         <!-- Form content will go here later -->
       </form>
     </main>
@@ -285,6 +300,6 @@
     <!-- =================================================
            SCRIPTS: JavaScript Imports
            ================================================= -->
-    <script type="module" src="app.js"></script>
+    <script type="module" src="../src/modules/app.js"></script>
   </body>
 </html>

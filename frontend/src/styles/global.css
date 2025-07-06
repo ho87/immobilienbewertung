@@ -175,6 +175,23 @@ main {
   box-sizing: border-box;
 }
 
+/* Dropdown menu when open */
+.dropdown-field option {
+  background-color: var(--color-input-bg); 
+  color: white;
+}
+
+/* Selected option in dropdown */
+.dropdown-field option:checked {
+  background-color: #5b6b8d; 
+  color: white;
+}
+
+/* Hover state for options */
+.dropdown-field option:hover {
+  background-color: #666f9e;
+}
+
 /* Input placeholder text */
 .input-field input::placeholder {
   color: rgba(255, 255, 255, 0.4);
@@ -225,7 +242,8 @@ main {
   width: 100%;
   padding: 0.8rem 1rem;
   background-color: rgba(20, 24, 46, 0.7); /* Darker background */
-  border: 2px solid #5b6b8d; /* Different border color to distinguish from inputs */
+  border: 2px solid var(--color-blue-light); /* Different color to distinguish from inputs */
+  border: 2px solid var(--color-cyan); /* Different color to distinguish from inputs */
   border-radius: 8px;
   color: white;
   font-size: 1rem;
@@ -241,6 +259,184 @@ main {
   font-style: italic;
   text-align: center;
 }
+
+/* Pflichtfeld-Legend */
+.legend {
+  margin: 0.01em 0;
+  font-size: 0.98em;
+  color: var(--color-error);
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-bottom: 8px;
+}
+
+.legend-asterisk {
+  position: relative;
+  color: var(--color-error);
+  font-weight: bold;
+  font-size: 1.1em;
+  cursor: help; /* Changes cursor to indicate additional info */
+}
+
+/* Create tooltip on hover */
+.legend-asterisk:hover::after {
+  content: "Pflichtfelder: Müssen ausgefüllt werden";
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  text-align: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: normal;
+  white-space: nowrap;
+  z-index: 100;
+  pointer-events: none; /* Prevents the tooltip from interfering with other hover events */
+}
+
+/* Add arrow to tooltip */
+.legend-asterisk:hover::before {
+  content: "";
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.legend-separator {
+  color: vvar(--color-error); 
+  opacity: 0.5;
+  margin: 0 0.2em;
+}
+
+.legend-unknown {
+  position: relative;
+  color: var(--color-error);
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.legend-unknown + span {
+  color: var(--color-error);
+}
+
+/* Create tooltip on hover */
+.legend-unknown:hover::after {
+  content: "Unbekannt: Wenn leer, wird der Wert automatisch mit Durchschnittswerten berechnet.";
+
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  text-align: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: normal;
+  white-space: nowrap;
+  z-index: 100;
+  pointer-events: none; /* Prevents the tooltip from interfering with other hover events */
+}
+
+/* Add arrow to tooltip */
+.legend-unknown:hover::before {
+  content: "";
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* =================================================
+   5. BUTTON STYLING
+   ================================================= */
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: -0.3rem;
+  width: 100%;
+}
+
+.btn {
+  padding: 1rem 2.8rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 150px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Button color variants */
+.btn-primary {
+  background-color: var(--color-green);
+  color: white;
+}
+
+.btn-danger {
+  background-color: var(--color-red);
+  color: white;
+}
+
+.btn-warning {
+  background-color: var(--color-orange);
+  color: white;
+}
+
+/* Button States */
+.btn:focus,
+.btn:hover,
+.btn:active {
+  outline: none;
+  transform: scale(1.04);
+  border: 3px solid transparent;
+  animation: gradientAnimation 12s ease infinite;
+  box-shadow: 0 0 15px var(--color-button-shadow);
+  background: var(--color-button-bg); /* Ensure dark background when focused */
+}
+
+/* Animation */
+@keyframes gradientAnimation {
+  0% {
+    border-color: var(--color-anim-1); /* Changed from var(--anim-color-1) */
+    color: var(--color-anim-1);
+  }
+  25% {
+    border-color: var(--color-anim-2); /* Changed from var(--anim-color-2) */
+    color: var(--color-anim-2);
+  }
+  50% {
+    border-color: var(--color-anim-3); /* Changed from var(--anim-color-3) */
+    color: var(--color-anim-3);
+  }
+  75% {
+    border-color: var(--color-anim-4); /* Changed from var(--anim-color-4) */
+    color: var(--color-anim-4);
+  }
+  100% {
+    border-color: var(--color-anim-1); /* Changed from var(--anim-color-1) */
+    color: var(--color-anim-1);
+  }
+}
+
 
 
 
